@@ -106,6 +106,40 @@ launchctl load ~/Library/LaunchAgents/local.servidor-subs.plist
    Usar `pythonw.exe` (en vez de `python.exe`) evita que quede una ventana negra
    abierta.
 
+## Limpiar el caché de DaVinci Resolve
+
+`tools/limpiar_cache_davinci.py` libera espacio borrando el caché que Resolve
+puede regenerar solo. **Por defecto no borra nada**: primero te muestra qué
+encontró y cuánto pesa.
+
+```bash
+python3 tools/limpiar_cache_davinci.py                    # solo mira
+python3 tools/limpiar_cache_davinci.py --dias 30          # mira lo sin usar hace 30 días
+python3 tools/limpiar_cache_davinci.py --dias 30 --borrar # ahora sí borra
+```
+
+Si no encuentra las carpetas solo, abrí Resolve → *Project Settings* → *Master
+Settings* → *Working Folders*, copiá la ruta de "Cache files location" y pasala:
+
+```bash
+python3 tools/limpiar_cache_davinci.py --ruta "D:/DaVinci/CacheClip" --borrar
+```
+
+Qué borra y qué no:
+
+| Toca | No toca |
+| --- | --- |
+| `CacheClip` (render cache y optimized media) | Proyectos y base de datos |
+| `ProxyMedia`, solo con `--incluir-proxies` | Stills de la Gallery |
+| | LUTs, templates y macros de Fusion |
+
+Se niega a correr si Resolve está abierto, y deja las carpetas raíz en su lugar
+porque Resolve espera que existan. Los proxies quedan fuera salvo que los pidas
+explícitamente: se regeneran, pero tarda mucho.
+
+Alternativa desde el programa, sin scripts: menú *Playback* → *Delete Render
+Cache* → *All*.
+
 ## Alternativas de una línea
 
 Si solo querés servir archivos y no te importa el visor:
