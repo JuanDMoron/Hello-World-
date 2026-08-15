@@ -1,8 +1,8 @@
 # AE of Miami — graffiti wall background
 
 Fondo vertical **2160 × 3840** (9:16, 4K para móvil / stories): el monograma
-**AE of Miami** en blanco, grafiteado muchas veces sobre un muro de hormigón
-negro, integrado en la superficie en lugar de pegado encima.
+**AE of Miami** en blanco, grafiteado muchas veces sobre una **fotografía real**
+de muro de hormigón negro.
 
 ![preview](ae-miami-graffiti-wall-2160x3840.png)
 
@@ -11,13 +11,11 @@ negro, integrado en la superficie en lugar de pegado encima.
 | Archivo | Qué es |
 | --- | --- |
 | `ae-miami-graffiti-wall-2160x3840.png` | El fondo final, listo para usar |
-| `generate.js` | Genera `wall.html` (un solo SVG a pantalla completa) |
-| `render.sh` | Regenera el HTML y lo captura a PNG con Chromium |
-| `wall.html` | Salida intermedia, editable en el navegador |
-| `measure.py` | Mide luminancia media/percentiles del PNG (para calibrar) |
-
-Todo es vectorial y procedural: no hay fotos ni bitmaps de origen, así que se
-regenera a cualquier resolución sin perder nitidez.
+| `wall-source.jpg` | La placa fotográfica (Adobe Stock, licenciada) |
+| `generate.js` | Genera `wall.html`: foto + pintura + integración |
+| `render.sh` | Regenera el HTML y lo captura a PNG con Chromium (~20 s) |
+| `measure.py` | Mide luminancia media/percentiles del PNG |
+| `generate-synthetic.js` | La versión anterior, 100 % procedural (ver abajo) |
 
 ## Regenerar
 
@@ -26,79 +24,82 @@ regenera a cualquier resolución sin perder nitidez.
 ./render.sh /ruta/otro-nombre.png
 ```
 
-Requiere Node y Chromium (`CHROME=/ruta/al/chrome ./render.sh` para otro
-binario). El render completo tarda ~2 min: el pase de material recorre los
-8,3 M de píxeles con varias capas de ruido e iluminación.
+Requiere Node y Chromium. La captura necesita `--allow-file-access-from-files`,
+porque el SVG referencia la foto por ruta local.
 
-## Cómo se consigue el realismo
+## La placa
 
-La clave es **no tratar la pintura como una calcomanía**. Color de muro y
-pintura blanca entran juntos en una sola capa de albedo, y un único campo de
-altura lo ilumina todo a la vez:
+`wall-source.jpg` es Adobe Stock **285565957** ("Grunge textured dark concrete
+wall background"), 5184 × 3456, disparada con una Canon EOS 7D. Es de nivel
+**gratuito** y quedó licenciada en la cuenta de Adobe conectada — no consumió
+créditos de pago.
 
-1. **Campo de altura** — tres bandas de octavas (agregado fino, grano medio,
-   ondulación gruesa) mezcladas con `feComposite` aritmético.
-2. **Difusa** — `feDiffuseLighting` con luz rasante a 34° da la forma del
-   hormigón. Se multiplica por el albedo, así que la pintura recibe exactamente
-   la misma iluminación que el muro.
-3. **Especular** — un lóbulo estrecho devuelve los destellos del árido. Es
-   aditivo, no depende del albedo, y por eso es lo que hace visible la textura
-   sobre negro.
-4. **Poros** — la mitad profunda del campo de altura vuelve a morder por
-   encima de todo, así que el grano del muro atraviesa el blanco.
-5. **Pase de cámara** — caída de luz, bloom, viñeteo, curva de grado y ruido de
-   sensor.
+Se rota 90° para ponerla vertical y se escala a cubrir 9:16. Rotar en vez de
+recortar en horizontal significa que el resultado se **reduce** (×0,74) en lugar
+de ampliarse: el grano llega nítido en vez de interpolado.
 
-Las letras se redibujan en cada pieza: la polilínea se subdivide y cada punto
-interior se desplaza perpendicularmente (una lata en la mano nunca traza
-recto), y cada trazo se pinta en dos pasadas con grosores ligeramente
-distintos, que es lo que da el borde irregular.
+## Lo que hace que la pintura pertenezca al muro
+
+Un solo truco, y es el que lo cambia todo:
+
+```
+1. la foto                                    (el muro)
+2. las letras en blanco, erosionadas          (la pintura)
+3. la foto OTRA VEZ, enmascarada con el alfa
+   de las letras, en multiply                 (la integración)
+```
+
+El paso 3 hace que cada arañazo, poro y sombra de la fotografía atraviese el
+blanco **exactamente igual** que atraviesa el hormigón de alrededor. Sin él la
+pintura es una calcomanía; con él, es pintura sobre esa pared concreta.
+
+La foto no se puede multiplicar en crudo — es demasiado oscura y aplastaría el
+blanco. El filtro `asModulator` la renivela a un rango de ~[0,55, 1,25] para que
+**module** el blanco en lugar de agujerearlo. Ese es el mando a tocar si quieres
+más o menos textura atravesando las letras.
 
 ## El desgaste va por erosión, no por transparencia
 
-La pintura vieja **no se vuelve translúcida — se cae**. Bajar la opacidad para
-simular antigüedad deja un gris lavado que delata al instante que aquello nunca
-fue pintura. Así que cada pieza pasa por un filtro `wear{nivel}_{semilla}` que
-mantiene el blanco totalmente opaco donde sobrevive y le arranca el alfa donde
-no:
+La pintura vieja no se vuelve translúcida — se cae. Cada pieza pasa por un
+filtro `wear{nivel}_{semilla}` que mantiene el blanco opaco donde sobrevive y le
+arranca el alfa donde no: placas grandes con rampa de alfa abrupta, más un
+moteado fino para el polvillo. Tres niveles × tres semillas.
 
-- **Placas** — ruido de baja frecuencia con rampa de alfa abrupta: zonas enteras
-  del trazo desaparecidas, como una capa que se descascarilla del muro.
-- **Chalking** — moteado más fino y disperso para el polvillo de la pintura
-  envejecida. Si se sube demasiado deja de leerse como desgaste y empieza a
-  parecer tramado de impresión.
-- Tres niveles (`wear0` apenas tocado, `wear2` medio comido) × tres semillas,
-  para que dos piezas de la misma edad no se erosionen igual.
-
-Encima de todo va una capa de **mugre** que corre por delante del grafiti: la
-suciedad no respeta lo que se pintó antes que ella, y nada envejece un muro más
-rápido que la roña cruzando las letras.
-
-Las piezas van en cuatro profundidades — fantasmas antiguos, campo medio,
-piezas frescas y tags de rotulador — con overspray, chorretones y bordes
-desplazados por ruido.
+Las letras se redibujan en cada pieza: la polilínea se subdivide y cada punto
+interior se desplaza en perpendicular (una lata en la mano nunca traza recto), y
+cada trazo se pinta en dos pasadas con grosores algo distintos.
 
 ## Ajustes rápidos
 
 En `generate.js`:
 
-- `W` / `H` — el formato (`3840 × 2160` horizontal, `3000 × 3000` cuadrado).
-  Pasa el mismo `--window-size` en `render.sh`.
 - `makeRng(20260815)` — la semilla. Otra distribución, mismo estilo.
-- `WHITES` — los blancos (fresco / desgastado / apagado). Aquí se cambiaría la
-  pintura de color si alguna vez hiciera falta.
+- `WHITES` — los blancos (fresco / desgastado / apagado).
 - Bloques de composición (`ghost`, `mid`, `hero`, `tag`) — cantidad, escala y
   densidad de cada capa.
-- Filtro `grade` — la curva final. `slope` sube el contraste; `intercept` baja
-  las sombras. Calibrado con `measure.py` para dejar el muro en ~28/255 y el
-  blanco en ~220/255.
+- `PLATE` — cambiar de foto. Ajusta `w`/`h` a las de la nueva imagen; el
+  encuadre se recalcula solo.
 
-## Dos trampas que costaron encontrar
+## Por qué se abandonó la vía 100 % procedural
 
-- Los filtros SVG trabajan por defecto en **`linearRGB`**, lo que convierte
+`generate-synthetic.js` sintetiza el muro entero con ruido fractal: campo de
+altura de tres bandas, iluminación difusa y especular, poros, escurridos, curva
+de grado. Técnicamente funciona y no depende de ninguna foto, pero tiene un
+techo: **el ruido es estadísticamente uniforme y las superficies reales no lo
+son.** Una pared de verdad tiene zonas parcheadas, llanas de fratás, arañazos
+que vienen de algún sitio y manchas con historia. Esa homogeneidad es lo que
+hacía que se leyera como gráfico y no como fotografía, por muy afinados que
+estuvieran los parámetros.
+
+Sigue en el repo por si hiciera falta un fondo sin dependencias de licencia, o
+a otra resolución arbitraria sin límite de la placa.
+
+## Dos trampas técnicas
+
+- Los filtros SVG trabajan por defecto en `linearRGB`, lo que convierte
   cualquier curva de gamma en un lavado sobre fondo negro. El CSS fuerza
   `color-interpolation-filters: sRGB`.
-- Multiplicar albedo por difusa **comprime todo hacia el medio**: el muro nunca
-  llega a negro ni la pintura a blanco. Subir la ganancia no lo arregla —
-  satura el blanco y se lleva por delante el grano. Se resuelve al final, con
-  la curva de grado.
+- Contra una fotografía, los efectos sintéticos cantan al instante. Hubo que
+  quitar la sombra dura de las piezas (una sombra paralela de Photoshop de
+  manual), el perfilado negro de las letras y los halos de overspray con ruido,
+  que se leían como manchas de moho.

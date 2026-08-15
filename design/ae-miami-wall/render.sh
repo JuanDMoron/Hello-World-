@@ -13,6 +13,7 @@ node "$DIR/generate.js"
   --no-sandbox \
   --disable-gpu \
   --hide-scrollbars \
+  --allow-file-access-from-files \
   --force-device-scale-factor=1 \
   --window-size=2160,3840 \
   --screenshot="$OUT" \

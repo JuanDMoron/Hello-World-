@@ -1,16 +1,19 @@
 /*
- * AE of Miami — photoreal graffiti wall background.
+ * AE of Miami — graffiti on a photographed wall.
  *
- * Emits a self-contained HTML file holding one full-bleed SVG.
+ * The wall is a real photograph (Adobe Stock 285565957, licensed). Everything
+ * procedural noise could not give us — scratches that go somewhere, stains with
+ * history, non-uniform structure, real camera grain and falloff — comes from
+ * the plate. See generate-synthetic.js for the fully-procedural predecessor and
+ * why it hit a ceiling: noise is statistically uniform, and real surfaces are
+ * emphatically not.
  *
- * The realism comes from treating the image as a material, not a stack of
- * decals. Wall colour and white paint go into a single albedo layer, and ONE
- * shared height field lights all of it at once — so the aerosol sits in the
- * pores of the concrete and catches the same raking light the wall does,
- * instead of floating on top of it. A camera pass (light falloff, bloom,
- * sensor noise, lifted blacks) goes over the result.
+ * The one thing that makes paint look painted ON a wall rather than pasted
+ * OVER it: the photo is composited back over the letters through a mask of
+ * their own alpha, in multiply. Every scratch, pit and shadow in the plate then
+ * runs through the white exactly as it runs through the wall around it.
  *
- * Everything is procedural and seeded. Render it with render.sh.
+ * Render it with render.sh.
  */
 
 const fs = require('fs');
@@ -18,6 +21,16 @@ const path = require('path');
 
 const W = 2160;
 const H = 3840;
+
+// The plate, and the transform that turns it into a 9:16 portrait wall.
+// 5184x3456 landscape, rotated upright and scaled to cover: rotating means the
+// output is DOWNsampled rather than upscaled, which keeps the grain crisp.
+const PLATE = { file: 'wall-source.jpg', w: 5184, h: 3456 };
+const PLATE_SCALE = Math.max(W / PLATE.h, H / PLATE.w); // cover
+const PLATE_X = (W - PLATE.h * PLATE_SCALE) / 2;
+const PLATE_TF =
+  `translate(${PLATE_X.toFixed(2)} 0) scale(${PLATE_SCALE.toFixed(5)}) ` +
+  `translate(${PLATE.h} 0) rotate(90)`;
 
 // ---------------------------------------------------------------- rng
 
@@ -39,9 +52,7 @@ const f = (n) => Number(n).toFixed(1);
 
 // ---------------------------------------------------------- monogram
 
-// The AE monogram: an A whose right leg runs into the spine of the E. Held as
-// point lists so every piece can be re-drawn with its own hand jitter — no two
-// sprayed copies of a logo are ever identical.
+// The AE monogram: an A whose right leg runs into the spine of the E.
 const GLYPH = [
   [[20, 138], [70, 12], [120, 138]], // A
   [[42, 96], [98, 96]], // A crossbar
@@ -60,12 +71,10 @@ function strokePaths(jitter) {
       const [x1, y1] = pts[i + 1];
       const len = Math.hypot(x1 - x0, y1 - y0);
       const steps = Math.max(2, Math.round(len / 22));
-      // unit normal, to push the wobble sideways rather than along the stroke
       const nx = -(y1 - y0) / len;
       const ny = (x1 - x0) / len;
       for (let s = i === 0 ? 0 : 1; s <= steps; s++) {
         const t = s / steps;
-        // ends stay put, the middle is free to wander
         const swing = Math.sin(t * Math.PI) * jitter + jitter * 0.35;
         out.push([
           x0 + (x1 - x0) * t + nx * rand(-swing, swing) + rand(-0.6, 0.6),
@@ -77,27 +86,18 @@ function strokePaths(jitter) {
   });
 }
 
-// Where paint can run off the bottom of the letterforms.
 const DRIP_ORIGINS = [28, 62, 112, 150, 178, 206];
 
-// Aerosol white is never paper white, and it chalks as it ages. These are the
-// flat, dead whites of old spray paint — nothing here glows.
+// Aerosol white is never paper white, and it chalks as it ages. These read
+// bright because the plate underneath is genuinely dark.
 const WHITES = {
-  fresh: ['#ddd9d1', '#d5d1c8', '#e2ded5'],
-  weathered: ['#aeaaa1', '#a39f97', '#b6b2a9'],
-  faded: ['#7c7971', '#726f68', '#858179'],
+  fresh: ['#f2efe9', '#eae7e0', '#f5f2ec'],
+  weathered: ['#c6c2b9', '#bab6ad', '#cecac1'],
+  faded: ['#8e8b83', '#84817a', '#97938b'],
 };
 
 // ------------------------------------------------------------- pieces
 
-/**
- * One sprayed AE. `style` drives the paint treatment:
- *   ghost   – an old coat weathered back down into the wall
- *   throwie – flat fill with a keyline, the workhorse
- *   bubble  – fat rounded caps
- *   block   – hard offset shadow behind the letters
- *   tag     – thin marker scrawl
- */
 function piece(o) {
   const {
     x, y, scale, rot, color, style,
@@ -105,16 +105,14 @@ function piece(o) {
   } = o;
 
   const jitter = style === 'tag' ? 2.6 : 1.7;
-  const keyline = weight + Math.max(9, weight * 0.5);
   const out = [];
 
   const strokeAttrs = (w, c) =>
     `stroke="${c}" stroke-width="${f(w)}" fill="none" stroke-linejoin="round" ` +
     `stroke-linecap="${style === 'bubble' || style === 'tag' ? 'round' : 'square'}"`;
 
-  // Two overlapping passes with independent wobble and slightly different
-  // weights. The union of the two gives the uneven edge a real second pass of
-  // the can leaves — cleaner than trying to vary width along one path.
+  // Two overlapping passes with independent wobble: the union gives the uneven
+  // edge a second pass of the can leaves.
   const paths = (w, c) =>
     [1, 0.94]
       .map((k) =>
@@ -124,27 +122,12 @@ function piece(o) {
       )
       .join('');
 
-  // Overspray — the cone of aerosol that misses the letters and dusts the wall.
   if (halo) {
     out.push(
-      `<g filter="url(#overspray)" opacity="${f(rand(0.3, 0.55))}">${paths(weight, color)}</g>`
+      `<g filter="url(#overspray)" opacity="${f(rand(0.06, 0.14))}">${paths(weight, color)}</g>`
     );
   }
 
-  // Hard block shadow, offset down-right. Reads as a second, darker can.
-  if (style === 'block') {
-    for (let i = 5; i >= 1; i--) {
-      const d = i * 3.4;
-      out.push(
-        `<g transform="translate(${f(d)} ${f(d)})" opacity="${f(0.85 - i * 0.07)}">${paths(
-          weight,
-          '#0b0c0f'
-        )}</g>`
-      );
-    }
-  }
-
-  // Drips run before the letterform so the stroke sits on top of them.
   if (drips) {
     const origins = [...DRIP_ORIGINS].sort(() => rng() - 0.5).slice(0, 2 + Math.floor(rng() * 3));
     const runs = origins.map((ox) => ({
@@ -170,11 +153,6 @@ function piece(o) {
     );
   }
 
-  // A dark keyline reads as a second pass with a black can — only the loud
-  // styles get one, and never the aged coats.
-  if (style === 'throwie' || style === 'block') {
-    out.push(paths(keyline, '#0a0b0e'));
-  }
   out.push(paths(weight, color));
 
   if (wordmark) {
@@ -192,52 +170,16 @@ function piece(o) {
   return `<g transform="${tf}" opacity="${f(opacity)}" filter="url(#${wear})">${inner}</g>`;
 }
 
-// wear0 barely touched, wear2 half gone. Pick a level, then one of its
-// three seeds so two pieces at the same age still erode differently.
+// wear0 barely touched, wear2 half gone. Pick a level, then one of its three
+// seeds so two pieces of the same age still erode differently.
 const wearFilter = (level) => `wear${level}_${Math.floor(rng() * 3)}`;
 
 // ------------------------------------------------------- composition
 
-const layers = { streak: [], ghost: [], mid: [], hero: [], tag: [], grime: [] };
+const layers = { ghost: [], mid: [], hero: [], tag: [], grime: [] };
 
-// Rain streaks: dirt washed down from ledges and cracks. Tapered, soft-edged
-// vertical smears — what actually stains an outdoor wall.
-for (let i = 0; i < 16; i++) {
-  const sx = rand(-40, W + 40);
-  const sy = rand(-240, H * 0.7);
-  const sh = rand(360, 1600);
-  const sw = rand(26, 165);
-  layers.streak.push(
-    `<path d="M${f(sx - sw / 2)} ${f(sy)} L${f(sx + sw / 2)} ${f(sy)} L${f(sx + sw * 0.2)} ${f(
-      sy + sh
-    )} L${f(sx - sw * 0.2)} ${f(sy + sh)} Z" fill="${pick([
-      '#000000',
-      '#04050a',
-      '#111318',
-    ])}" opacity="${f(rand(0.16, 0.4))}" filter="url(#streakBlur)"/>`
-  );
-}
-
-// Grime laid over the paint. Dirt does not respect what was sprayed before
-// it, and nothing ages a wall faster than filth running across the letters.
-for (let i = 0; i < 20; i++) {
-  const sx = rand(-60, W + 60);
-  const sy = rand(-300, H * 0.85);
-  const sh = rand(300, 1700);
-  const sw = rand(30, 220);
-  layers.grime.push(
-    `<path d="M${f(sx - sw / 2)} ${f(sy)} L${f(sx + sw / 2)} ${f(sy)} L${f(sx + sw * 0.18)} ${f(
-      sy + sh
-    )} L${f(sx - sw * 0.18)} ${f(sy + sh)} Z" fill="${pick([
-      '#000000',
-      '#0a0b0f',
-      '#1a1c22',
-    ])}" opacity="${f(rand(0.12, 0.34))}" filter="url(#streakBlur)"/>`
-  );
-}
-
-// Old coats: large, weathered almost back into the concrete.
-for (let i = 0; i < 8; i++) {
+// Old coats: what survives is still solid paint, there is just less of it.
+for (let i = 0; i < 5; i++) {
   layers.ghost.push(
     piece({
       x: rand(100, W - 100),
@@ -247,7 +189,7 @@ for (let i = 0; i < 8; i++) {
       color: pick(WHITES.faded),
       style: 'ghost',
       weight: rand(18, 30),
-      opacity: rand(0.3, 0.5),
+      opacity: rand(0.2, 0.32),
       wordmark: false,
       drips: false,
       halo: chance(0.25),
@@ -264,7 +206,7 @@ for (let r = 0; r < ROWS; r++) {
     if (chance(0.14)) continue; // leave some bare wall
     const cw = W / COLS;
     const chh = H / ROWS;
-    const style = pick(['throwie', 'throwie', 'bubble', 'block']);
+    const style = pick(['throwie', 'throwie', 'throwie', 'bubble']);
     const scale = rand(1.05, 1.85);
     const aged = chance(0.45);
     layers.mid.push(
@@ -280,14 +222,14 @@ for (let r = 0; r < ROWS; r++) {
         wordmark: scale > 1.5 && chance(0.5),
         drips: chance(0.5),
         halo: chance(0.55),
-        wear: wearFilter(aged ? 2 : chance(0.5) ? 1 : 0),
-        skew: style === 'block' ? rand(-9, 0) : 0,
+        wear: wearFilter(aged ? 1 : 0),
+        skew: rand(-6, 2),
       })
     );
   }
 }
 
-// Fresh pieces: the newest coat, the brightest white on the wall.
+// Fresh pieces: the newest coat on the wall.
 const heroSpots = [
   { x: W * 0.5, y: H * 0.15 },
   { x: W * 0.32, y: H * 0.43 },
@@ -295,7 +237,7 @@ const heroSpots = [
   { x: W * 0.45, y: H * 0.87 },
 ];
 heroSpots.forEach((spot, i) => {
-  const style = i % 2 === 0 ? 'block' : 'bubble';
+  const style = i % 2 === 0 ? 'throwie' : 'bubble';
   layers.hero.push(
     piece({
       x: spot.x + rand(-80, 80),
@@ -309,8 +251,8 @@ heroSpots.forEach((spot, i) => {
       wordmark: true,
       drips: true,
       halo: true,
-      wear: wearFilter(chance(0.5) ? 1 : 0),
-      skew: style === 'block' ? rand(-10, -2) : 0,
+      wear: wearFilter(0),
+      skew: rand(-7, 1),
     })
   );
 });
@@ -331,171 +273,39 @@ for (let i = 0; i < 34; i++) {
       wordmark: chance(0.25),
       drips: chance(0.3),
       halo: false,
-      wear: wearFilter(aged ? 2 : 1),
+      wear: wearFilter(aged ? 2 : 0),
       skew: rand(-14, 6),
     })
   );
 }
 
-// ------------------------------------------------------------- cracks
-
-const cracks = [];
-for (let i = 0; i < 18; i++) {
-  const pts = [[rand(0, W), rand(0, H)]];
-  let ang = rand(0, Math.PI * 2);
-  const steps = Math.floor(rand(6, 24));
-  for (let s = 0; s < steps; s++) {
-    ang += rand(-0.6, 0.6);
-    pts.push([
-      pts[pts.length - 1][0] + Math.cos(ang) * rand(20, 48),
-      pts[pts.length - 1][1] + Math.sin(ang) * rand(20, 48),
-    ]);
-  }
-  const d = 'M' + pts.map((p) => `${f(p[0])} ${f(p[1])}`).join(' L');
-  cracks.push(
-    `<path d="${d}" stroke="#000000" stroke-width="${f(rand(2, 6))}" fill="none" opacity="${f(
-      rand(0.4, 0.8)
-    )}" filter="url(#wear0_1)"/>`
-  );
-}
-
-// Anchor holes and chips: the small hard details a real wall always carries.
-const pocks = [];
-for (let i = 0; i < 48; i++) {
-  const pr = rand(3, 16);
-  pocks.push(
-    `<ellipse cx="${f(rand(0, W))}" cy="${f(rand(0, H))}" rx="${f(pr)}" ry="${f(
-      pr * rand(0.7, 1)
-    )}" fill="#000" opacity="${f(rand(0.35, 0.7))}" filter="url(#wear0_2)"/>`
+// Grime over the paint. Dirt does not respect what was sprayed before it.
+for (let i = 0; i < 14; i++) {
+  const sx = rand(-60, W + 60);
+  const sy = rand(-300, H * 0.85);
+  const sh = rand(300, 1700);
+  const sw = rand(30, 220);
+  layers.grime.push(
+    `<path d="M${f(sx - sw / 2)} ${f(sy)} L${f(sx + sw / 2)} ${f(sy)} L${f(sx + sw * 0.18)} ${f(
+      sy + sh
+    )} L${f(sx - sw * 0.18)} ${f(sy + sh)} Z" fill="${pick([
+      '#000000',
+      '#0a0b0f',
+      '#1a1c22',
+    ])}" opacity="${f(rand(0.1, 0.26))}" filter="url(#streakBlur)"/>`
   );
 }
 
 // --------------------------------------------------------------- svg
 
-const defs = `
-<defs>
-  <linearGradient id="wallGrad" x1="0" y1="0" x2="0.5" y2="1">
-    <stop offset="0%" stop-color="#232529"/>
-    <stop offset="45%" stop-color="#1d1f24"/>
-    <stop offset="100%" stop-color="#191b20"/>
-  </linearGradient>
-
-  <!-- Photographic light falloff: the lamp is up and to the left. -->
-  <linearGradient id="lightFall" x1="0.12" y1="0" x2="0.9" y2="1">
-    <stop offset="0%" stop-color="#e0e1e5"/>
-    <stop offset="42%" stop-color="#97989e"/>
-    <stop offset="100%" stop-color="#5b5c62"/>
-  </linearGradient>
-
-  <radialGradient id="vignette" cx="0.5" cy="0.44" r="0.8">
-    <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
-    <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
-  </radialGradient>
-
-  <!-- Albedo variation only: damp patches and old washes, no relief. -->
-  <filter id="stain" x="0" y="0" width="100%" height="100%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.0035 0.0048" numOctaves="6" seed="41"/>
-    <feColorMatrix type="saturate" values="0"/>
-    <feComponentTransfer>
-      <feFuncR type="gamma" amplitude="1.4" exponent="1.6" offset="-0.2"/>
-      <feFuncG type="gamma" amplitude="1.4" exponent="1.6" offset="-0.2"/>
-      <feFuncB type="gamma" amplitude="1.4" exponent="1.6" offset="-0.2"/>
-      <feFuncA type="table" tableValues="1 1"/>
-    </feComponentTransfer>
-  </filter>
-
-  <!--
-    THE MATERIAL PASS.
-    One height field, built from three octave bands, lights everything the
-    filter is given — wall and paint together. Diffuse shading gives the
-    concrete its form, a tight specular lobe puts glints back on the exposed
-    aggregate, and the height field is reused to darken the pores, so paint
-    reads as sitting *in* the surface rather than on top of it.
-  -->
-  <filter id="material" x="0" y="0" width="100%" height="100%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.62" numOctaves="4" seed="11" result="hFine"/>
-    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="5" seed="29" result="hMid"/>
-    <feTurbulence type="fractalNoise" baseFrequency="0.0075" numOctaves="4" seed="7" result="hCoarse"/>
-    <feComposite in="hFine" in2="hMid" operator="arithmetic" k1="0" k2="0.58" k3="0.42" k4="0" result="hA"/>
-    <feComposite in="hA" in2="hCoarse" operator="arithmetic" k1="0" k2="0.78" k3="0.22" k4="0" result="h"/>
-
-    <feDiffuseLighting in="h" surfaceScale="3.6" diffuseConstant="1.05" lighting-color="#ffffff" result="diff">
-      <feDistantLight azimuth="228" elevation="34"/>
-    </feDiffuseLighting>
-    <feColorMatrix in="diff" type="saturate" values="0" result="diffG"/>
-
-    <!-- albedo x diffuse -->
-    <feComposite in="SourceGraphic" in2="diffG" operator="arithmetic" k1="3.0" k2="0" k3="0" k4="0" result="shaded"/>
-
-    <!-- aggregate glints, added back on top -->
-    <feSpecularLighting in="h" surfaceScale="2.2" specularConstant="0.85" specularExponent="12" lighting-color="#b9bcc4" result="spec">
-      <feDistantLight azimuth="228" elevation="34"/>
-    </feSpecularLighting>
-    <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn"/>
-    <feComposite in="specIn" in2="shaded" operator="arithmetic" k1="0" k2="0.6" k3="1" k4="0" result="lit"/>
-
-    <!-- pores: the deep half of the height field bites back through everything -->
-    <feColorMatrix in="h" type="matrix"
-      values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.9 0 0 0 0.52" result="pores"/>
-    <feComposite in="pores" in2="lit" operator="over"/>
-  </filter>
-
-  <!-- Bloom: bright paint blooming into the lens, as any real camera does. -->
-  <filter id="bloom" x="-10%" y="-10%" width="120%" height="120%">
-    <feComponentTransfer>
-      <feFuncR type="gamma" amplitude="1" exponent="3.4" offset="0"/>
-      <feFuncG type="gamma" amplitude="1" exponent="3.4" offset="0"/>
-      <feFuncB type="gamma" amplitude="1" exponent="3.4" offset="0"/>
-    </feComponentTransfer>
-    <feGaussianBlur stdDeviation="22"/>
-  </filter>
-
-  <!--
-    Grade. Multiplying albedo by diffuse compresses everything toward the
-    middle: the wall never gets black and the paint never gets white. Rather
-    than fight that with gain (which clips the grain out of the paint), the
-    render is graded at the end — one straight line through the two tones that
-    matter, mapping wall 0.17 -> 0.12 and paint 0.635 -> 0.88.
-  -->
-  <filter id="grade" x="0" y="0" width="100%" height="100%">
-    <feComponentTransfer>
-      <feFuncR type="linear" slope="1.64" intercept="-0.161"/>
-      <feFuncG type="linear" slope="1.64" intercept="-0.161"/>
-      <feFuncB type="linear" slope="1.64" intercept="-0.161"/>
-    </feComponentTransfer>
-  </filter>
-
-  <!-- Sensor noise: luminance grain over the whole frame. -->
-  <filter id="sensorNoise" x="0" y="0" width="100%" height="100%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="93" result="n"/>
-    <feColorMatrix in="n" type="matrix"
-      values="0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.52  1.1 0 0 0 -0.55"/>
-  </filter>
-
-  <!-- Wash-down streaks: heavy vertical blur, light horizontal. -->
-  <filter id="streakBlur" x="-60%" y="-20%" width="220%" height="140%">
-    <feGaussianBlur stdDeviation="26 55"/>
-  </filter>
-
-  <!--
-    Paint wear. Aerosol never lays down clean, and old paint does not fade —
-    it comes OFF. So each piece gets displaced edges plus two erosion masks
-    that punch alpha away entirely: broad patches where the coat has flaked
-    off the wall, and a fine speckle for chalking. Steep alpha ramps (k=8)
-    keep the surviving paint fully opaque instead of washing the whole piece
-    to a translucent grey — transparency is the giveaway that this was never
-    real paint.
-
-    Three wear levels x three seeds, so repeated pieces never erode alike.
-  -->
-  ${[0, 1, 2]
-    .flatMap((level) =>
-      [0, 1, 2].map((v) => {
-        const t = [0.28, 0.385, 0.46][level]; // fraction of the coat lost
-        const chalk = [0.1, 0.17, 0.25][level];
-        const dsp = [6, 8, 10][level];
-        const seed = 3 + level * 31 + v * 7;
-        return `<filter id="wear${level}_${v}" x="-30%" y="-30%" width="160%" height="160%">
+const wearFilters = [0, 1, 2]
+  .flatMap((level) =>
+    [0, 1, 2].map((v) => {
+      const t = [0.28, 0.385, 0.46][level]; // fraction of the coat lost
+      const chalk = [0.1, 0.17, 0.25][level];
+      const dsp = [6, 8, 10][level];
+      const seed = 3 + level * 31 + v * 7;
+      return `<filter id="wear${level}_${v}" x="-30%" y="-30%" width="160%" height="160%">
     <feTurbulence type="fractalNoise" baseFrequency="${0.02 + v * 0.008}" numOctaves="3" seed="${seed}" result="dn"/>
     <feDisplacementMap in="SourceGraphic" in2="dn" scale="${dsp}" xChannelSelector="R" yChannelSelector="G" result="d"/>
     <feTurbulence type="fractalNoise" baseFrequency="0.021" numOctaves="4" seed="${seed + 101}" result="fn"/>
@@ -506,47 +316,91 @@ const defs = `
     <feColorMatrix in="cn" type="matrix"
       values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 0 0 0 ${(0.5 - 4 * chalk).toFixed(2)}" result="chalk"/>
     <feComposite in="e1" in2="chalk" operator="in" result="e2"/>
-    <feGaussianBlur in="e2" stdDeviation="0.45"/>
+    <feGaussianBlur in="e2" stdDeviation="0.35"/>
   </filter>`;
-      })
-    )
-    .join('\n  ')}
+    })
+  )
+  .join('\n  ');
 
-  <!-- Overspray halo: blurred paint punched through by high-frequency noise,
-       which is what turns a soft glow into visible aerosol dust. -->
+const defs = `
+<defs>
+  <!--
+    Paint wear. Old paint does not fade, it comes off: broad flake patches on a
+    steep alpha ramp plus a sparser chalking speckle, so what survives stays
+    fully opaque. Three levels x three seeds.
+  -->
+  ${wearFilters}
+
+  <!-- Overspray halo: blurred paint punched through by noise, which is what
+       turns a soft glow into visible aerosol dust. -->
   <filter id="overspray" x="-50%" y="-50%" width="200%" height="200%">
-    <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="b"/>
-    <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" seed="5" result="n"/>
-    <feComposite in="b" in2="n" operator="arithmetic" k1="1.7" k2="0" k3="0" k4="0"/>
+    <feGaussianBlur in="SourceGraphic" stdDeviation="11"/>
   </filter>
-</defs>`;
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-${defs}
-  <!-- Everything the lens sees, graded as one image. -->
-  <g filter="url(#grade)">
-    <!-- ALBEDO + MATERIAL: wall colour and paint shaded as one surface. -->
-    <g id="surface" filter="url(#material)">
-      <rect width="${W}" height="${H}" fill="url(#wallGrad)"/>
-      <rect width="${W}" height="${H}" filter="url(#stain)" opacity="0.5" style="mix-blend-mode:soft-light"/>
-      <g id="streaks">${layers.streak.join('')}</g>
-      <g id="pocks">${pocks.join('')}</g>
-      <g id="cracks">${cracks.join('')}</g>
-      <g id="ghosts">${layers.ghost.join('')}</g>
-      <g id="mid">${layers.mid.join('')}</g>
-      <g id="hero">${layers.hero.join('')}</g>
-      <g id="tags">${layers.tag.join('')}</g>
-      <g id="grime">${layers.grime.join('')}</g>
-    </g>
+  <filter id="streakBlur" x="-60%" y="-20%" width="220%" height="140%">
+    <feGaussianBlur stdDeviation="26 55"/>
+  </filter>
 
-    <use href="#surface" filter="url(#bloom)" opacity="0.1" style="mix-blend-mode:screen"/>
-    <rect width="${W}" height="${H}" fill="url(#lightFall)" style="mix-blend-mode:multiply"/>
-    <rect width="${W}" height="${H}" fill="url(#vignette)"/>
+  <!--
+    The plate re-levelled for use as a multiplier. Straight multiply by a photo
+    this dark would crush the paint to nothing; this maps the wall's tonal range
+    onto roughly [0.45, 1.15] so it modulates the white instead of killing it.
+  -->
+  <filter id="asModulator" x="0" y="0" width="100%" height="100%">
+    <feComponentTransfer>
+      <feFuncR type="linear" slope="1.9" intercept="0.55"/>
+      <feFuncG type="linear" slope="1.9" intercept="0.55"/>
+      <feFuncB type="linear" slope="1.9" intercept="0.55"/>
+    </feComponentTransfer>
+  </filter>
+
+  <!-- Paint alpha as a white silhouette, for use as a luminance mask. -->
+  <filter id="silhouette" x="-10%" y="-10%" width="120%" height="120%">
+    <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0"/>
+  </filter>
+
+  <radialGradient id="vignette" cx="0.5" cy="0.45" r="0.78">
+    <stop offset="58%" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0.42"/>
+  </radialGradient>
+
+  <g id="plate">
+    <image href="${PLATE.file}" x="0" y="0" width="${PLATE.w}" height="${PLATE.h}"
+           preserveAspectRatio="none" transform="${PLATE_TF}"/>
   </g>
 
-  <!-- Sensor grain and black lift land after the grade, as they do in a camera. -->
-  <rect width="${W}" height="${H}" filter="url(#sensorNoise)" opacity="0.15" style="mix-blend-mode:overlay"/>
-  <rect width="${W}" height="${H}" fill="#12161f" opacity="0.06" style="mix-blend-mode:screen"/>
+  <mask id="paintMask" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}">
+    <use href="#paintArt" filter="url(#silhouette)"/>
+  </mask>
+</defs>`;
+
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+${defs}
+  <!-- The wall, as photographed. -->
+  <use href="#plate"/>
+
+  <!-- The paint. -->
+  <g id="paintArt">
+    <g id="ghosts">${layers.ghost.join('')}</g>
+    <g id="mid">${layers.mid.join('')}</g>
+    <g id="hero">${layers.hero.join('')}</g>
+    <g id="tags">${layers.tag.join('')}</g>
+  </g>
+
+  <!--
+    The plate again, masked to the paint and multiplied over it. This is the
+    step that makes the letters belong to the wall: every scratch, pit and
+    shadow in the photograph now runs through the white exactly as it runs
+    through the concrete around it.
+  -->
+  <g mask="url(#paintMask)" style="mix-blend-mode:multiply">
+    <use href="#plate" filter="url(#asModulator)"/>
+  </g>
+
+  <!-- Dirt, laid over everything. -->
+  <g id="grime">${layers.grime.join('')}</g>
+  <rect width="${W}" height="${H}" fill="url(#vignette)"/>
 </svg>`;
 
 const html = `<!doctype html>
@@ -554,14 +408,15 @@ const html = `<!doctype html>
 <style>
   html,body{margin:0;padding:0;background:#000;}
   svg{display:block;}
-  /* SVG filters default to linearRGB, which turns every gamma curve and
-     lighting pass into a washout on a near-black wall. Work in sRGB. */
+  /* SVG filters default to linearRGB, which turns every gamma curve into a
+     washout on a near-black plate. Work in sRGB. */
   filter{color-interpolation-filters:sRGB;}
 </style></head>
 <body>${svg}</body></html>`;
 
 fs.writeFileSync(path.join(__dirname, 'wall.html'), html);
 console.log(
-  `wrote wall.html — ghosts:${layers.ghost.length} mid:${layers.mid.length} ` +
+  `wrote wall.html — plate ${PLATE.w}x${PLATE.h} @ ${PLATE_SCALE.toFixed(3)} | ` +
+    `ghosts:${layers.ghost.length} mid:${layers.mid.length} ` +
     `hero:${layers.hero.length} tags:${layers.tag.length}`
 );
