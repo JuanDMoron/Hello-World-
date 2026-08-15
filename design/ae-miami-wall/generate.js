@@ -1,12 +1,16 @@
 /*
- * AE of Miami — graffiti wall background generator.
+ * AE of Miami — photoreal graffiti wall background.
  *
- * Emits a self-contained HTML file holding one full-bleed SVG:
- *   - a black, heavily textured concrete wall (layered fractal-noise filters)
- *   - many AE monograms sprayed over it in four depth layers
+ * Emits a self-contained HTML file holding one full-bleed SVG.
  *
- * Everything is procedural and seeded, so the same seed always rebuilds the
- * exact same wall. Render it with render.sh.
+ * The realism comes from treating the image as a material, not a stack of
+ * decals. Wall colour and white paint go into a single albedo layer, and ONE
+ * shared height field lights all of it at once — so the aerosol sits in the
+ * pores of the concrete and catches the same raking light the wall does,
+ * instead of floating on top of it. A camera pass (light falloff, bloom,
+ * sensor noise, lifted blacks) goes over the result.
+ *
+ * Everything is procedural and seeded. Render it with render.sh.
  */
 
 const fs = require('fs');
@@ -31,57 +35,64 @@ const rng = makeRng(20260815);
 const rand = (a, b) => a + rng() * (b - a);
 const pick = (arr) => arr[Math.floor(rng() * arr.length)];
 const chance = (p) => rng() < p;
-
-// Walks a shuffled palette so neighbouring pieces never land on the same can.
-function makeCycler(arr) {
-  let bag = [];
-  return function next() {
-    if (!bag.length) bag = [...arr].sort(() => rng() - 0.5);
-    return bag.pop();
-  };
-}
+const f = (n) => Number(n).toFixed(1);
 
 // ---------------------------------------------------------- monogram
 
-// The AE monogram lives in a 220 x 150 box: an A whose right leg runs into the
-// spine of the E. Letterforms are strokes, so weight is a single knob.
-const A_PATH = 'M20 138 L70 12 L120 138';
-const A_BAR = 'M42 96 L98 96';
-const E_PATH = 'M212 12 L142 12 L142 138 L212 138';
-const E_BAR = 'M142 75 L198 75';
+// The AE monogram: an A whose right leg runs into the spine of the E. Held as
+// point lists so every piece can be re-drawn with its own hand jitter — no two
+// sprayed copies of a logo are ever identical.
+const GLYPH = [
+  [[20, 138], [70, 12], [120, 138]], // A
+  [[42, 96], [98, 96]], // A crossbar
+  [[212, 12], [142, 12], [142, 138], [212, 138]], // E
+  [[142, 75], [198, 75]], // E middle bar
+];
 
-const STROKES = [A_PATH, A_BAR, E_PATH, E_BAR];
+// Resample a polyline into short segments and push each interior point off the
+// line. A can held at arm's length wanders; perfectly straight strokes are the
+// single biggest tell that letters were drawn by a machine.
+function strokePaths(jitter) {
+  return GLYPH.map((pts) => {
+    const out = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [x0, y0] = pts[i];
+      const [x1, y1] = pts[i + 1];
+      const len = Math.hypot(x1 - x0, y1 - y0);
+      const steps = Math.max(2, Math.round(len / 22));
+      // unit normal, to push the wobble sideways rather than along the stroke
+      const nx = -(y1 - y0) / len;
+      const ny = (x1 - x0) / len;
+      for (let s = i === 0 ? 0 : 1; s <= steps; s++) {
+        const t = s / steps;
+        // ends stay put, the middle is free to wander
+        const swing = Math.sin(t * Math.PI) * jitter + jitter * 0.35;
+        out.push([
+          x0 + (x1 - x0) * t + nx * rand(-swing, swing) + rand(-0.6, 0.6),
+          y0 + (y1 - y0) * t + ny * rand(-swing, swing) + rand(-0.6, 0.6),
+        ]);
+      }
+    }
+    return 'M' + out.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L');
+  });
+}
 
 // Where paint can run off the bottom of the letterforms.
 const DRIP_ORIGINS = [28, 62, 112, 150, 178, 206];
 
-const MIAMI = [
-  '#FF2D95', // hot pink
-  '#00E5FF', // cyan
-  '#14E0B0', // teal
-  '#FF7A18', // sunset orange
-  '#FFD400', // yellow
-  '#A855F7', // purple
-  '#FF4D6D', // coral
-  '#B6FF3A', // acid lime
-  '#2E7BFF', // electric blue
-];
-
-function shade(hex, amount) {
-  const n = parseInt(hex.slice(1), 16);
-  const ch = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((c) => {
-    const v = amount > 0 ? c + (255 - c) * amount : c * (1 + amount);
-    return Math.max(0, Math.min(255, Math.round(v)));
-  });
-  return '#' + ch.map((c) => c.toString(16).padStart(2, '0')).join('');
-}
+// Aerosol white is never paper white, and it ages toward the wall.
+const WHITES = {
+  fresh: ['#f6f4f0', '#efece6', '#f2f0ea'],
+  weathered: ['#cdc9c0', '#c2beb5', '#d5d1c8'],
+  faded: ['#8f8c85', '#84817a', '#99958d'],
+};
 
 // ------------------------------------------------------------- pieces
 
 /**
  * One sprayed AE. `style` drives the paint treatment:
- *   ghost   – old coat, bled into the wall, barely there
- *   throwie – two-tone fill + keyline, the workhorse
+ *   ghost   – an old coat weathered back down into the wall
+ *   throwie – flat fill with a keyline, the workhorse
  *   bubble  – fat rounded caps
  *   block   – hard offset shadow behind the letters
  *   tag     – thin marker scrawl
@@ -92,113 +103,92 @@ function piece(o) {
     weight, opacity, wordmark, drips, halo, roughId, skew = 0,
   } = o;
 
-  const keyline = weight + Math.max(10, weight * 0.55);
-  const dark = shade(color, -0.62);
-  const light = shade(color, 0.5);
+  const jitter = style === 'tag' ? 2.6 : 1.7;
+  const keyline = weight + Math.max(9, weight * 0.5);
   const out = [];
 
-  const strokeAttrs = (w, c, extra = '') =>
-    `stroke="${c}" stroke-width="${w}" fill="none" stroke-linejoin="${
-      style === 'bubble' ? 'round' : 'miter'
-    }" stroke-linecap="${style === 'bubble' || style === 'tag' ? 'round' : 'square'}" ${extra}`;
+  const strokeAttrs = (w, c) =>
+    `stroke="${c}" stroke-width="${f(w)}" fill="none" stroke-linejoin="round" ` +
+    `stroke-linecap="${style === 'bubble' || style === 'tag' ? 'round' : 'square'}"`;
 
-  const paths = (attrs) => STROKES.map((d) => `<path d="${d}" ${attrs}/>`).join('');
+  // Two overlapping passes with independent wobble and slightly different
+  // weights. The union of the two gives the uneven edge a real second pass of
+  // the can leaves — cleaner than trying to vary width along one path.
+  const paths = (w, c) =>
+    [1, 0.94]
+      .map((k) =>
+        strokePaths(jitter)
+          .map((d) => `<path d="${d}" ${strokeAttrs(w * k * rand(0.95, 1.05), c)}/>`)
+          .join('')
+      )
+      .join('');
 
-  // Overspray haze — the soft cloud of aerosol that misses the letters.
+  // Overspray — the cone of aerosol that misses the letters and dusts the wall.
   if (halo) {
     out.push(
-      `<g filter="url(#overspray)" opacity="0.5">${paths(strokeAttrs(weight, color))}</g>`
+      `<g filter="url(#overspray)" opacity="${f(rand(0.3, 0.55))}">${paths(weight, color)}</g>`
     );
   }
 
-  // Hard block shadow, offset down-right.
+  // Hard block shadow, offset down-right. Reads as a second, darker can.
   if (style === 'block') {
-    for (let i = 6; i >= 1; i--) {
-      const d = i * 3.2;
+    for (let i = 5; i >= 1; i--) {
+      const d = i * 3.4;
       out.push(
-        `<g transform="translate(${d} ${d})" opacity="${0.9 - i * 0.06}">${paths(
-          strokeAttrs(weight, '#06070a')
+        `<g transform="translate(${f(d)} ${f(d)})" opacity="${f(0.85 - i * 0.07)}">${paths(
+          weight,
+          '#0b0c0f'
         )}</g>`
       );
     }
   }
 
-  // Drips run first so the letterform sits on top of them. Each run tapers as
-  // it falls and beads up at the tip, the way a loaded cap actually behaves.
+  // Drips run before the letterform so the stroke sits on top of them.
   if (drips) {
     const origins = [...DRIP_ORIGINS].sort(() => rng() - 0.5).slice(0, 2 + Math.floor(rng() * 3));
     const runs = origins.map((ox) => ({
       ox,
-      len: rand(16, 74),
+      len: rand(14, 78),
       wob: rand(-4, 4),
-      w: Math.max(3, weight * rand(0.16, 0.3)),
+      w: Math.max(2.5, weight * rand(0.13, 0.26)),
     }));
-    const runPath = ({ ox, len, wob }) =>
-      `M${ox} 130 Q${ox + wob / 2} ${130 + len * 0.62} ${ox + wob} ${130 + len}`;
-
-    if (style !== 'tag') {
-      out.push(
-        runs
-          .map(
-            (r) =>
-              `<path d="${runPath(r)}" stroke="#06070a" stroke-width="${
-                r.w + 7
-              }" fill="none" stroke-linecap="round"/>`
-          )
-          .join('')
-      );
-    }
     out.push(
       runs
         .map(
           (r) =>
-            `<path d="${runPath(r)}" stroke="${color}" stroke-width="${
+            `<path d="M${r.ox} 130 Q${f(r.ox + r.wob / 2)} ${f(130 + r.len * 0.62)} ${f(
+              r.ox + r.wob
+            )} ${f(130 + r.len)}" stroke="${color}" stroke-width="${f(
               r.w
-            }" fill="none" stroke-linecap="round"/>` +
-            `<circle cx="${r.ox + r.wob}" cy="${130 + r.len}" r="${(r.w * 0.72).toFixed(
-              1
-            )}" fill="${color}"/>`
+            )}" fill="none" stroke-linecap="round" opacity="0.92"/>` +
+            `<circle cx="${f(r.ox + r.wob)}" cy="${f(130 + r.len)}" r="${f(
+              r.w * 0.7
+            )}" fill="${color}" opacity="0.92"/>`
         )
         .join('')
     );
   }
 
-  // Keyline, body, highlight.
-  if (style !== 'tag' && style !== 'ghost') {
-    out.push(paths(strokeAttrs(keyline, '#06070a')));
+  // A dark keyline reads as a second pass with a black can — only the loud
+  // styles get one, and never the aged coats.
+  if (style === 'throwie' || style === 'block') {
+    out.push(paths(keyline, '#0a0b0e'));
   }
-  out.push(paths(strokeAttrs(weight, color)));
-
-  // Inner highlight / shade only pays off at a size where it can be read.
-  if (scale > 1.5 && (style === 'throwie' || style === 'block' || style === 'bubble')) {
-    out.push(
-      `<g transform="translate(-${weight * 0.16} -${weight * 0.16})" opacity="0.55">${paths(
-        strokeAttrs(weight * 0.22, light)
-      )}</g>`
-    );
-    out.push(
-      `<g transform="translate(${weight * 0.2} ${weight * 0.2})" opacity="0.4">${paths(
-        strokeAttrs(weight * 0.18, dark)
-      )}</g>`
-    );
-  }
+  out.push(paths(weight, color));
 
   if (wordmark) {
     const fs2 = style === 'tag' ? 17 : 21;
     out.push(
-      `<text x="116" y="${170 + (drips ? 12 : 0)}" font-family="DejaVu Sans, sans-serif" ` +
-        `font-weight="bold" font-size="${fs2}" letter-spacing="${fs2 * 0.42}" ` +
-        `text-anchor="middle" fill="${color}" stroke="#06070a" stroke-width="${fs2 * 0.3}" ` +
-        `paint-order="stroke" >OF MIAMI</text>`
+      `<text x="116" y="${168 + (drips ? 10 : 0)}" font-family="DejaVu Sans, sans-serif" ` +
+        `font-weight="bold" font-size="${fs2}" letter-spacing="${f(fs2 * 0.42)}" ` +
+        `text-anchor="middle" fill="${color}" opacity="0.95">OF MIAMI</text>`
     );
   }
 
-  const inner = `<g transform="translate(-110 -75) ">${out.join('')}</g>`;
-  const tf = `translate(${x} ${y}) rotate(${rot}) scale(${scale}) skewX(${skew})`;
+  const inner = `<g transform="translate(-110 -75)">${out.join('')}</g>`;
+  const tf = `translate(${f(x)} ${f(y)}) rotate(${f(rot)}) scale(${f(scale)}) skewX(${f(skew)})`;
 
-  return `<g transform="${tf}" opacity="${opacity}" filter="url(#${roughId})" ${
-    style === 'ghost' ? 'style="mix-blend-mode:soft-light"' : ''
-  }>${inner}</g>`;
+  return `<g transform="${tf}" opacity="${f(opacity)}" filter="url(#${roughId})">${inner}</g>`;
 }
 
 const ROUGH = ['rough1', 'rough2', 'rough3'];
@@ -206,44 +196,42 @@ const ROUGH = ['rough1', 'rough2', 'rough3'];
 // ------------------------------------------------------- composition
 
 const layers = { streak: [], ghost: [], mid: [], hero: [], tag: [] };
-const nextColor = makeCycler(MIAMI);
 
-// Old coats: huge, washed out, painted over long ago.
-for (let i = 0; i < 6; i++) {
-  layers.ghost.push(
-    piece({
-      x: rand(120, W - 120),
-      y: rand(200, H - 200),
-      scale: rand(3.6, 6.0),
-      rot: rand(-16, 16),
-      color: pick(['#9aa4b2', '#8b7f74', '#6f7c8a', '#a3907d']),
-      style: 'ghost',
-      weight: rand(18, 28),
-      opacity: rand(0.08, 0.16),
-      wordmark: false,
-      drips: false,
-      halo: false,
-      roughId: pick(ROUGH),
-    })
+// Rain streaks: dirt washed down from ledges and cracks. Tapered, soft-edged
+// vertical smears — what actually stains an outdoor wall.
+for (let i = 0; i < 16; i++) {
+  const sx = rand(-40, W + 40);
+  const sy = rand(-240, H * 0.7);
+  const sh = rand(360, 1600);
+  const sw = rand(26, 165);
+  layers.streak.push(
+    `<path d="M${f(sx - sw / 2)} ${f(sy)} L${f(sx + sw / 2)} ${f(sy)} L${f(sx + sw * 0.2)} ${f(
+      sy + sh
+    )} L${f(sx - sw * 0.2)} ${f(sy + sh)} Z" fill="${pick([
+      '#000000',
+      '#04050a',
+      '#111318',
+    ])}" opacity="${f(rand(0.16, 0.4))}" filter="url(#streakBlur)"/>`
   );
 }
 
-// Rain streaks: dirt washed down the wall from ledges and cracks. Tapered,
-// soft-edged vertical smears — what actually stains an outdoor wall.
-for (let i = 0; i < 15; i++) {
-  const sx = rand(-40, W + 40);
-  const sy = rand(-200, H * 0.72);
-  const sh = rand(340, 1500);
-  const sw = rand(24, 150);
-  layers.streak.push(
-    `<path d="M${(sx - sw / 2).toFixed(0)} ${sy.toFixed(0)} L${(sx + sw / 2).toFixed(0)} ${sy.toFixed(
-      0
-    )} L${(sx + sw * 0.2).toFixed(0)} ${(sy + sh).toFixed(0)} L${(sx - sw * 0.2).toFixed(0)} ${(
-      sy + sh
-    ).toFixed(0)} Z" fill="${pick(['#000000', '#04050a', '#0e1015'])}" opacity="${rand(
-      0.18,
-      0.45
-    ).toFixed(2)}" filter="url(#streakBlur)"/>`
+// Old coats: large, weathered almost back into the concrete.
+for (let i = 0; i < 8; i++) {
+  layers.ghost.push(
+    piece({
+      x: rand(100, W - 100),
+      y: rand(180, H - 180),
+      scale: rand(2.0, 3.6),
+      rot: rand(-16, 16),
+      color: pick(WHITES.faded),
+      style: 'ghost',
+      weight: rand(18, 30),
+      opacity: rand(0.08, 0.16),
+      wordmark: false,
+      drips: false,
+      halo: chance(0.25),
+      roughId: pick(ROUGH),
+    })
   );
 }
 
@@ -252,24 +240,25 @@ const COLS = 4;
 const ROWS = 9;
 for (let r = 0; r < ROWS; r++) {
   for (let c = 0; c < COLS; c++) {
-    if (chance(0.12)) continue; // leave some bare wall
+    if (chance(0.14)) continue; // leave some bare wall
     const cw = W / COLS;
     const chh = H / ROWS;
     const style = pick(['throwie', 'throwie', 'bubble', 'block']);
     const scale = rand(1.05, 1.85);
+    const aged = chance(0.45);
     layers.mid.push(
       piece({
         x: c * cw + cw / 2 + rand(-cw * 0.34, cw * 0.34),
         y: r * chh + chh / 2 + rand(-chh * 0.3, chh * 0.3),
         scale,
         rot: rand(-15, 15),
-        color: nextColor(),
+        color: pick(aged ? WHITES.weathered : WHITES.fresh),
         style,
         weight: style === 'bubble' ? rand(34, 42) : rand(24, 32),
-        opacity: rand(0.6, 0.92),
+        opacity: aged ? rand(0.45, 0.72) : rand(0.78, 0.95),
         wordmark: scale > 1.5 && chance(0.5),
-        drips: chance(0.45),
-        halo: chance(0.35),
+        drips: chance(0.5),
+        halo: chance(0.55),
         roughId: pick(ROUGH),
         skew: style === 'block' ? rand(-9, 0) : 0,
       })
@@ -277,12 +266,12 @@ for (let r = 0; r < ROWS; r++) {
   }
 }
 
-// Fresh pieces: the loudest coat, sitting on top of everything.
+// Fresh pieces: the newest coat, the brightest white on the wall.
 const heroSpots = [
-  { x: W * 0.5, y: H * 0.14 },
-  { x: W * 0.31, y: H * 0.42 },
-  { x: W * 0.7, y: H * 0.63 },
-  { x: W * 0.44, y: H * 0.86 },
+  { x: W * 0.5, y: H * 0.15 },
+  { x: W * 0.32, y: H * 0.43 },
+  { x: W * 0.7, y: H * 0.64 },
+  { x: W * 0.45, y: H * 0.87 },
 ];
 heroSpots.forEach((spot, i) => {
   const style = i % 2 === 0 ? 'block' : 'bubble';
@@ -292,10 +281,10 @@ heroSpots.forEach((spot, i) => {
       y: spot.y + rand(-80, 80),
       scale: rand(2.4, 3.1),
       rot: rand(-10, 10),
-      color: nextColor(),
+      color: pick(WHITES.fresh),
       style,
       weight: style === 'bubble' ? rand(38, 46) : rand(28, 34),
-      opacity: rand(0.94, 1),
+      opacity: rand(0.93, 1),
       wordmark: true,
       drips: true,
       halo: true,
@@ -306,19 +295,20 @@ heroSpots.forEach((spot, i) => {
 });
 
 // Marker tags squeezed into the gaps.
-for (let i = 0; i < 32; i++) {
+for (let i = 0; i < 34; i++) {
+  const aged = chance(0.5);
   layers.tag.push(
     piece({
       x: rand(40, W - 40),
       y: rand(60, H - 60),
       scale: rand(0.5, 1.05),
       rot: rand(-28, 28),
-      color: pick([...MIAMI, '#f2f2f2', '#e8e8e8', '#c9ccd2']),
+      color: pick(aged ? WHITES.faded : WHITES.weathered),
       style: 'tag',
-      weight: rand(9, 16),
-      opacity: rand(0.4, 0.8),
+      weight: rand(8, 15),
+      opacity: rand(0.4, 0.85),
       wordmark: chance(0.25),
-      drips: chance(0.35),
+      drips: chance(0.3),
       halo: false,
       roughId: pick(ROUGH),
       skew: rand(-14, 6),
@@ -329,27 +319,33 @@ for (let i = 0; i < 32; i++) {
 // ------------------------------------------------------------- cracks
 
 const cracks = [];
-for (let i = 0; i < 9; i++) {
-  const x = rand(0, W);
-  const y = rand(0, H);
-  const a = rand(0, Math.PI * 2);
-  const pts = [[x, y]];
-  let cx = x;
-  let cy = y;
-  let ang = a;
-  const steps = Math.floor(rand(6, 22));
+for (let i = 0; i < 10; i++) {
+  const pts = [[rand(0, W), rand(0, H)]];
+  let ang = rand(0, Math.PI * 2);
+  const steps = Math.floor(rand(6, 24));
   for (let s = 0; s < steps; s++) {
     ang += rand(-0.6, 0.6);
-    cx += Math.cos(ang) * rand(20, 46);
-    cy += Math.sin(ang) * rand(20, 46);
-    pts.push([cx, cy]);
+    pts.push([
+      pts[pts.length - 1][0] + Math.cos(ang) * rand(20, 48),
+      pts[pts.length - 1][1] + Math.sin(ang) * rand(20, 48),
+    ]);
   }
-  const d = 'M' + pts.map((p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' L');
+  const d = 'M' + pts.map((p) => `${f(p[0])} ${f(p[1])}`).join(' L');
   cracks.push(
-    `<path d="${d}" stroke="#1b1d22" stroke-width="${rand(2, 6).toFixed(
-      1
-    )}" fill="none" opacity="${rand(0.35, 0.7).toFixed(2)}"/>` +
-      `<path d="${d}" stroke="#4a4f58" stroke-width="1.2" fill="none" opacity="0.22" transform="translate(1.5 1.5)"/>`
+    `<path d="${d}" stroke="#000000" stroke-width="${f(rand(2, 6))}" fill="none" opacity="${f(
+      rand(0.4, 0.8)
+    )}" filter="url(#rough2)"/>`
+  );
+}
+
+// Anchor holes and chips: the small hard details a real wall always carries.
+const pocks = [];
+for (let i = 0; i < 26; i++) {
+  const pr = rand(3, 13);
+  pocks.push(
+    `<ellipse cx="${f(rand(0, W))}" cy="${f(rand(0, H))}" rx="${f(pr)}" ry="${f(
+      pr * rand(0.7, 1)
+    )}" fill="#000" opacity="${f(rand(0.35, 0.7))}" filter="url(#rough1)"/>`
   );
 }
 
@@ -357,79 +353,107 @@ for (let i = 0; i < 9; i++) {
 
 const defs = `
 <defs>
-  <linearGradient id="wallGrad" x1="0" y1="0" x2="0.6" y2="1">
-    <stop offset="0%" stop-color="#101114"/>
-    <stop offset="38%" stop-color="#08080a"/>
-    <stop offset="72%" stop-color="#0a0a0d"/>
-    <stop offset="100%" stop-color="#050506"/>
+  <linearGradient id="wallGrad" x1="0" y1="0" x2="0.5" y2="1">
+    <stop offset="0%" stop-color="#232529"/>
+    <stop offset="45%" stop-color="#1d1f24"/>
+    <stop offset="100%" stop-color="#191b20"/>
   </linearGradient>
 
-  <radialGradient id="keyLight" cx="0.3" cy="0.16" r="0.9">
-    <stop offset="0%" stop-color="#7c828e" stop-opacity="0.13"/>
-    <stop offset="55%" stop-color="#2b2e35" stop-opacity="0.07"/>
-    <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+  <!-- Photographic light falloff: the lamp is up and to the left. -->
+  <linearGradient id="lightFall" x1="0.12" y1="0" x2="0.9" y2="1">
+    <stop offset="0%" stop-color="#e0e1e5"/>
+    <stop offset="42%" stop-color="#97989e"/>
+    <stop offset="100%" stop-color="#5b5c62"/>
+  </linearGradient>
+
+  <radialGradient id="vignette" cx="0.5" cy="0.44" r="0.8">
+    <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
   </radialGradient>
 
-  <radialGradient id="vignette" cx="0.5" cy="0.46" r="0.82">
-    <stop offset="62%" stop-color="#000000" stop-opacity="0"/>
-    <stop offset="100%" stop-color="#000000" stop-opacity="0.62"/>
-  </radialGradient>
-
-  <!-- Large-scale mottling: damp patches, old render, uneven pour. -->
-  <filter id="blotch" x="0" y="0" width="100%" height="100%">
+  <!-- Albedo variation only: damp patches and old washes, no relief. -->
+  <filter id="stain" x="0" y="0" width="100%" height="100%">
     <feTurbulence type="fractalNoise" baseFrequency="0.0035 0.0048" numOctaves="6" seed="41"/>
     <feColorMatrix type="saturate" values="0"/>
     <feComponentTransfer>
-      <feFuncR type="gamma" amplitude="1.5" exponent="1.7" offset="-0.25"/>
-      <feFuncG type="gamma" amplitude="1.5" exponent="1.7" offset="-0.25"/>
-      <feFuncB type="gamma" amplitude="1.5" exponent="1.7" offset="-0.25"/>
+      <feFuncR type="gamma" amplitude="1.4" exponent="1.6" offset="-0.2"/>
+      <feFuncG type="gamma" amplitude="1.4" exponent="1.6" offset="-0.2"/>
+      <feFuncB type="gamma" amplitude="1.4" exponent="1.6" offset="-0.2"/>
       <feFuncA type="table" tableValues="1 1"/>
     </feComponentTransfer>
   </filter>
 
-  <!-- Relief passes. Each is a lit bump map crushed down to near-black with
-       bright peaks, so screening it over the wall lights only the high points
-       of the aggregate — the readable half of concrete texture on black. -->
-  ${[
-    { id: 'reliefFine', bf: 0.05, oct: 5, seed: 9, ss: 2.4, az: 225, el: 48, exp: 6.2, amp: 1.0 },
-    { id: 'reliefMid', bf: 0.014, oct: 5, seed: 77, ss: 4.0, az: 215, el: 42, exp: 6.4, amp: 1.0 },
-  ]
-    .map(
-      (r) => `<filter id="${r.id}" x="0" y="0" width="100%" height="100%">
-    <feTurbulence type="fractalNoise" baseFrequency="${r.bf}" numOctaves="${r.oct}" seed="${r.seed}" result="n"/>
-    <feDiffuseLighting in="n" surfaceScale="${r.ss}" diffuseConstant="1" lighting-color="#ffffff" result="l">
-      <feDistantLight azimuth="${r.az}" elevation="${r.el}"/>
+  <!--
+    THE MATERIAL PASS.
+    One height field, built from three octave bands, lights everything the
+    filter is given — wall and paint together. Diffuse shading gives the
+    concrete its form, a tight specular lobe puts glints back on the exposed
+    aggregate, and the height field is reused to darken the pores, so paint
+    reads as sitting *in* the surface rather than on top of it.
+  -->
+  <filter id="material" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.62" numOctaves="4" seed="11" result="hFine"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="5" seed="29" result="hMid"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.0075" numOctaves="4" seed="7" result="hCoarse"/>
+    <feComposite in="hFine" in2="hMid" operator="arithmetic" k1="0" k2="0.58" k3="0.42" k4="0" result="hA"/>
+    <feComposite in="hA" in2="hCoarse" operator="arithmetic" k1="0" k2="0.78" k3="0.22" k4="0" result="h"/>
+
+    <feDiffuseLighting in="h" surfaceScale="3.6" diffuseConstant="1.05" lighting-color="#ffffff" result="diff">
+      <feDistantLight azimuth="228" elevation="34"/>
     </feDiffuseLighting>
-    <feColorMatrix in="l" type="saturate" values="0"/>
+    <feColorMatrix in="diff" type="saturate" values="0" result="diffG"/>
+
+    <!-- albedo x diffuse -->
+    <feComposite in="SourceGraphic" in2="diffG" operator="arithmetic" k1="3.0" k2="0" k3="0" k4="0" result="shaded"/>
+
+    <!-- aggregate glints, added back on top -->
+    <feSpecularLighting in="h" surfaceScale="2.2" specularConstant="0.85" specularExponent="12" lighting-color="#b9bcc4" result="spec">
+      <feDistantLight azimuth="228" elevation="34"/>
+    </feSpecularLighting>
+    <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn"/>
+    <feComposite in="specIn" in2="shaded" operator="arithmetic" k1="0" k2="0.6" k3="1" k4="0" result="lit"/>
+
+    <!-- pores: the deep half of the height field bites back through everything -->
+    <feColorMatrix in="h" type="matrix"
+      values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.7 0 0 0 0.42" result="pores"/>
+    <feComposite in="pores" in2="lit" operator="over"/>
+  </filter>
+
+  <!-- Bloom: bright paint blooming into the lens, as any real camera does. -->
+  <filter id="bloom" x="-10%" y="-10%" width="120%" height="120%">
     <feComponentTransfer>
-      <feFuncR type="gamma" amplitude="${r.amp}" exponent="${r.exp}" offset="0"/>
-      <feFuncG type="gamma" amplitude="${r.amp}" exponent="${r.exp}" offset="0"/>
-      <feFuncB type="gamma" amplitude="${r.amp}" exponent="${r.exp}" offset="0"/>
-      <feFuncA type="table" tableValues="1 1"/>
+      <feFuncR type="gamma" amplitude="1" exponent="3.4" offset="0"/>
+      <feFuncG type="gamma" amplitude="1" exponent="3.4" offset="0"/>
+      <feFuncB type="gamma" amplitude="1" exponent="3.4" offset="0"/>
     </feComponentTransfer>
-  </filter>`
-    )
-    .join('\n  ')}
+    <feGaussianBlur stdDeviation="22"/>
+  </filter>
 
-  <!-- Pores and grit: pure black carried on a noisy alpha, so it bites into
-       the wall AND into the paint without depending on a blend mode. -->
-  ${[
-    { id: 'poresCoarse', bf: '0.05', oct: 4, seed: 31, k: 1.15, off: -0.42 },
-    { id: 'poresFine', bf: '0.42', oct: 3, seed: 53, k: 1.0, off: -0.4 },
-    { id: 'grit', bf: '0.9', oct: 2, seed: 23, k: 0.9, off: -0.36 },
-  ]
-    .map(
-      (p) => `<filter id="${p.id}" x="0" y="0" width="100%" height="100%">
-    <feTurbulence type="fractalNoise" baseFrequency="${p.bf}" numOctaves="${p.oct}" seed="${p.seed}" result="n"/>
-    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  ${p.k} 0 0 0 ${p.off}"/>
-  </filter>`
-    )
-    .join('\n  ')}
+  <!--
+    Grade. Multiplying albedo by diffuse compresses everything toward the
+    middle: the wall never gets black and the paint never gets white. Rather
+    than fight that with gain (which clips the grain out of the paint), the
+    render is graded at the end — one straight line through the two tones that
+    matter, mapping wall 0.17 -> 0.12 and paint 0.635 -> 0.88.
+  -->
+  <filter id="grade" x="0" y="0" width="100%" height="100%">
+    <feComponentTransfer>
+      <feFuncR type="linear" slope="1.64" intercept="-0.161"/>
+      <feFuncG type="linear" slope="1.64" intercept="-0.161"/>
+      <feFuncB type="linear" slope="1.64" intercept="-0.161"/>
+    </feComponentTransfer>
+  </filter>
 
-  <!-- Chipped specks: hard-edged flecks of exposed aggregate. -->
-  <filter id="pits" x="0" y="0" width="100%" height="100%">
-    <feTurbulence type="turbulence" baseFrequency="0.22" numOctaves="2" seed="61" result="n"/>
-    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.62  0 0 0 0 0.60  0 0 0 0 0.58  1.6 0 0 0 -1.18"/>
+  <!-- Sensor noise: luminance grain over the whole frame. -->
+  <filter id="sensorNoise" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="93" result="n"/>
+    <feColorMatrix in="n" type="matrix"
+      values="0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.52  1.1 0 0 0 -0.55"/>
+  </filter>
+
+  <!-- Wash-down streaks: heavy vertical blur, light horizontal. -->
+  <filter id="streakBlur" x="-60%" y="-20%" width="220%" height="140%">
+    <feGaussianBlur stdDeviation="26 55"/>
   </filter>
 
   <!-- Paint edges: aerosol never lays down clean. -->
@@ -442,49 +466,45 @@ const defs = `
       (r) => `<filter id="${r.id}" x="-25%" y="-25%" width="150%" height="150%">
     <feTurbulence type="fractalNoise" baseFrequency="${r.bf}" numOctaves="3" seed="${r.seed}" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="${r.sc}" xChannelSelector="R" yChannelSelector="G" result="d"/>
-    <feGaussianBlur in="d" stdDeviation="0.55"/>
+    <feGaussianBlur in="d" stdDeviation="0.5"/>
   </filter>`
     )
     .join('\n  ')}
 
-  <!-- Wash-down streaks: heavy vertical blur, light horizontal. -->
-  <filter id="streakBlur" x="-60%" y="-20%" width="220%" height="140%">
-    <feGaussianBlur stdDeviation="26 55"/>
-  </filter>
-
-  <!-- Overspray halo around a piece. -->
-  <filter id="overspray" x="-45%" y="-45%" width="190%" height="190%">
-    <feGaussianBlur in="SourceGraphic" stdDeviation="13" result="b"/>
-    <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="2" seed="5" result="n"/>
-    <feDisplacementMap in="b" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+  <!-- Overspray halo: blurred paint punched through by high-frequency noise,
+       which is what turns a soft glow into visible aerosol dust. -->
+  <filter id="overspray" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="b"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" seed="5" result="n"/>
+    <feComposite in="b" in2="n" operator="arithmetic" k1="1.7" k2="0" k3="0" k4="0"/>
   </filter>
 </defs>`;
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
 ${defs}
-  <!-- The wall itself: stains, then relief, then the holes in it. -->
-  <rect width="${W}" height="${H}" fill="url(#wallGrad)"/>
-  <rect width="${W}" height="${H}" filter="url(#blotch)" opacity="0.62" style="mix-blend-mode:soft-light"/>
-  <rect width="${W}" height="${H}" filter="url(#reliefMid)" opacity="0.26" style="mix-blend-mode:screen"/>
-  <rect width="${W}" height="${H}" filter="url(#reliefFine)" opacity="0.42" style="mix-blend-mode:screen"/>
-  <rect width="${W}" height="${H}" filter="url(#pits)" opacity="0.16" style="mix-blend-mode:screen"/>
-  <rect width="${W}" height="${H}" filter="url(#poresCoarse)" opacity="0.8"/>
-  <rect width="${W}" height="${H}" fill="url(#keyLight)" style="mix-blend-mode:screen"/>
-  <g>${cracks.join('')}</g>
+  <!-- Everything the lens sees, graded as one image. -->
+  <g filter="url(#grade)">
+    <!-- ALBEDO + MATERIAL: wall colour and paint shaded as one surface. -->
+    <g id="surface" filter="url(#material)">
+      <rect width="${W}" height="${H}" fill="url(#wallGrad)"/>
+      <rect width="${W}" height="${H}" filter="url(#stain)" opacity="0.5" style="mix-blend-mode:soft-light"/>
+      <g id="streaks">${layers.streak.join('')}</g>
+      <g id="pocks">${pocks.join('')}</g>
+      <g id="cracks">${cracks.join('')}</g>
+      <g id="ghosts">${layers.ghost.join('')}</g>
+      <g id="mid">${layers.mid.join('')}</g>
+      <g id="hero">${layers.hero.join('')}</g>
+      <g id="tags">${layers.tag.join('')}</g>
+    </g>
 
-  <g id="streaks">${layers.streak.join('')}</g>
-  <g id="ghosts">${layers.ghost.join('')}</g>
-  <g id="mid">${layers.mid.join('')}</g>
-  <g id="hero">${layers.hero.join('')}</g>
-  <g id="tags">${layers.tag.join('')}</g>
+    <use href="#surface" filter="url(#bloom)" opacity="0.3" style="mix-blend-mode:screen"/>
+    <rect width="${W}" height="${H}" fill="url(#lightFall)" style="mix-blend-mode:multiply"/>
+    <rect width="${W}" height="${H}" fill="url(#vignette)"/>
+  </g>
 
-  <!-- Wall re-asserted over the paint: aerosol sits in the pores, so the
-       texture has to cut back through every colour on the wall. -->
-  <rect width="${W}" height="${H}" filter="url(#poresCoarse)" opacity="0.34"/>
-  <rect width="${W}" height="${H}" filter="url(#poresFine)" opacity="0.42"/>
-  <rect width="${W}" height="${H}" filter="url(#grit)" opacity="0.3"/>
-  <rect width="${W}" height="${H}" filter="url(#reliefFine)" opacity="0.14" style="mix-blend-mode:screen"/>
-  <rect width="${W}" height="${H}" fill="url(#vignette)"/>
+  <!-- Sensor grain and black lift land after the grade, as they do in a camera. -->
+  <rect width="${W}" height="${H}" filter="url(#sensorNoise)" opacity="0.15" style="mix-blend-mode:overlay"/>
+  <rect width="${W}" height="${H}" fill="#12161f" opacity="0.06" style="mix-blend-mode:screen"/>
 </svg>`;
 
 const html = `<!doctype html>
@@ -498,8 +518,8 @@ const html = `<!doctype html>
 </style></head>
 <body>${svg}</body></html>`;
 
-const outDir = __dirname;
-fs.writeFileSync(path.join(outDir, 'wall.html'), html);
+fs.writeFileSync(path.join(__dirname, 'wall.html'), html);
 console.log(
-  `wrote wall.html — ghosts:${layers.ghost.length} mid:${layers.mid.length} hero:${layers.hero.length} tags:${layers.tag.length}`
+  `wrote wall.html — ghosts:${layers.ghost.length} mid:${layers.mid.length} ` +
+    `hero:${layers.hero.length} tags:${layers.tag.length}`
 );
