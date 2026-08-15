@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subtítulos · servidor local</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --fondo: #ffffff;
+    --texto: #16181d;
+    --tenue: #6b7280;
+    --borde: #e3e6ea;
+    --panel: #f7f8fa;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #14161a;
+      --texto: #e8eaed;
+      --tenue: #9aa3ad;
+      --borde: #2b2f36;
+      --panel: #1b1e23;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 2rem 1.25rem 4rem;
+    background: var(--fondo);
+    color: var(--texto);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 60rem; margin: 0 auto; }
+  h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
+  p.sub { color: var(--tenue); margin: 0 0 1.5rem; }
+  .barra { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.25rem; }
+  select, input {
+    font: inherit; padding: .4rem .55rem; border-radius: 6px;
+    border: 1px solid var(--borde); background: var(--fondo); color: var(--texto);
+  }
+  input { flex: 1 1 14rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .6rem; border-bottom: 1px solid var(--borde); }
+  th { font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--tenue); }
+  td.n { color: var(--tenue); font-variant-numeric: tabular-nums; width: 3rem; }
+  td.t { color: var(--tenue); font-variant-numeric: tabular-nums; white-space: nowrap; width: 11rem; font-size: .85rem; }
+  tbody tr:hover { background: var(--panel); }
+  .aviso { padding: 1rem; border: 1px solid var(--borde); border-radius: 8px; background: var(--panel); color: var(--tenue); }
+  .envoltura { overflow-x: auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Subtítulos del proyecto</h1>
+  <p class="sub">Servido desde tu PC por <code>server.py</code>. Los archivos viven en <code>subs/</code>.</p>
+
+  <div class="barra">
+    <label>Izquierda <select id="izq"></select></label>
+    <label>Derecha <select id="der"></select></label>
+    <input id="buscar" type="search" placeholder="Buscar texto…">
+  </div>
+
+  <div id="salida" class="aviso">Cargando…</div>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+function parseSRT(texto) {
+  return texto
+    .replace(/\r/g, "")
+    .trim()
+    .split(/\n{2,}/)
+    .map((bloque) => {
+      const lineas = bloque.split("\n");
+      const numero = lineas[0].trim();
+      const tiempo = (lineas[1] || "").trim();
+      const cuerpo = lineas.slice(2).join(" ").replace(/<[^>]+>/g, "").trim();
+      return { numero, tiempo, cuerpo };
+    })
+    .filter((c) => c.cuerpo || c.tiempo);
+}
+
+async function cargar(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`${url}: ${r.status}`);
+  return parseSRT(await r.text());
+}
+
+let datos = { izq: [], der: [] };
+
+function pintar() {
+  const filtro = $("buscar").value.trim().toLowerCase();
+  const total = Math.max(datos.izq.length, datos.der.length);
+  const filas = [];
+  for (let i = 0; i < total; i++) {
+    const a = datos.izq[i] || {};
+    const b = datos.der[i] || {};
+    const texto = `${a.cuerpo || ""} ${b.cuerpo || ""}`.toLowerCase();
+    if (filtro && !texto.includes(filtro)) continue;
+    filas.push(`<tr>
+      <td class="n">${i + 1}</td>
+      <td class="t">${a.tiempo || b.tiempo || ""}</td>
+      <td>${escapar(a.cuerpo || "")}</td>
+      <td>${escapar(b.cuerpo || "")}</td>
+    </tr>`);
+  }
+  $("salida").className = "envoltura";
+  $("salida").innerHTML = filas.length
+    ? `<table><thead><tr><th>#</th><th>Tiempo</th><th>${$("izq").value}</th><th>${$("der").value}</th></tr></thead><tbody>${filas.join("")}</tbody></table>`
+    : `<div class="aviso">Sin resultados.</div>`;
+}
+
+function escapar(s) {
+  return s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+}
+
+async function refrescar() {
+  try {
+    datos.izq = await cargar("/subs/" + $("izq").value);
+    datos.der = await cargar("/subs/" + $("der").value);
+    pintar();
+  } catch (e) {
+    $("salida").className = "aviso";
+    $("salida").textContent = "Error al leer los subtítulos: " + e.message;
+  }
+}
+
+(async function init() {
+  let archivos = [];
+  try {
+    archivos = await (await fetch("/api/subs")).json();
+  } catch (e) {
+    $("salida").className = "aviso";
+    $("salida").textContent = "No se pudo consultar /api/subs. ¿Está corriendo server.py?";
+    return;
+  }
+  if (!archivos.length) {
+    $("salida").className = "aviso";
+    $("salida").textContent = "No hay subtítulos en la carpeta subs/.";
+    return;
+  }
+  const opciones = archivos.map((a) => `<option>${a.nombre}</option>`).join("");
+  $("izq").innerHTML = opciones;
+  $("der").innerHTML = opciones;
+  const es = archivos.findIndex((a) => /_es\./i.test(a.nombre));
+  const en = archivos.findIndex((a) => /_en\./i.test(a.nombre));
+  $("izq").selectedIndex = es >= 0 ? es : 0;
+  $("der").selectedIndex = en >= 0 ? en : Math.min(1, archivos.length - 1);
+  $("izq").onchange = $("der").onchange = refrescar;
+  $("buscar").oninput = pintar;
+  refrescar();
+})();
+</script>
+</body>
+</html>
