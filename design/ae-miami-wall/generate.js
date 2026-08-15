@@ -80,11 +80,12 @@ function strokePaths(jitter) {
 // Where paint can run off the bottom of the letterforms.
 const DRIP_ORIGINS = [28, 62, 112, 150, 178, 206];
 
-// Aerosol white is never paper white, and it ages toward the wall.
+// Aerosol white is never paper white, and it chalks as it ages. These are the
+// flat, dead whites of old spray paint — nothing here glows.
 const WHITES = {
-  fresh: ['#f6f4f0', '#efece6', '#f2f0ea'],
-  weathered: ['#cdc9c0', '#c2beb5', '#d5d1c8'],
-  faded: ['#8f8c85', '#84817a', '#99958d'],
+  fresh: ['#ddd9d1', '#d5d1c8', '#e2ded5'],
+  weathered: ['#aeaaa1', '#a39f97', '#b6b2a9'],
+  faded: ['#7c7971', '#726f68', '#858179'],
 };
 
 // ------------------------------------------------------------- pieces
@@ -100,7 +101,7 @@ const WHITES = {
 function piece(o) {
   const {
     x, y, scale, rot, color, style,
-    weight, opacity, wordmark, drips, halo, roughId, skew = 0,
+    weight, opacity, wordmark, drips, halo, wear, skew = 0,
   } = o;
 
   const jitter = style === 'tag' ? 2.6 : 1.7;
@@ -188,14 +189,16 @@ function piece(o) {
   const inner = `<g transform="translate(-110 -75)">${out.join('')}</g>`;
   const tf = `translate(${f(x)} ${f(y)}) rotate(${f(rot)}) scale(${f(scale)}) skewX(${f(skew)})`;
 
-  return `<g transform="${tf}" opacity="${f(opacity)}" filter="url(#${roughId})">${inner}</g>`;
+  return `<g transform="${tf}" opacity="${f(opacity)}" filter="url(#${wear})">${inner}</g>`;
 }
 
-const ROUGH = ['rough1', 'rough2', 'rough3'];
+// wear0 barely touched, wear2 half gone. Pick a level, then one of its
+// three seeds so two pieces at the same age still erode differently.
+const wearFilter = (level) => `wear${level}_${Math.floor(rng() * 3)}`;
 
 // ------------------------------------------------------- composition
 
-const layers = { streak: [], ghost: [], mid: [], hero: [], tag: [] };
+const layers = { streak: [], ghost: [], mid: [], hero: [], tag: [], grime: [] };
 
 // Rain streaks: dirt washed down from ledges and cracks. Tapered, soft-edged
 // vertical smears — what actually stains an outdoor wall.
@@ -215,6 +218,24 @@ for (let i = 0; i < 16; i++) {
   );
 }
 
+// Grime laid over the paint. Dirt does not respect what was sprayed before
+// it, and nothing ages a wall faster than filth running across the letters.
+for (let i = 0; i < 20; i++) {
+  const sx = rand(-60, W + 60);
+  const sy = rand(-300, H * 0.85);
+  const sh = rand(300, 1700);
+  const sw = rand(30, 220);
+  layers.grime.push(
+    `<path d="M${f(sx - sw / 2)} ${f(sy)} L${f(sx + sw / 2)} ${f(sy)} L${f(sx + sw * 0.18)} ${f(
+      sy + sh
+    )} L${f(sx - sw * 0.18)} ${f(sy + sh)} Z" fill="${pick([
+      '#000000',
+      '#0a0b0f',
+      '#1a1c22',
+    ])}" opacity="${f(rand(0.12, 0.34))}" filter="url(#streakBlur)"/>`
+  );
+}
+
 // Old coats: large, weathered almost back into the concrete.
 for (let i = 0; i < 8; i++) {
   layers.ghost.push(
@@ -226,11 +247,11 @@ for (let i = 0; i < 8; i++) {
       color: pick(WHITES.faded),
       style: 'ghost',
       weight: rand(18, 30),
-      opacity: rand(0.08, 0.16),
+      opacity: rand(0.3, 0.5),
       wordmark: false,
       drips: false,
       halo: chance(0.25),
-      roughId: pick(ROUGH),
+      wear: wearFilter(2),
     })
   );
 }
@@ -255,11 +276,11 @@ for (let r = 0; r < ROWS; r++) {
         color: pick(aged ? WHITES.weathered : WHITES.fresh),
         style,
         weight: style === 'bubble' ? rand(34, 42) : rand(24, 32),
-        opacity: aged ? rand(0.45, 0.72) : rand(0.78, 0.95),
+        opacity: aged ? rand(0.82, 0.94) : rand(0.94, 1),
         wordmark: scale > 1.5 && chance(0.5),
         drips: chance(0.5),
         halo: chance(0.55),
-        roughId: pick(ROUGH),
+        wear: wearFilter(aged ? 2 : chance(0.5) ? 1 : 0),
         skew: style === 'block' ? rand(-9, 0) : 0,
       })
     );
@@ -284,11 +305,11 @@ heroSpots.forEach((spot, i) => {
       color: pick(WHITES.fresh),
       style,
       weight: style === 'bubble' ? rand(38, 46) : rand(28, 34),
-      opacity: rand(0.93, 1),
+      opacity: 1,
       wordmark: true,
       drips: true,
       halo: true,
-      roughId: pick(ROUGH),
+      wear: wearFilter(chance(0.5) ? 1 : 0),
       skew: style === 'block' ? rand(-10, -2) : 0,
     })
   );
@@ -306,11 +327,11 @@ for (let i = 0; i < 34; i++) {
       color: pick(aged ? WHITES.faded : WHITES.weathered),
       style: 'tag',
       weight: rand(8, 15),
-      opacity: rand(0.4, 0.85),
+      opacity: rand(0.78, 0.96),
       wordmark: chance(0.25),
       drips: chance(0.3),
       halo: false,
-      roughId: pick(ROUGH),
+      wear: wearFilter(aged ? 2 : 1),
       skew: rand(-14, 6),
     })
   );
@@ -319,7 +340,7 @@ for (let i = 0; i < 34; i++) {
 // ------------------------------------------------------------- cracks
 
 const cracks = [];
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 18; i++) {
   const pts = [[rand(0, W), rand(0, H)]];
   let ang = rand(0, Math.PI * 2);
   const steps = Math.floor(rand(6, 24));
@@ -334,18 +355,18 @@ for (let i = 0; i < 10; i++) {
   cracks.push(
     `<path d="${d}" stroke="#000000" stroke-width="${f(rand(2, 6))}" fill="none" opacity="${f(
       rand(0.4, 0.8)
-    )}" filter="url(#rough2)"/>`
+    )}" filter="url(#wear0_1)"/>`
   );
 }
 
 // Anchor holes and chips: the small hard details a real wall always carries.
 const pocks = [];
-for (let i = 0; i < 26; i++) {
-  const pr = rand(3, 13);
+for (let i = 0; i < 48; i++) {
+  const pr = rand(3, 16);
   pocks.push(
     `<ellipse cx="${f(rand(0, W))}" cy="${f(rand(0, H))}" rx="${f(pr)}" ry="${f(
       pr * rand(0.7, 1)
-    )}" fill="#000" opacity="${f(rand(0.35, 0.7))}" filter="url(#rough1)"/>`
+    )}" fill="#000" opacity="${f(rand(0.35, 0.7))}" filter="url(#wear0_2)"/>`
   );
 }
 
@@ -415,7 +436,7 @@ const defs = `
 
     <!-- pores: the deep half of the height field bites back through everything -->
     <feColorMatrix in="h" type="matrix"
-      values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.7 0 0 0 0.42" result="pores"/>
+      values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.9 0 0 0 0.52" result="pores"/>
     <feComposite in="pores" in2="lit" operator="over"/>
   </filter>
 
@@ -456,18 +477,38 @@ const defs = `
     <feGaussianBlur stdDeviation="26 55"/>
   </filter>
 
-  <!-- Paint edges: aerosol never lays down clean. -->
-  ${[
-    { id: 'rough1', bf: 0.028, sc: 7, seed: 3 },
-    { id: 'rough2', bf: 0.041, sc: 9, seed: 17 },
-    { id: 'rough3', bf: 0.019, sc: 6, seed: 88 },
-  ]
-    .map(
-      (r) => `<filter id="${r.id}" x="-25%" y="-25%" width="150%" height="150%">
-    <feTurbulence type="fractalNoise" baseFrequency="${r.bf}" numOctaves="3" seed="${r.seed}" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="${r.sc}" xChannelSelector="R" yChannelSelector="G" result="d"/>
-    <feGaussianBlur in="d" stdDeviation="0.5"/>
-  </filter>`
+  <!--
+    Paint wear. Aerosol never lays down clean, and old paint does not fade —
+    it comes OFF. So each piece gets displaced edges plus two erosion masks
+    that punch alpha away entirely: broad patches where the coat has flaked
+    off the wall, and a fine speckle for chalking. Steep alpha ramps (k=8)
+    keep the surviving paint fully opaque instead of washing the whole piece
+    to a translucent grey — transparency is the giveaway that this was never
+    real paint.
+
+    Three wear levels x three seeds, so repeated pieces never erode alike.
+  -->
+  ${[0, 1, 2]
+    .flatMap((level) =>
+      [0, 1, 2].map((v) => {
+        const t = [0.28, 0.385, 0.46][level]; // fraction of the coat lost
+        const chalk = [0.1, 0.17, 0.25][level];
+        const dsp = [6, 8, 10][level];
+        const seed = 3 + level * 31 + v * 7;
+        return `<filter id="wear${level}_${v}" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="${0.02 + v * 0.008}" numOctaves="3" seed="${seed}" result="dn"/>
+    <feDisplacementMap in="SourceGraphic" in2="dn" scale="${dsp}" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.021" numOctaves="4" seed="${seed + 101}" result="fn"/>
+    <feColorMatrix in="fn" type="matrix"
+      values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  6 0 0 0 ${(0.5 - 6 * t).toFixed(2)}" result="flake"/>
+    <feComposite in="d" in2="flake" operator="in" result="e1"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.11" numOctaves="2" seed="${seed + 211}" result="cn"/>
+    <feColorMatrix in="cn" type="matrix"
+      values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 0 0 0 ${(0.5 - 4 * chalk).toFixed(2)}" result="chalk"/>
+    <feComposite in="e1" in2="chalk" operator="in" result="e2"/>
+    <feGaussianBlur in="e2" stdDeviation="0.45"/>
+  </filter>`;
+      })
     )
     .join('\n  ')}
 
@@ -495,9 +536,10 @@ ${defs}
       <g id="mid">${layers.mid.join('')}</g>
       <g id="hero">${layers.hero.join('')}</g>
       <g id="tags">${layers.tag.join('')}</g>
+      <g id="grime">${layers.grime.join('')}</g>
     </g>
 
-    <use href="#surface" filter="url(#bloom)" opacity="0.3" style="mix-blend-mode:screen"/>
+    <use href="#surface" filter="url(#bloom)" opacity="0.1" style="mix-blend-mode:screen"/>
     <rect width="${W}" height="${H}" fill="url(#lightFall)" style="mix-blend-mode:multiply"/>
     <rect width="${W}" height="${H}" fill="url(#vignette)"/>
   </g>

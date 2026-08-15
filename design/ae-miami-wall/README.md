@@ -54,6 +54,26 @@ interior se desplaza perpendicularmente (una lata en la mano nunca traza
 recto), y cada trazo se pinta en dos pasadas con grosores ligeramente
 distintos, que es lo que da el borde irregular.
 
+## El desgaste va por erosión, no por transparencia
+
+La pintura vieja **no se vuelve translúcida — se cae**. Bajar la opacidad para
+simular antigüedad deja un gris lavado que delata al instante que aquello nunca
+fue pintura. Así que cada pieza pasa por un filtro `wear{nivel}_{semilla}` que
+mantiene el blanco totalmente opaco donde sobrevive y le arranca el alfa donde
+no:
+
+- **Placas** — ruido de baja frecuencia con rampa de alfa abrupta: zonas enteras
+  del trazo desaparecidas, como una capa que se descascarilla del muro.
+- **Chalking** — moteado más fino y disperso para el polvillo de la pintura
+  envejecida. Si se sube demasiado deja de leerse como desgaste y empieza a
+  parecer tramado de impresión.
+- Tres niveles (`wear0` apenas tocado, `wear2` medio comido) × tres semillas,
+  para que dos piezas de la misma edad no se erosionen igual.
+
+Encima de todo va una capa de **mugre** que corre por delante del grafiti: la
+suciedad no respeta lo que se pintó antes que ella, y nada envejece un muro más
+rápido que la roña cruzando las letras.
+
 Las piezas van en cuatro profundidades — fantasmas antiguos, campo medio,
 piezas frescas y tags de rotulador — con overspray, chorretones y bordes
 desplazados por ruido.
