@@ -51,7 +51,7 @@
 - [ ] ¿Quién la saca y cuándo? [EDITABLE]
 
 ## El momento
-1. Bajar luces, subir música o que arranquen los mariachis con Las Mañanitas
+1. Bajar luces. Los mariachis arrancan Las Mañanitas (coordinar con el líder del grupo)
 2. Sale la torta con las velas **ya encendidas** (encenderlas en la cocina, no delante de todos)
 3. Cámara: un plano fijo abierto + uno cerrado de su cara — **coordinar con quien grabe**
 4. Cantar, deseo, soplar
