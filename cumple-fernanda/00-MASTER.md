@@ -1,43 +1,46 @@
 # Cumple Fernanda — Panel central
 
-> Doc vivo. Todo lo que se decide, se anota aquí.
+**Fecha del evento:** [EDITABLE]
+**Hora:** [EDITABLE]
+**Lugar:** [EDITABLE]
+**Nº de invitados:** [EDITABLE]
 
-## Datos base
-- **Festejada:** Fernanda
-- **Fecha del cumple:** [EDITABLE]
-- **Fecha del evento:** [EDITABLE]
-- **Hora:** [EDITABLE]
-- **Lugar:** [EDITABLE]
-- **Tipo:** [EDITABLE] (cena / casa / rooftop / sorpresa / fin de semana)
-- **Nº de invitados:** [EDITABLE]
-- **Presupuesto total:** [EDITABLE]
-- **¿Es sorpresa?:** [EDITABLE] sí / no
-- **Vibe / estética:** [EDITABLE]
+## Las 5 áreas
 
-## Estado general
-| Bloque | Estado | Responsable |
+| # | Área | Estado | Responsable | Deadline | Costo |
+|---|---|---|---|---|---|
+| 1 | Video | ⬜ pendiente | Juan | [EDITABLE] | $ |
+| 2 | Juego de la jirafa | ⬜ pendiente | [EDITABLE] | [EDITABLE] | $ |
+| 3 | Comida | ⬜ pendiente | [EDITABLE] | [EDITABLE] | $ |
+| 4 | Mariachis | ⬜ pendiente | Juan | [EDITABLE] | $ |
+| 5 | Torta | ⬜ pendiente | [EDITABLE] | [EDITABLE] | $ |
+| | **TOTAL** | | | | **$0** |
+
+Estados: ⬜ pendiente · 🟡 en proceso · ✅ cerrado
+
+## Orden del día
+| Hora | Qué | Notas |
 |---|---|---|
-| Fecha y lugar | ⬜ pendiente | Juan |
-| Lista de invitados | ⬜ pendiente | Juan |
-| Presupuesto | ⬜ pendiente | Juan |
-| Comida y bebida | ⬜ pendiente | — |
-| Torta / postre | ⬜ pendiente | — |
-| Decoración | ⬜ pendiente | — |
-| Música / DJ / playlist | ⬜ pendiente | — |
-| Foto y video | ⬜ pendiente | Juan |
-| Regalo | ⬜ pendiente | Juan |
-| Invitaciones enviadas | ⬜ pendiente | Juan |
+| [EDITABLE] | Montaje (deco, proyector, sonido) | |
+| [EDITABLE] | Llegada invitados | |
+| [EDITABLE] | Llegada Fernanda | |
+| [EDITABLE] | Comida | |
+| [EDITABLE] | **Mariachis** | sorpresa |
+| [EDITABLE] | **Juego de la jirafa** | |
+| [EDITABLE] | **Video** (proyección) | |
+| [EDITABLE] | **Torta** + brindis | |
+| [EDITABLE] | Música / after | |
 
-## Decisiones cerradas
-- [ ] —
+> Regla de oro: mariachis → video → torta. Los tres son picos emocionales,
+> no se pisan entre sí. Dejar 10–15 min entre cada uno.
 
-## Pendientes urgentes
-- [ ] Confirmar fecha y lugar (bloquea todo lo demás)
-- [ ] Cerrar lista de invitados (define tamaño y presupuesto)
+## Lo que bloquea todo
+- [ ] Confirmar fecha, hora y lugar
+- [ ] Nº final de invitados (define comida, torta y precio mariachis)
 
 ## Archivos
-- `01-invitados.md` — lista, confirmaciones, contactos
-- `02-presupuesto.md` — costos estimados vs reales
-- `03-timeline.md` — cuenta regresiva + orden del día
-- `04-proveedores.md` — lugar, catering, torta, deco, música
-- `05-mensajes.md` — textos listos para enviar (WhatsApp / invitación)
+- `01-video.md`
+- `02-juego-jirafa.md`
+- `03-comida.md`
+- `04-mariachis.md`
+- `05-torta.md`
