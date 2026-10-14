@@ -29,10 +29,10 @@ Cada línea tiene una marca de confianza: **dicho** (Juan lo dijo, es obligatori
 - `[EDITABLE: casos con resultados concretos, si existen]`
 
 ## Datos para rellenar
-- Link de portafolio / Behance: `[EDITABLE]`
+- Link de portafolio (general, todos los nichos): https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv (dicho)
 - Instagram de Juan / La Nostra: `[EDITABLE]`
 - Paquetes y precios de entrada: `[EDITABLE]`
-- Firma de email: `Juan Morón · La Nostra Production · [EDITABLE: link]`
+- Firma de email: `Juan Morón · La Nostra Production · https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv`
 
 ## Preguntas abiertas
 - ¿Tutea siempre en español o usa "usted" con algún perfil (desarrolladoras, dealers grandes)?

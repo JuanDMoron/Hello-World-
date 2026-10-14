@@ -18,7 +18,7 @@ Por qué funciona: abre con algo que solo alguien que miró su feed sabe. La cr�
 > Want me to send over the concept?
 >
 > Juan Morón
-> La Nostra Production · [EDITABLE: link portafolio]
+> La Nostra Production · https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv
 
 ## Follow-ups (cuando no contestan)
 
@@ -40,7 +40,7 @@ No mandes una lista de precios suelta. Da un rango corto y llévalo a algo concr
 
 **"Mándame info" / "mándame tu portafolio"**
 Manda el link y una sola cosa relevante de su nicho, no todo:
-> va: [EDITABLE: link]. mira [pieza concreta del mismo nicho], es lo más parecido a lo que haría con ustedes. ¿te parece si te armo una propuesta para [lo que se habló]?
+> va: https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv. mira [pieza concreta del mismo nicho], es lo más parecido a lo que haría con ustedes. ¿te parece si te armo una propuesta para [lo que se habló]?
 
 **"Ya tenemos a alguien"**
 Respeto y puerta abierta, sin atacar al otro:
