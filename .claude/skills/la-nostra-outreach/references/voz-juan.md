@@ -30,7 +30,7 @@ Cada línea tiene una marca de confianza: **dicho** (Juan lo dijo, es obligatori
 
 ## Datos para rellenar
 - Link de portafolio (general, todos los nichos): https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv (dicho)
-- Instagram de Juan / La Nostra: `[EDITABLE]`
+- Instagram desde el que se hace outreach: @juanonCam (dicho). Es la cuenta que el prospecto va a revisar antes de contestar, así que los DMs salen a nombre de Juan, no de "La Nostra".
 - Paquetes y precios de entrada: `[EDITABLE]`
 - Firma de email: `Juan Morón · La Nostra Production · https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv`
 
