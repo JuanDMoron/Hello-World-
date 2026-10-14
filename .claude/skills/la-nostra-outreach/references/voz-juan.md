@@ -31,7 +31,10 @@ Cada línea tiene una marca de confianza: **dicho** (Juan lo dijo, es obligatori
 ## Datos para rellenar
 - Link de portafolio (general, todos los nichos): https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv (dicho)
 - Instagram desde el que se hace outreach: @juanonCam (dicho). Es la cuenta que el prospecto va a revisar antes de contestar, así que los DMs salen a nombre de Juan, no de "La Nostra".
-- Paquetes y precios de entrada: `[EDITABLE]`
+- Paquetes y precios de entrada:
+  - **Paquete mensual** `[EDITABLE: nombre del paquete]` (dicho): 12 videos editados (Reels, TikTok, Shorts), 3 por semana. 2 sesiones de grabación al mes, 4 horas en total. Guía de estructura para cada video y dirección técnica completa. **$1,500/mes**, contrato mínimo de 3 meses. **Se paga antes de comenzar el servicio.** Si pagan 3 meses por adelantado, se llevan una sesión de fotos o 2 videos extra del proceso de la marca.
+  - **Día de contenido**: `[EDITABLE: precio, horas, entregables]`
+  - **Capacidad: máximo 4 clientes** (dicho). Úsalo como escasez real y sin exagerar ("trabajo con 4 marcas a la vez"), nunca como presión falsa.
 - Firma de email: `Juan Morón · La Nostra Production · https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv`
 
 ## Preguntas abiertas

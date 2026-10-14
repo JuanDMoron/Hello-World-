@@ -36,7 +36,7 @@ En Instagram, entre toques, Juan puede reaccionar a una historia o comentar un p
 
 **"¿Cuánto cobras?"**
 No mandes una lista de precios suelta. Da un rango corto y llévalo a algo concreto:
-> depende de qué necesites, pero para que tengas idea: una sesión de [EDITABLE: horas] con [EDITABLE: entregables] arranca en [EDITABLE: precio]. lo que más hago con restaurantes es un paquete mensual. ¿qué tienes en mente, algo puntual o contenido todos los meses?
+> depende de qué necesites, pero para que tengas idea: un día de contenido [EDITABLE: precio y entregables], y el mensual (12 videos al mes, 2 sesiones de grabación) está en $1,500. ¿qué tienes en mente, algo puntual o contenido todos los meses?
 
 **"Mándame info" / "mándame tu portafolio"**
 Manda el link y una sola cosa relevante de su nicho, no todo:
