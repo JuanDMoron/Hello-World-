@@ -409,25 +409,89 @@
    "estado": "BACKUP — SOLO SI DA EL TIEMPO"
   }
  ],
- "checklist": [
-  "Horario para poner en pantalla y si atienden en español e inglés (E1). Dirección confirmada; sin número de teléfono.",
-  "En qué subastas compran, si el precio final incluye todo o hay fee de documentación, y si se nombra a Copart / IAA en cámara (E2)",
-  "Acceso a una pantalla con subasta en vivo para grabar (E2)",
-  "Carro para V1: golpe visible, buen precio; precio y título confirmados hoy",
-  "Backup V2: 3 carros distintos (sedán, SUV, pickup) con precio y título confirmados hoy",
-  "Si hoy llega un carro en grúa, grabar la llegada: sirve para V4 “¿Cuánto duró?”"
- ],
- "grabacion": {
-  "Orden sugerido": [
-   "1. T1 — oficina (rápido, sin diálogo)",
-   "2. E2 — pantalla de subasta + lote",
-   "3. E1 — entrada, calle y fachada"
-  ],
-  "Después": [
-   "4. V1 — un carro con golpe",
-   "5. V2 — backup, 3 carros alineados",
-   "Extra: llegada de un carro para V4"
-  ]
- },
- "etiqueta_semana": "Orden"
+ "checklist": [],
+ "grabacion": {},
+ "etiqueta_semana": "Orden",
+ "banco": {
+  "T1": {
+   "hooks": [
+    "Cuando el cliente llega diciendo: “te vi en Instagram”",
+    "POV: ya te reconocen en el lote",
+    "Nadie me preparó para esto 😎",
+    "Me dijeron que un cliente pregunta por “la de los videos”",
+    "Yo después de que un cliente me dice que vio mis reels"
+   ],
+   "ctas": [
+    "Caption: ¿Y tú, ya nos viste? Ven a saludar al lote.",
+    "Caption: Si nos viste en Instagram, dínoslo cuando vengas 😉",
+    "Caption: Ven por un carro, quédate por la foto. aeofmiami.com",
+    "Caption: Etiqueta a quien siempre ve nuestros videos.",
+    "Caption: Te esperamos en el lote. Daniela ya está lista."
+   ]
+  },
+  "E2": {
+   "hooks": [
+    "★ No debería estar diciendo esto... / ...pero comprar en subasta no es tan fácil como parece.",
+    "★ Esto te puede costar dinero... / ...si compras directo en subasta sin saber esto.",
+    "★ ¿Qué pasaría si... / ...ganas la subasta y el carro no es lo que pensabas?",
+    "Todo el mundo cree que en la subasta está el negocio... / ...hasta que lo intenta.",
+    "Comprar en Copart sin licencia... / ...¿se puede? Te explico."
+   ],
+   "ctas": [
+    "Antes de pujar, escríbenos. Capaz ya lo tenemos en el lote.",
+    "Deja la subasta para nosotros. Tú ven a escoger.",
+    "Guárdalo para cuando pienses comprar en subasta.",
+    "¿Tienes dudas de subastas? Pregúntanos en los comentarios.",
+    "El carro que buscas puede estar aquí. Revisa aeofmiami.com."
+   ]
+  },
+  "E1": {
+   "hooks": [
+    "★ Tengo una pregunta... / ...¿sabes dónde estamos?",
+    "★ La mayoría nos ve en Instagram... / ...pero no sabe todo lo que hacemos.",
+    "Te presento AE of Miami.",
+    "Esto es AE of Miami, en menos de 30 segundos.",
+    "Si buscas un carro salvage en Miami... / ...ya nos encontraste."
+   ],
+   "ctas": [
+    "Ven a la 5700 Northwest 27 Avenue. Aquí te esperamos.",
+    "Síguenos y mira lo que llega cada semana.",
+    "Escríbenos por DM y te ayudamos a encontrar tu carro.",
+    "Pasa por el lote. Los carros se ven mejor en persona.",
+    "¿Ya nos conocías? Cuéntanos en los comentarios."
+   ]
+  },
+  "V1": {
+   "hooks": [
+    "★ No debería estar diciendo esto... / ...pero este carro tiene un golpe. Mira.",
+    "★ Apuesto a que no sabías esto... / ...aquí te enseñamos el daño antes que el precio.",
+    "¿Ves este golpe? / Por eso está en este precio.",
+    "Así llegó. Así se vende. Así te lo enseño.",
+    "Antes de que me escribas “¿y el golpe?”... / ...aquí está."
+   ],
+   "ctas": [
+    "Ven a revisarlo con tu mecánico.",
+    "Pídenos más fotos o video por DM.",
+    "Si te interesa, escríbenos y te contamos todo de este carro.",
+    "¿Qué otro carro quieres que te enseñe así? Comenta.",
+    "Este y otros como este en aeofmiami.com."
+   ]
+  },
+  "V2": {
+   "hooks": [
+    "★ No vas a creer lo que acabo de encontrar... / ...tres opciones, tres precios.",
+    "Uno de estos tres es el tuyo.",
+    "Elige con la cabeza... / ...o con el corazón.",
+    "Sedán, SUV o pickup. ¿Cuál eres?",
+    "Si solo pudieras llevarte uno..."
+   ],
+   "ctas": [
+    "Comenta tu número. Te respondemos por DM.",
+    "Etiqueta a quien necesita uno de estos.",
+    "¿Otro presupuesto? Escríbenos y te armamos tres opciones.",
+    "Ven a verlos en persona. Están en el lote.",
+    "Guárdalo y decide con calma."
+   ]
+  }
+ }
 }

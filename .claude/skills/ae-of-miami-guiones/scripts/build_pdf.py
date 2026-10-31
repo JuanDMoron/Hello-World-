@@ -58,6 +58,23 @@ def build_html(doc):
     cats = doc.get("categorias", {})
     check = "".join(f"<li>{c(x)}</li>" for x in doc.get("checklist", []))
     shoot = "".join(f"<div><b>{html.escape(k)}</b>{'<br>'.join(html.escape(x) for x in v)}</div>" for k, v in doc.get("grabacion", {}).items())
+    final = ""
+    if check or shoot:
+        final = (f'<section class="final"><h2>Antes de grabar</h2><div class="lbl">Confirmar con AE</div><ul class="check">{check}</ul>'
+                 f'<div class="lbl" style="margin-top:6mm">Qué grabar cada día</div><div class="shoot">{shoot}</div></section>')
+    banco = ""
+    if doc.get("banco"):
+        bloques = ""
+        for g in G:
+            b = doc["banco"].get(g["code"])
+            if not b:
+                continue
+            hk = "".join(f"<li>{c(h)}</li>" for h in b.get("hooks", []))
+            ct = "".join(f"<li>{c(h)}</li>" for h in b.get("ctas", []))
+            bloques += (f'<div class="bank {g["cat"]}"><div class="bank-t"><span class="pill {g["cat"]}">{LABEL[g["cat"]]}</span> '
+                        f'<b>{g["code"]} — “{c(g["title"])}”</b></div><div class="opts"><div><div class="lbl">Más hooks</div><ol start="6">{hk}</ol></div>'
+                        f'<div><div class="lbl">Más CTA</div><ol start="6">{ct}</ol></div></div></div>')
+        banco = f'<section class="final"><h2>Más opciones de hooks y CTA</h2><p class="sub">Para escoger después de grabar o en edición. Siguen la numeración de las opciones de cada guion.</p>{bloques}</section>'
     css = open(os.path.join(HERE, "style.css")).read()
     return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><title>AE of Miami — {html.escape(doc.get('mes',''))}</title><style>{css}</style></head><body>
 <div class="cover"><div class="brand">La Nostra Production × AE of Miami · {html.escape(doc.get('mes',''))}</div>
@@ -71,8 +88,7 @@ def build_html(doc):
 <div class="rules"><b>Cómo leer los guiones:</b> el hook va partido en dos planos (Plano 1 abre, Plano 2 remata). Cada guion trae 5 opciones de hook y 5 de CTA para escoger el día de grabación.
 <div class="legend"><b>★</b> = hook del video de Pablo · <span class="conf">CONFIRMAR</span> = dato que debe validar AE antes de grabar · <span class="ph">texto gris</span> = completar según el carro grabado.</div></div></div>
 {''.join(guion(g, label_semana) for g in G)}
-<section class="final"><h2>Antes de grabar</h2><div class="lbl">Confirmar con AE</div><ul class="check">{check}</ul>
-<div class="lbl" style="margin-top:6mm">Qué grabar cada día</div><div class="shoot">{shoot}</div></section></body></html>"""
+{final}{banco}</body></html>"""
 
 
 def main():

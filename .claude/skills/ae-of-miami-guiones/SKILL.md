@@ -37,7 +37,8 @@ Para cambios sueltos (“reemplaza estos dos de educación por…”), edita el 
 En cada día de grabación Juan escoge qué guiones del mes se graban (normalmente 4 y 1 de backup) y pide un PDF aparte solo con esos. Arma un JSON con esos guiones copiados del mes, sin reescribirlos, como en `assets/rodaje-ejemplo.json`:
 - `"etiqueta_semana": "Orden"` y `w` = orden sugerido para grabar (agrupa por locación: oficina → subasta → exteriores → carros).
 - Al backup ponle `"estado": "BACKUP — SOLO SI DA EL TIEMPO"`.
-- Checklist solo con lo de esos guiones, más “si llega un carro en grúa, grabar la llegada” cuando haya un V tipo “¿cuánto duró?” pendiente.
+- **El PDF del rodaje va al cliente (Pablo):** sin la página “Antes de grabar” (deja `checklist` y `grabacion` vacíos). Lo interno (qué confirmar, qué grabar extra) se lo dices a Juan en el chat.
+- Al final agrega un banco con **5 hooks y 5 CTA más por guion** (`"banco"`: por código, numerados del 6 al 10), distintos a los del guion, con ★ donde encaje un hook de Pablo. Sirven para escoger después de grabar o en edición.
 Si Juan no dijo cuáles completan el día, escoge los más rápidos de grabar (un solo carro, sin vestuario) y dile que se cambian en un minuto.
 
 ## Cómo hablarle a Juan

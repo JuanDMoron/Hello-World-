@@ -54,3 +54,4 @@ ul.check li:before { content:''; position:absolute; left:0; top:2.6mm; width:3.6
 .ref { line-height:1.4; }
 
 a { color:var(--edu); font-weight:600; text-decoration:none; }
+.bank { break-inside:avoid; margin-bottom:5mm; } .bank-t { display:flex; align-items:center; gap:2.5mm; font-size:11pt; } .bank .opts { margin-top:2mm; }
