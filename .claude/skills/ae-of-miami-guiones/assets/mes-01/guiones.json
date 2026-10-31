@@ -1,0 +1,1006 @@
+{
+ "mes": "Mes 1",
+ "titulo": "Guiones para reels",
+ "subtitulo": "Plan de 4 semanas",
+ "lead": "Plan de 4 semanas · 12 reels · 3 por semana (1 Educación, 1 Entretenimiento, 1 Ventas). Los 12 guiones completos: 4 de Educación, 4 de Entretenimiento (trends) y 4 de Ventas.",
+ "categorias": {
+  "edu": "Quiénes somos, subastas, tipos de títulos y exportación.",
+  "ent": "Trends, humor y situaciones con clientes. Contenido que engancha.",
+  "ven": "Carros, precios y oportunidades reales. Motivar al cliente a comprar."
+ },
+ "guiones": [
+  {
+   "w": 1,
+   "cat": "edu",
+   "code": "E1",
+   "title": "¿Quiénes somos?",
+   "pilar": "Educación / Marca",
+   "dur": "~30s",
+   "nuevo": true,
+   "planos": [
+    {
+     "desc": "Daniela en la entrada del lote, letrero de AE detrás, a cámara",
+     "lineas": [
+      "“Si es la primera vez que nos ves...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...te cuento rápido quiénes somos.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Plano abierto del lote",
+     "lineas": [
+      "“Somos AE of Miami. Un dealer especializado en carros salvage y reparables.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Fila de carros con golpes, Daniela caminando entre ellos",
+     "lineas": [
+      "“Compramos carros en subasta todos los días y los vendemos a buen precio, aquí en Miami y para afuera.” [CONFIRMAR exportación]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: Daniela señala un golpe, luego un título en la mano",
+     "lineas": [
+      "“Siempre te decimos qué título tiene y te enseñamos el daño. Sin esconder nada.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Calle y fachada + texto en pantalla con la dirección y pin del mapa",
+     "lineas": [
+      "“Estamos en la 5700 Northwest 27 Avenue, aquí en Miami.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Ven a ver los carros en persona. Y si no estás en Miami, escríbenos igual.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Todo el inventario está en aeofmiami.com.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ Apuesto a que no sabías esto... / ...de AE of Miami.",
+    "Si es la primera vez que nos ves... / ...te cuento rápido quiénes somos.",
+    "¿Quiénes somos? / Te lo cuento en 30 segundos.",
+    "Nos ves todos los días en tu feed... / ...pero, ¿sabes qué hacemos?",
+    "AE of Miami en 30 segundos."
+   ],
+   "ctas": [
+    "Todo el inventario está en aeofmiami.com.",
+    "Guarda la dirección y ven a vernos.",
+    "Síguenos para ver lo que llega cada semana.",
+    "Escríbenos y te atendemos en español o en inglés. [CONFIRMAR]",
+    "Ven al lote. Aquí estamos."
+   ],
+   "notes": [
+    "el Guion 4 (“R U Guys Real??”) ya hace el tour por áreas para demostrar que son reales. Este es la presentación de marca (qué son, qué hacen, dónde están). Usar planos distintos: fachada, calle, letrero, mapa.",
+    "dirección confirmada con Pablo: 5700 NW 27th Ave, Miami, FL 33142. Es la única sede. No poner número de teléfono en pantalla ni en el caption: el contacto va por DM o aeofmiami.com. Buen video para fijar arriba en el perfil."
+   ],
+   "ref": "Sin trend de referencia — idea propia."
+  },
+  {
+   "w": 1,
+   "cat": "ven",
+   "code": "V1",
+   "title": "Te enseño el golpe primero",
+   "pilar": "Ventas",
+   "dur": "~25-30s",
+   "planos": [
+    {
+     "desc": "Daniela parada frente al golpe, señalándolo, a cámara",
+     "lineas": [
+      "“Normalmente te enseñan lo bonito del carro...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...yo te voy a enseñar el golpe primero.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Close-up del daño principal",
+     "lineas": [
+      "“Mira, aquí está. [describir SOLO lo que se ve].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Recorre el resto: interior, motor, llantas",
+     "lineas": [
+      "“Y el resto está así: [describir lo que se ve].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Plano abierto del carro + texto en pantalla: [Año / Marca / Modelo] · Título [CONFIRMAR] · $[PRECIO]",
+     "lineas": [
+      "“Es un [modelo] [año], título [CONFIRMAR], y está en $[PRECIO].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, tono firme",
+     "lineas": [
+      "“Prefiero que lo veas aquí y no que te sorprendas cuando llegues.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Ven a verlo en persona. Está en el lote.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ Se supone que no vieras esto... / ...pero yo te lo enseño.",
+    "Normalmente te enseñan lo bonito del carro... / ...yo te voy a enseñar el golpe primero.",
+    "Este carro tiene un golpe. / Te lo enseño de una.",
+    "Lo que el anuncio no te enseña... / ...yo sí.",
+    "Antes de que preguntes por el golpe, aquí está."
+   ],
+   "ctas": [
+    "Ven a verlo en persona. Está en el lote.",
+    "Escríbenos y te mandamos más video de este carro.",
+    "Este y más en aeofmiami.com.",
+    "¿Te interesa? Escríbenos antes de venir.",
+    "Míralo tú mismo. Te esperamos."
+   ],
+   "notes": [
+    "elegir un carro con golpe visible y buen precio: el contraste es el gancho.",
+    "solo describir lo que se ve. Nada de “solo necesita…” ni costos de reparación.",
+    "precio y título confirmados el mismo día de la grabación."
+   ],
+   "ref": "Sin trend de referencia — idea propia.",
+   "nuevo": false
+  },
+  {
+   "w": 2,
+   "cat": "edu",
+   "code": "E2",
+   "title": "¿Copart, IAA... o nosotros?",
+   "pilar": "Educación",
+   "dur": "~35s",
+   "nuevo": true,
+   "planos": [
+    {
+     "desc": "Daniela frente a una pantalla con una subasta en vivo, a cámara",
+     "lineas": [
+      "“Seguro has escuchado de Copart y de IAA...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...y seguro has pensado comprar ahí directo.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Pantalla de la subasta + texto en pantalla “COPART · IAA”",
+     "lineas": [
+      "“Son las subastas de carros salvage más grandes de Estados Unidos. Y nosotros compramos ahí todos los días.” [CONFIRMAR en cuáles compran]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Daniela caminando, tono de amiga que te avisa + texto en pantalla “LICENCIA O BROKER”",
+     "lineas": [
+      "“Pero hay cosas que nadie te dice. En Florida, si no tienes licencia, necesitas un broker para poder pujar.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto en pantalla “+ FEES” sobre la pantalla de la puja",
+     "lineas": [
+      "“Encima de lo que pujas, pagas los fees de la subasta. Y muchas veces compras sin ver el carro en persona.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "En el lote, Daniela toca un carro",
+     "lineas": [
+      "“Aquí es distinto. El carro ya está aquí: lo ves, lo tocas, y el precio es el que ves.” [CONFIRMAR si hay fees de documentación]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Nosotros vamos a la subasta. Tú solo vienes a escoger.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Mira el inventario en aeofmiami.com y ven a verlo en persona.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ Nadie te dice esto... / ...antes de comprar en Copart.",
+    "Seguro has escuchado de Copart y de IAA... / ...y seguro has pensado comprar ahí directo.",
+    "¿Por qué no comprar directo en la subasta? / Te explico.",
+    "Comprar en subasta suena barato... / ...hasta que ves todo lo que viene después.",
+    "Nosotros compramos en subasta todos los días. / Esto es lo que no te dicen."
+   ],
+   "ctas": [
+    "Mira el inventario en aeofmiami.com y ven a verlo en persona.",
+    "¿Prefieres pujar o prefieres escoger? Ven al lote.",
+    "Escríbenos el carro que buscas y te decimos si lo tenemos.",
+    "Ahórrate la subasta. Ven a ver el carro en persona.",
+    "Compáralo tú mismo. El inventario está en aeofmiami.com."
+   ],
+   "notes": [
+    "lo del broker sale de la página de Copart para Florida (sin licencia de negocio se necesita un broker para pujar). Los fees cambian según el precio: no decir cifras.",
+    "si AE cobra fee de documentación, cambiar el Plano 6 por “sabes el precio antes de venir”. Decidir si se nombra a Copart e IAA o “las grandes subastas”: son sus proveedores, se compara sin atacar."
+   ],
+   "ref": "Sin trend de referencia — idea propia."
+  },
+  {
+   "w": 2,
+   "cat": "ven",
+   "code": "V2",
+   "title": "¿Cuál te llevas?",
+   "pilar": "Ventas",
+   "dur": "~25s",
+   "planos": [
+    {
+     "desc": "Plano abierto o drone: 3 carros alineados, Daniela en el medio",
+     "lineas": [
+      "“Tienes que escoger uno...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...y solo uno.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro 1 + texto en pantalla",
+     "lineas": [
+      "“El uno: [modelo], [año]. Golpe en [zona]. $[PRECIO].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro 2 + texto en pantalla",
+     "lineas": [
+      "“El dos: [modelo], [año]. Golpe en [zona]. $[PRECIO].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro 3 + texto en pantalla",
+     "lineas": [
+      "“El tres: [modelo], [año]. Golpe en [zona]. $[PRECIO].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, entre los tres",
+     "lineas": [
+      "“Yo ya sé cuál me llevo. ¿Y tú?”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Comenta uno, dos o tres. Todos están en aeofmiami.com.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ Tengo una pregunta... / ...¿cuál de estos te llevas?",
+    "Tienes que escoger uno... / ...y solo uno.",
+    "Tres carros, tres precios. ¿Cuál te llevas?",
+    "Te doy a elegir. Piénsalo bien.",
+    "Con $[presupuesto], ¿cuál escoges?"
+   ],
+   "ctas": [
+    "Comenta uno, dos o tres. Todos están en aeofmiami.com.",
+    "Comenta tu número y te mandamos más info de ese.",
+    "El que escojas, ven a verlo al lote.",
+    "¿Ninguno te convence? Escríbenos qué estás buscando.",
+    "Los tres están disponibles hoy. Escríbenos."
+   ],
+   "notes": [
+    "tres carros bien distintos (sedán, SUV, pickup) o tres rangos de precio.",
+    "responder cada comentario por DM: ahí está la venta.",
+    "el CTA 5 solo sirve si los tres siguen disponibles el día que se publica."
+   ],
+   "ref": "Sin trend de referencia — idea propia.",
+   "nuevo": false
+  },
+  {
+   "w": 3,
+   "cat": "edu",
+   "code": "E3",
+   "title": "¿Qué significa Salvage?",
+   "pilar": "Educación",
+   "dur": "~30s",
+   "planos": [
+    {
+     "desc": "Daniela frente a un carro con golpe visible, a cámara, tono cómplice",
+     "lineas": [
+      "“Si ves la palabra salvage y te asustas...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...espérate, que te explico.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: título en la mano",
+     "lineas": [
+      "“Salvage quiere decir que el seguro declaró el carro pérdida total. Por un choque, por agua, por lo que sea.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Caminando junto a otro carro, ya reparado",
+     "lineas": [
+      "“Eso no significa que el carro no sirva. Significa que tiene historia... y por eso tiene otro precio.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: título rebuilt",
+     "lineas": [
+      "“Cuando se repara y pasa la inspección, puede cambiar a rebuilt.” [CONFIRMAR]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Lo importante es que sepas qué título tiene el carro antes de comprarlo. Aquí te lo decimos siempre.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Pregúntanos el título de cualquier carro en aeofmiami.com y te lo decimos sin rodeos.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ La mayoría va a ignorar esto... / ...y por eso le tiene miedo al salvage.",
+    "Si ves la palabra salvage y te asustas... / ...espérate, que te explico.",
+    "¿Salvage? ¿Eso es malo? / Depende. Te explico.",
+    "La palabra que asusta a todo el mundo... / ...y no debería.",
+    "Si no sabes qué es un título salvage, no compres todavía."
+   ],
+   "ctas": [
+    "Pregúntanos el título de cualquier carro en aeofmiami.com y te lo decimos sin rodeos.",
+    "Ahora ya sabes. Revisa el inventario en aeofmiami.com.",
+    "Guárdalo para cuando vayas a comprar.",
+    "¿Tienes otra duda con los títulos? Escríbenos.",
+    "Escríbenos el carro que te interesa y te decimos qué título tiene."
+   ],
+   "notes": [
+    "verificar con el cliente la explicación de salvage y rebuilt en Florida, y si venden carros rebuilt. No decir que todos los carros se pueden registrar.",
+    "usar un título real como apoyo visual, tapando VIN y datos personales."
+   ],
+   "ref": "Sin trend de referencia — idea propia.",
+   "nuevo": false
+  },
+  {
+   "w": 3,
+   "cat": "ven",
+   "code": "V3",
+   "title": "Llegó esta semana",
+   "pilar": "Ventas",
+   "dur": "~20s",
+   "planos": [
+    {
+     "desc": "Daniela caminando hacia cámara desde la entrada del lote",
+     "lineas": [
+      "“Llegaron carros nuevos...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...y se van rápido, así que mira.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro 1, 2 seg + texto: [Modelo] · [Título] · $[PRECIO]",
+     "lineas": [
+      "“Un [modelo]...”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro 2, 2 seg + texto",
+     "lineas": [
+      "“...un [modelo]...”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carros 3 a 5, mismo ritmo",
+     "lineas": [
+      "“...y [modelo].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela",
+     "lineas": [
+      "“¿Cuál te gustó?”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara o card final",
+     "lineas": [
+      "“Todos están en aeofmiami.com.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ No vas a creer lo que acabo de encontrar... / ...en el lote.",
+    "Llegaron carros nuevos... / ...y se van rápido, así que mira.",
+    "Lo nuevo de esta semana en AE of Miami.",
+    "Lo que ves hoy, la semana que viene puede que ya no esté.",
+    "Recién llegados. Vamos rápido."
+   ],
+   "ctas": [
+    "Todos están en aeofmiami.com.",
+    "¿Cuál quieres ver de cerca? Escríbenos.",
+    "Ven esta semana a verlos.",
+    "Comenta el que te gustó y te mandamos más fotos.",
+    "Cada semana llega algo nuevo. Síguenos para verlo primero."
+   ],
+   "notes": [
+    "formato que se puede repetir cada mes cambiando los carros.",
+    "corte al ritmo del audio, 2 segundos por carro.",
+    "confirmar que los carros sigan disponibles el día que se publica."
+   ],
+   "ref": "Sin trend de referencia — idea propia.",
+   "nuevo": false
+  },
+  {
+   "w": 4,
+   "cat": "edu",
+   "code": "E4",
+   "title": "De Miami a tu país",
+   "pilar": "Educación",
+   "dur": "~30s",
+   "planos": [
+    {
+     "desc": "Daniela con un título en la mano, a cámara",
+     "lineas": [
+      "“Comprar el carro es la parte fácil...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...lo que todo el mundo pregunta es cómo sacarlo del país.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Oficina, papeles sobre el escritorio",
+     "lineas": [
+      "“Primero, el título. Sin el título en regla, no sale nada.” [CONFIRMAR]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: documentos",
+     "lineas": [
+      "“Después se preparan los papeles de exportación: [CONFIRMAR documentos].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Puerto, contenedor o grúa cargando el carro",
+     "lineas": [
+      "“Y de ahí, el carro sale para el puerto. [CONFIRMAR: contenedor / roll-on]”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Tú no tienes que saberte todo esto. Nosotros te guiamos.” [CONFIRMAR qué maneja AE]"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Escríbenos a qué país lo necesitas y te decimos cómo funciona.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ ¿Qué pasaría si... / ...pudieras comprar en Miami sin salir de tu país?",
+    "Comprar el carro es la parte fácil... / ...lo que todo el mundo pregunta es cómo sacarlo del país.",
+    "¿Se puede mandar un carro de Miami a [país]? / Sí. Así funciona.",
+    "Esto es lo que pasa con tu carro después de pagarlo... si va para afuera.",
+    "Exportar un carro suena complicado... / ...no tanto. Mira."
+   ],
+   "ctas": [
+    "Escríbenos a qué país lo necesitas y te decimos cómo funciona.",
+    "¿Desde qué país nos ves? Déjalo en los comentarios.",
+    "Pregúntanos antes de comprar y te explicamos todo el proceso.",
+    "Escríbenos el carro y el país, y te decimos los pasos.",
+    "Desde Miami, para donde estés. Escríbenos."
+   ],
+   "notes": [
+    "los Guiones 9 y 12 ya tocan el envío y quién recoge el carro. Este se queda solo en el proceso de exportación (papeles y puerto) para no repetir.",
+    "confirmar con el cliente a qué países exportan, qué documentos maneja AE y cuáles el cliente, y si trabajan con un agente de carga.",
+    "no mencionar tiempos ni costos de envío."
+   ],
+   "ref": "Sin trend de referencia — idea propia.",
+   "nuevo": false
+  },
+  {
+   "w": 4,
+   "cat": "ven",
+   "code": "V4",
+   "title": "¿Cuánto duró?",
+   "pilar": "Ventas",
+   "dur": "~20s",
+   "planos": [
+    {
+     "desc": "Daniela junto a un carro recién bajado de la grúa",
+     "lineas": [
+      "“Este carro llegó el [lunes]...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...adivina cuánto duró en el lote.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto “Día 1”: alguien tomando fotos del carro",
+     "lineas": [
+      "“Lo subimos a la página el mismo día.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto “Día [X]”: un cliente viéndolo",
+     "lineas": [
+      "“El [día] ya lo estaban preguntando.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto “Día [X]”: entrega de llaves / carro saliendo",
+     "lineas": [
+      "“Y el [día]... se fue.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Daniela a cámara, parada en el espacio vacío donde estaba el carro",
+     "lineas": [
+      "“Así se mueve el inventario aquí.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Si ves uno que te gusta, no lo pienses tanto. Escríbenos.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ Casi no publico esto... / ...porque el carro ya se vendió.",
+    "Este carro llegó el [lunes]... / ...adivina cuánto duró en el lote.",
+    "Este carro no duró ni una semana.",
+    "De la grúa a vendido en [X] días.",
+    "Aquí estaba un [modelo]. Ya no."
+   ],
+   "ctas": [
+    "Si ves uno que te gusta, no lo pienses tanto. Escríbenos.",
+    "El próximo puede ser el tuyo. Revisa aeofmiami.com.",
+    "Llegan carros nuevos todas las semanas. Síguenos.",
+    "¿Buscas algo parecido? Escríbenos.",
+    "Ven antes de que el que te gusta tenga su propio video."
+   ],
+   "notes": [
+    "urgencia real: solo se publica si de verdad se vendió así de rápido. El hook 2 solo si fue en menos de una semana.",
+    "la llegada se graba en la grabación 1 y la venta en la grabación 2. Si se vende entre medio, AE lo graba con el celular.",
+    "el plano en el espacio vacío es el remate visual del video.",
+    "pedir permiso al comprador si sale en cámara."
+   ],
+   "ref": "Sin trend de referencia — idea propia.",
+   "nuevo": false
+  },
+  {
+   "w": 3,
+   "cat": "ent",
+   "code": "T3",
+   "title": "La estafa más común",
+   "pilar": "Entretenimiento (trend)",
+   "dur": "~40-45s",
+   "ref": "https://www.instagram.com/reel/Ddkc4d0hSgD/ — Mapa Broker, “Me estafaron en Facebook” (49s): pantalla verde con Marketplace y Carfax detrás, flechas rojas y textos amarillos.",
+   "planos": [
+    {
+     "desc": "Pantalla verde: Daniela a cámara, detrás la publicación de Marketplace del caso + texto amarillo “ME ESTAFARON EN FACEBOOK”",
+     "lineas": [
+      "“Me estafaron comprando un carro en Facebook...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata, se acerca a cámara",
+     "lineas": [
+      "“...y créanme que esta es la estafa más común.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Zoom a las millas de la publicación, flecha roja",
+     "lineas": [
+      "“Pasa porque un carro con menos millas vale más y se vende más fácil.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detrás, el reporte de historial; flechas rojas a las dos líneas de millas",
+     "lineas": [
+      "“Miren este caso: este carro llegó a registrar [X] millas... y después, mágicamente, apareció con [Y]. Más de [diferencia] millas de diferencia.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Textos amarillos: “REVISAR MILLAS” · “TIPO DE TÍTULO” · “NÚMERO DE DUEÑOS”, luego pantallazos de Marketplace, subasta y dealer",
+     "lineas": [
+      "“Por eso no basta con mirar el tablero. Hay que leer el historial: las millas, el tipo de título y el número de dueños. Y ojo, esto te puede pasar en Facebook, en subasta o hasta en un dealer.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Sin pantalla verde: Daniela en el lote, a cámara",
+     "lineas": [
+      "“A mí no me pasó. Esta fue la historia de un cliente que llegó a nosotros después de comprarlo así.” [CONFIRMAR caso real]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Cierre: Daniela junto a un carro del lote con el reporte en la mano o en una tablet",
+     "lineas": [
+      "“Por eso aquí, antes de que pagues, te enseñamos el historial del carro. Escríbenos el que te interesa y te lo mandamos.” [CONFIRMAR qué reporte dan: Carfax / AutoCheck]"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ Esto te puede costar dinero... / ...y pasa todos los días en Facebook.",
+    "Me estafaron comprando un carro en Facebook... / ...y créanme que esta es la estafa más común.",
+    "★ Nadie te dice esto... / ...cuando compras un carro en Marketplace.",
+    "Este carro tenía [X] millas... / ...y mágicamente bajó a [Y].",
+    "La estafa más común comprando carro usado. / Te la enseño."
+   ],
+   "ctas": [
+    "Escríbenos el carro que te interesa y te mandamos su historial.",
+    "Antes de comprar en cualquier lado, pide el historial. Y si es aquí, te lo damos.",
+    "Guárdalo y mándaselo a quien esté buscando carro.",
+    "¿Te ha pasado algo así? Cuéntanos en los comentarios.",
+    "Compra con el historial en la mano. Inventario en aeofmiami.com."
+   ],
+   "notes": [
+    "se copia la estructura de la referencia y se quita la venta del curso: el cierre lleva a AE. El caso tiene que ser real: pedirle a AE un cliente que haya llegado así, con su reporte. Tapar VIN, placas y nombres. Si no hay caso real, usar el hook 5 y quitar el Plano 6. No mostrar ni nombrar al vendedor de Facebook."
+   ],
+   "nuevo": false
+  },
+  {
+   "w": 1,
+   "cat": "ent",
+   "code": "T1",
+   "title": "Te busca un cliente",
+   "pilar": "Entretenimiento (trend)",
+   "dur": "~10-12s",
+   "ref": "https://www.instagram.com/reel/Db6vqFpuFeC/ — Reel de un dealer: el vendedor está en su escritorio, un compañero le avisa que lo busca un cliente que lo vio en Instagram. Se emociona, se pone la gorra, saca músculo y en el corte aparece afuera posando y bailando junto a una 4Runner. Sin diálogo: canción + un texto fijo. 11s.",
+   "planos": [
+    {
+     "desc": "Oficina de AE. Daniela en su escritorio trabajando en la compu. Un compañero se asoma por detrás y le habla al oído. Texto fijo todo el video:",
+     "lineas": [
+      "“Te busca un cliente, dice que vio un video tuyo en Instagram”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Daniela se para de un salto, se arregla el pelo y se pone lentes de sol, al ritmo de la canción",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Mismo plano: pose de estrella, beso a cámara o flex",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Corte en el beat: afuera, en el lote. Daniela posa y baila junto al carro más llamativo del lote, como si fuera famosa",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Opcional: card final de 1 segundo",
+     "lineas": [
+      "“aeofmiami.com”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "Te busca un cliente, dice que vio un video tuyo en Instagram",
+    "Cuando te dicen que el cliente llegó por tus videos",
+    "POV: el cliente dice que te vio en Instagram",
+    "Te busca un cliente. Dice que te vio en TikTok.",
+    "Yo cuando un cliente me reconoce en el lote"
+   ],
+   "ctas": [
+    "Caption: ¿Ya nos viste en Instagram? Ven a saludar 😎 aeofmiami.com",
+    "Caption: Ven al lote y pregunta por Daniela.",
+    "Caption: Dinos qué video te trajo hasta aquí.",
+    "Caption: El carro también tiene fans. Ven a verlo.",
+    "Caption: Tú pones el carro, nosotros posamos."
+   ],
+   "notes": [
+    "100% visual. El chiste está en el texto fijo y en la reacción exagerada. La canción la pone Juan en edición.",
+    "el corte de la oficina al lote va justo en el beat. Para el Plano 4, elegir el carro más llamativo del lote ese día.",
+    "también funciona con un vendedor del equipo en vez de Daniela. Dura ~10s y se presta para que lo vean en loop."
+   ],
+   "nuevo": false
+  },
+  {
+   "w": 4,
+   "cat": "ent",
+   "code": "T4",
+   "title": "Trivia AE",
+   "pilar": "Entretenimiento (trend) / Ventas",
+   "dur": "~40-45s",
+   "ref": "https://www.instagram.com/reel/DWEMMghjFqA/ — We Buy Cars, “BMW Trivia” (50s, en inglés): en vez de un review, una trivia del carro con preguntas numeradas arriba y una con opciones A/B/C. Estilo cinematográfico, cortes rápidos.",
+   "planos": [
+    {
+     "desc": "Daniela camina hacia cámara en el lote con las llaves en la mano. Texto grande: “ESTE”",
+     "lineas": [
+      "“Este es el [Marca / Modelo].”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "POV: apunta la llave, el carro hace beep. Texto grande con el modelo + detalles: emblema, luces, rines",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Daniela dentro del carro, a cámara. Texto: “TRIVIA AE”",
+     "lineas": [
+      "“Pero en vez de hacerle un review como todo el mundo... juguemos trivia.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto arriba “#1 ¿Tiene cámara de reversa?”. Daniela recostada atrás del carro → corte a la pantalla",
+     "lineas": [
+      "“¿Tiene cámara de reversa?... Claro que sí.” [CONFIRMAR]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "“#2 ¿Qué título tiene?”. Opciones en pantalla: CLEAN · SALVAGE · REBUILT. Daniela con el título en la mano",
+     "lineas": [
+      "“¿Clean, salvage o rebuilt?... Si dijiste [título], adivinaste.” [CONFIRMAR]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "“#3 ¿De qué año es?”",
+     "lineas": [
+      "“Si dijiste [año + 1], te equivocaste. Es [año].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "“#4 ¿En cuánto está?”. Letras que aparecen una a una: A $[ ] · B $[ ] · C $[ ]",
+     "lineas": [
+      "“Ahora más difícil: ¿en cuánto está? ¿A, B o C?... Si dijiste [letra], te sabes los precios de AE.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "“#5 ¿Cuál eres tú?”. Daniela al volante → corte a la fachada de AE, a cámara",
+     "lineas": [
+      "“La última me la respondes en los comentarios: ¿CarPlay o Android Auto?... Y si te atreves, dime cuántas acertaste. Sé honesto.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "Este es el [modelo]... / ...pero no te voy a hacer un review normal.",
+    "★ Apuesto a que no sabías esto... / ...de este [modelo].",
+    "★ Tengo una pregunta... / ...bueno, cinco.",
+    "Trivia de carros. Cuenta cuántas aciertas.",
+    "Si aciertas las cinco, sabes más de carros que yo."
+   ],
+   "ctas": [
+    "Y si te atreves, dime cuántas acertaste. Sé honesto.",
+    "Este [modelo] está en el lote. Ven a verlo.",
+    "Comenta tu puntaje. El carro está en aeofmiami.com.",
+    "¿Quieres otra trivia? Dime con qué carro.",
+    "El que acierte las cinco tiene que venir a verlo."
+   ],
+   "notes": [
+    "se cambiaron dos preguntas de la referencia para que sea de AE: el #2 (título) educa y el #4 (precio) vende. Todo dato tiene que corresponder al carro grabado.",
+    "si el carro tiene golpe, agregar la pregunta “¿Dónde está el golpe?” con opciones A/B/C y mostrarlo: la transparencia es la regla de la marca.",
+    "estilo de la referencia: cinematográfico, cortes rápidos y preguntas numeradas fijas arriba."
+   ],
+   "nuevo": false
+  },
+  {
+   "w": 2,
+   "cat": "ent",
+   "code": "T2",
+   "title": "Cada carro tiene su cliente",
+   "pilar": "Entretenimiento (trend)",
+   "dur": "~25s",
+   "ref": "https://www.instagram.com/reel/DdgqvacyVkP/ — Reel de un dealer (27s, sin diálogo, solo música): la vendedora presenta cada carro con la mano y en el corte aparece “el cliente típico” de ese carro, disfrazado: Jeep → chica de motocross, F-150 → vaquero, Explorer → mamá con niños, Ram → obrero, Bronco → chica de rosado, BMW X5 → mujer elegante.",
+   "planos": [
+    {
+     "desc": "Trípode fijo. Daniela presenta una pickup con la mano. Texto: “Cada carro tiene su cliente”",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Mismo encuadre, en el beat: en su lugar aparece un vaquero con sombrero y botas",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "SUV familiar: Daniela presenta → mamá o papá con niños, coche de bebé y bolsas",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Jeep: Daniela presenta → aventurero con casco, tabla de surf o equipo de playa",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Sedán económico: Daniela presenta → estudiante con mochila o conductor de Uber con el celular",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro de lujo: Daniela presenta → alguien elegante con lentes oscuros y café",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Último carro: Daniela presenta → el comprador de exportación con maletas y cajas",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Daniela vuelve y señala a cámara. Texto: “¿Y tú cuál eres?”",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "Cada carro tiene su cliente",
+    "POV: adivino qué carro vas a comprar",
+    "Dime qué carro buscas y te digo quién eres",
+    "¿Cuál de estos eres tú?",
+    "El lote de AE según quién lo compra"
+   ],
+   "ctas": [
+    "Caption: Comenta cuál eres.",
+    "Caption: Etiqueta al amigo que es el de la pickup.",
+    "Caption: Todos están en aeofmiami.com.",
+    "Caption: El tuyo está en el lote. Ven a buscarlo.",
+    "Caption: ¿Faltó alguno? Dinos cuál."
+   ],
+   "notes": [
+    "sin diálogo: la música la pone Juan y cada corte va en un beat. Trípode fijo con el mismo encuadre por carro, para que el cambio de persona se vea “mágico”.",
+    "usar los carros que haya en el lote ese día. Los personajes los hace el equipo de AE con vestuario simple: sombrero y botas, mochila, coche de bebé, lentes oscuros, maletas.",
+    "el último personaje (exportación) conecta con E4. Que el humor sea cariñoso, sin burlarse de nadie."
+   ],
+   "nuevo": false
+  }
+ ],
+ "checklist": [
+  "Horario para poner en pantalla y si atienden en español e inglés (E1). Dirección y sede única ya confirmadas; sin número de teléfono.",
+  "En qué subastas compran, si el precio final incluye todo o hay fee de documentación, y si se nombra a Copart / IAA en cámara (E2)",
+  "Explicación de salvage / rebuilt en Florida y si venden carros rebuilt (E3)",
+  "Exportación: países, documentos que maneja AE y cuáles el cliente, agente de carga (E4)",
+  "Precio y título de cada carro que salga en cámara, confirmados el día de grabación (V1–V4)",
+  "Acceso a una pantalla con subasta en vivo para grabar (E2)",
+  "Un caso real de cliente con millas alteradas y su reporte; si AE entrega Carfax o AutoCheck antes de la compra (T3)",
+  "Ficha del carro de la trivia: cámara, título, año y precio (T4)",
+  "Vestuario para T2: sombrero y botas, mochila, coche de bebé, lentes oscuros, maletas. Gente del equipo que se preste a actuar."
+ ],
+ "grabacion": {
+  "Grabación 1": [
+   "E1 · T1 · V1",
+   "E2 · T2 · V2",
+   "Llegada del carro de V4"
+  ],
+  "Grabación 2": [
+   "E3 · T3 · V3",
+   "E4 · T4",
+   "Venta del carro de V4"
+  ]
+ }
+}
