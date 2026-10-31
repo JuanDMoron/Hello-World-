@@ -32,6 +32,14 @@ Antes de escribir, lee:
 
 Para cambios sueltos (“reemplaza estos dos de educación por…”), edita el `guiones.json` del mes, marca los nuevos con `"nuevo": true` (salen con la etiqueta NUEVO), vuelve a generar el PDF y explica en una tabla qué salió y qué entró.
 
+## PDF por rodaje
+
+En cada día de grabación Juan escoge qué guiones del mes se graban (normalmente 4 y 1 de backup) y pide un PDF aparte solo con esos. Arma un JSON con esos guiones copiados del mes, sin reescribirlos, como en `assets/rodaje-ejemplo.json`:
+- `"etiqueta_semana": "Orden"` y `w` = orden sugerido para grabar (agrupa por locación: oficina → subasta → exteriores → carros).
+- Al backup ponle `"estado": "BACKUP — SOLO SI DA EL TIEMPO"`.
+- Checklist solo con lo de esos guiones, más “si llega un carro en grúa, grabar la llegada” cuando haya un V tipo “¿cuánto duró?” pendiente.
+Si Juan no dijo cuáles completan el día, escoge los más rápidos de grabar (un solo carro, sin vestuario) y dile que se cambian en un minuto.
+
 ## Cómo hablarle a Juan
 
 Español, directo, cercano, sin relleno. Empieza por el resultado (“Ya están los 12 guiones…”), luego bullets o una tabla corta. Explica cambios y decisiones en una línea cada uno. Lo que falta confirmar con Pablo va en una lista al final. Nada de jerga técnica: no le hables de JSON, scripts ni HTML.

@@ -21,7 +21,7 @@ def c(s):
     return s
 
 
-def guion(g):
+def guion(g, label_semana="Semana"):
     planos = "".join(
         f'<div class="plano"><div class="ph-t">PLANO {i} — {c(p["desc"])}</div>'
         + "".join(f'<div class="line">{c(l)}</div>' for l in p["lineas"])
@@ -34,7 +34,7 @@ def guion(g):
     nw = '<span class="new">NUEVO</span>' if g.get("nuevo") else ""
     estado = g.get("estado", "DRAFT — PENDIENTE DE CORRECCIONES")
     return f"""<section class="g {g['cat']}">
-<div class="ghead"><span class="pill {g['cat']}">{LABEL[g['cat']]}</span><span class="code">Semana {g['w']} · {g['code']}</span>{nw}<span class="status">{html.escape(estado)}</span></div>
+<div class="ghead"><span class="pill {g['cat']}">{LABEL[g['cat']]}</span><span class="code">{label_semana} {g['w']} · {g['code']}</span>{nw}<span class="status">{html.escape(estado)}</span></div>
 <h2>Guion {g['code']} — “{c(g['title'])}”</h2>
 <div class="sub">Pilar: {html.escape(g['pilar'])} · Duración objetivo: {html.escape(g['dur'])}</div>
 <div class="lbl">Referencia</div><p class="ref">{c(g.get('ref', 'Sin trend de referencia — idea propia.'))}</p>
@@ -44,6 +44,7 @@ def guion(g):
 
 
 def build_html(doc):
+    label_semana = doc.get("etiqueta_semana", "Semana")
     G = sorted(doc["guiones"], key=lambda g: (g["w"], ORDER[g["cat"]]))
     semanas = sorted({g["w"] for g in G})
 
@@ -53,7 +54,7 @@ def build_html(doc):
             return "<span class='muted'>—</span>"
         return "<br>".join(f"{g['code']} · {html.escape(g['title'])}" + ('<span class="new">NUEVO</span>' if g.get("nuevo") else "") for g in gs)
 
-    grid = "".join(f"<tr><td><b>Semana {w}</b></td><td>{cell(w,'edu')}</td><td>{cell(w,'ent')}</td><td>{cell(w,'ven')}</td></tr>" for w in semanas)
+    grid = "".join(f"<tr><td><b>{label_semana} {w}</b></td><td>{cell(w,'edu')}</td><td>{cell(w,'ent')}</td><td>{cell(w,'ven')}</td></tr>" for w in semanas)
     cats = doc.get("categorias", {})
     check = "".join(f"<li>{c(x)}</li>" for x in doc.get("checklist", []))
     shoot = "".join(f"<div><b>{html.escape(k)}</b>{'<br>'.join(html.escape(x) for x in v)}</div>" for k, v in doc.get("grabacion", {}).items())
@@ -69,7 +70,7 @@ def build_html(doc):
 <table class="grid"><thead><tr><th></th><th class="edu">Educación</th><th class="ent">Entretenimiento</th><th class="ven">Ventas</th></tr></thead><tbody>{grid}</tbody></table>
 <div class="rules"><b>Cómo leer los guiones:</b> el hook va partido en dos planos (Plano 1 abre, Plano 2 remata). Cada guion trae 5 opciones de hook y 5 de CTA para escoger el día de grabación.
 <div class="legend"><b>★</b> = hook del video de Pablo · <span class="conf">CONFIRMAR</span> = dato que debe validar AE antes de grabar · <span class="ph">texto gris</span> = completar según el carro grabado.</div></div></div>
-{''.join(guion(g) for g in G)}
+{''.join(guion(g, label_semana) for g in G)}
 <section class="final"><h2>Antes de grabar</h2><div class="lbl">Confirmar con AE</div><ul class="check">{check}</ul>
 <div class="lbl" style="margin-top:6mm">Qué grabar cada día</div><div class="shoot">{shoot}</div></section></body></html>"""
 
