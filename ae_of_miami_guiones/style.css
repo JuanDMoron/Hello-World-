@@ -31,7 +31,7 @@ h2 { font-family:'Inter Display', Inter; font-size:19pt; margin:3mm 0 1mm; font-
 .sub { color:var(--mut); font-size:9pt; margin-bottom:2.5mm; }
 .lbl { font-size:7.5pt; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--mut); margin:2.2mm 0 1mm; }
 .ref { margin:0; font-size:9pt; color:#444; }
-.plano { padding:1.1mm 0; border-bottom:1px solid var(--line); break-inside:avoid; }
+.plano { padding:.9mm 0; border-bottom:1px solid var(--line); break-inside:avoid; }
 .ph-t { font-weight:700; font-size:8.6pt; color:#333; }
 .line { font-size:9.9pt; margin:.7mm 0 0 4mm; }
 .corte { font-size:8pt; color:var(--mut); margin:.5mm 0 0 4mm; font-style:italic; }
@@ -49,3 +49,6 @@ ul.check li:before { content:''; position:absolute; left:0; top:2.6mm; width:3.6
 .shoot { display:grid; grid-template-columns:1fr 1fr; gap:4mm; }
 .shoot div { border:1px solid var(--line); border-radius:2.5mm; padding:4mm; }
 .shoot b { display:block; font-size:11pt; margin-bottom:1.5mm; }
+
+.g.ent { border-color:var(--ent); } .pill.ent { background:var(--ent); }
+.ref { line-height:1.4; }
