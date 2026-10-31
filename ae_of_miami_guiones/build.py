@@ -38,7 +38,7 @@ doc=f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><title>AE of 
 {''.join(guion(g) for g in G)}
 <section class="final"><h2>Antes de grabar</h2><div class="lbl">Confirmar con AE</div>
 <ul class="check">
-<li>Dirección actual, horario para poner en pantalla, si mencionan la sede de Denver y si atienden en español e inglés (E1)</li>
+<li>Horario para poner en pantalla y si atienden en español e inglés (E1). Dirección y sede única ya confirmadas; sin número de teléfono.</li>
 <li>En qué subastas compran, si el precio final incluye todo o hay fee de documentación, y si se nombra a Copart / IAA en cámara (E2)</li>
 <li>Explicación de salvage / rebuilt en Florida y si venden carros rebuilt (E3)</li>
 <li>Exportación: países, documentos que maneja AE y cuáles el cliente, agente de carga (E4)</li>

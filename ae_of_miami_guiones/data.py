@@ -8,7 +8,7 @@ dict(w=1, cat=E, code="E1", title="¿Quiénes somos?", pilar="Educación / Marca
   ("Plano abierto del lote", ["“Somos AE of Miami. Un dealer especializado en carros salvage y reparables.”"], True),
   ("Fila de carros con golpes, Daniela caminando entre ellos", ["“Compramos carros en subasta todos los días y los vendemos a buen precio, aquí en Miami y para afuera.” [CONFIRMAR exportación]"], True),
   ("Detalle: Daniela señala un golpe, luego un título en la mano", ["“Siempre te decimos qué título tiene y te enseñamos el daño. Sin esconder nada.”"], True),
-  ("Calle y fachada + texto en pantalla con la dirección y pin del mapa", ["“Estamos en la 5700 Northwest 27 Avenue, aquí en Miami.” [CONFIRMAR dirección]"], True),
+  ("Calle y fachada + texto en pantalla con la dirección y pin del mapa", ["“Estamos en la 5700 Northwest 27 Avenue, aquí en Miami.”"], True),
   ("Vuelve a Daniela, plano medio", ["“Ven a ver los carros en persona. Y si no estás en Miami, escríbenos igual.”"], False),
   ("Cierre fijo a cámara", ["“Todo el inventario está en aeofmiami.com.”"], False),
  ],
@@ -23,7 +23,7 @@ dict(w=1, cat=E, code="E1", title="¿Quiénes somos?", pilar="Educación / Marca
   "Escríbenos y te atendemos en español o en inglés. [CONFIRMAR]",
   "Ven al lote. Aquí estamos."],
  notes=["el Guion 4 (“R U Guys Real??”) ya hace el tour por áreas para demostrar que son reales. Este es la presentación de marca (qué son, qué hacen, dónde están). Usar planos distintos: fachada, calle, letrero, mapa.",
-  "dirección tomada de su web: 5700 NW 27th Ave, Miami, FL 33142. Confirmar que sea la actual, el horario para ponerlo en pantalla y si mencionan la sede de Denver [CONFIRMAR si existe]. Buen video para fijar arriba en el perfil."]),
+  "dirección confirmada con Pablo: 5700 NW 27th Ave, Miami, FL 33142. Es la única sede. No poner número de teléfono en pantalla ni en el caption: el contacto va por DM o aeofmiami.com. Buen video para fijar arriba en el perfil."]),
 
 dict(w=1, cat=V, code="V1", title="Te enseño el golpe primero", pilar="Ventas", dur="~25-30s",
  planos=[
