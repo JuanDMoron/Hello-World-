@@ -1,6 +1,6 @@
 T = [
 dict(w=3, cat="ent", code="T3", title="La estafa más común", pilar="Entretenimiento (trend)", dur="~40-45s",
- ref="Mapa Broker, “Me estafaron en Facebook” (49s): pantalla verde con pantallazos de Marketplace y Carfax detrás, flechas rojas, subtítulos palabra por palabra y textos amarillos. Cierra vendiendo su curso.",
+ ref="https://www.instagram.com/reel/Ddkc4d0hSgD/ — Mapa Broker, “Me estafaron en Facebook” (49s): pantalla verde con pantallazos de Marketplace y Carfax detrás, flechas rojas, subtítulos palabra por palabra y textos amarillos. Cierra vendiendo su curso.",
  planos=[
   ("Pantalla verde: Daniela a cámara, detrás la publicación de Marketplace del caso + texto amarillo “ME ESTAFARON EN FACEBOOK”", ["“Me estafaron comprando un carro en Facebook...”"], False),
   ("Remata, se acerca a cámara", ["“...y créanme que esta es la estafa más común.”"], True),
@@ -23,7 +23,7 @@ dict(w=3, cat="ent", code="T3", title="La estafa más común", pilar="Entretenim
  notes=["se copia la estructura de la referencia y se quita la venta del curso: el cierre lleva a AE. El caso tiene que ser real: pedirle a AE un cliente que haya llegado así, con su reporte. Tapar VIN, placas y nombres. Si no hay caso real, usar el hook 5 y quitar el Plano 6. No mostrar ni nombrar al vendedor de Facebook."]),
 
 dict(w=1, cat="ent", code="T1", title="Te busca un cliente", pilar="Entretenimiento (trend)", dur="~10-12s",
- ref="Reel de un dealer: el vendedor está en su escritorio, un compañero le avisa que lo busca un cliente que lo vio en Instagram. Se emociona, se pone la gorra, saca músculo y en el corte aparece afuera posando y bailando junto a una 4Runner. Sin diálogo: canción + un texto fijo. 11s.",
+ ref="https://www.instagram.com/reel/Db6vqFpuFeC/ — Reel de un dealer: el vendedor está en su escritorio, un compañero le avisa que lo busca un cliente que lo vio en Instagram. Se emociona, se pone la gorra, saca músculo y en el corte aparece afuera posando y bailando junto a una 4Runner. Sin diálogo: canción + un texto fijo. 11s.",
  planos=[
   ("Oficina de AE. Daniela en su escritorio trabajando en la compu. Un compañero se asoma por detrás y le habla al oído. Texto fijo todo el video:", ["“Te busca un cliente, dice que vio un video tuyo en Instagram”"], False),
   ("Daniela se para de un salto, se arregla el pelo y se pone lentes de sol, al ritmo de la canción", ["(sin diálogo)"], False),
@@ -46,7 +46,7 @@ dict(w=1, cat="ent", code="T1", title="Te busca un cliente", pilar="Entretenimie
   "también funciona con un vendedor del equipo en vez de Daniela. Dura ~10s y se presta para que lo vean en loop."]),
 
 dict(w=4, cat="ent", code="T4", title="Trivia AE", pilar="Entretenimiento (trend) / Ventas", dur="~40-45s",
- ref="We Buy Cars, “BMW Trivia” (50s, en inglés): en vez de un review, una trivia del carro con preguntas numeradas arriba y una con opciones A/B/C. Estilo cinematográfico, cortes rápidos.",
+ ref="https://www.instagram.com/reel/DWEMMghjFqA/ — We Buy Cars, “BMW Trivia” (50s, en inglés): en vez de un review, una trivia del carro con preguntas numeradas arriba y una con opciones A/B/C. Estilo cinematográfico, cortes rápidos.",
  planos=[
   ("Daniela camina hacia cámara en el lote con las llaves en la mano. Texto grande: “ESTE”", ["“Este es el [Marca / Modelo].”"], False),
   ("POV: apunta la llave, el carro hace beep. Texto grande con el modelo + detalles: emblema, luces, rines", ["(sin diálogo)"], True),
@@ -72,7 +72,7 @@ dict(w=4, cat="ent", code="T4", title="Trivia AE", pilar="Entretenimiento (trend
   "estilo de la referencia: cinematográfico, cortes rápidos y preguntas numeradas fijas arriba."]),
 
 dict(w=2, cat="ent", code="T2", title="Cada carro tiene su cliente", pilar="Entretenimiento (trend)", dur="~25s",
- ref="Reel de un dealer (27s, sin diálogo, solo música): la vendedora presenta cada carro con la mano y en el corte aparece “el cliente típico” de ese carro, disfrazado: Jeep → chica de motocross, F-150 → vaquero, Explorer → mamá con niños, Ram → obrero, Bronco → chica de rosado, BMW X5 → mujer elegante.",
+ ref="https://www.instagram.com/reel/DdgqvacyVkP/ — Reel de un dealer (27s, sin diálogo, solo música): la vendedora presenta cada carro con la mano y en el corte aparece “el cliente típico” de ese carro, disfrazado: Jeep → chica de motocross, F-150 → vaquero, Explorer → mamá con niños, Ram → obrero, Bronco → chica de rosado, BMW X5 → mujer elegante.",
  planos=[
   ("Trípode fijo. Daniela presenta una pickup con la mano. Texto: “Cada carro tiene su cliente”", ["(sin diálogo)"], True),
   ("Mismo encuadre, en el beat: en su lugar aparece un vaquero con sombrero y botas", ["(sin diálogo)"], True),
