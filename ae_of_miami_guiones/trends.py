@@ -1,6 +1,6 @@
 T = [
 dict(w=3, cat="ent", code="T3", title="La estafa más común", pilar="Entretenimiento (trend)", dur="~40-45s",
- ref="https://www.instagram.com/reel/Ddkc4d0hSgD/ — Mapa Broker, “Me estafaron en Facebook” (49s): pantalla verde con pantallazos de Marketplace y Carfax detrás, flechas rojas, subtítulos palabra por palabra y textos amarillos. Cierra vendiendo su curso.",
+ ref="https://www.instagram.com/reel/Ddkc4d0hSgD/ — Mapa Broker, “Me estafaron en Facebook” (49s): pantalla verde con Marketplace y Carfax detrás, flechas rojas y textos amarillos.",
  planos=[
   ("Pantalla verde: Daniela a cámara, detrás la publicación de Marketplace del caso + texto amarillo “ME ESTAFARON EN FACEBOOK”", ["“Me estafaron comprando un carro en Facebook...”"], False),
   ("Remata, se acerca a cámara", ["“...y créanme que esta es la estafa más común.”"], True),

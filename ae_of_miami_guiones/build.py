@@ -11,6 +11,7 @@ def c(s):
     s=html.escape(s)
     s=re.sub(r"\[(CONFIRMAR[^\]]*)\]", r'<span class="conf">\1</span>', s)
     s=re.sub(r"\[([^\]]+)\]", r'<span class="ph">\1</span>', s)
+    s=re.sub(r"(https://\S+?/)(?=\s|$)", r'<a href="\1">\1</a>', s)
     return s
 def guion(g):
     pl="".join(f"""<div class="plano"><div class="ph-t">PLANO {i} — {c(t)}</div>{''.join(f'<div class="line">{c(l)}</div>' for l in ls)}{'<div class="corte">[Corte]</div>' if cut else ''}</div>""" for i,(t,ls,cut) in enumerate(g['planos'],1))

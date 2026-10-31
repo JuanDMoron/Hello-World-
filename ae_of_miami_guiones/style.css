@@ -52,3 +52,5 @@ ul.check li:before { content:''; position:absolute; left:0; top:2.6mm; width:3.6
 
 .g.ent { border-color:var(--ent); } .pill.ent { background:var(--ent); }
 .ref { line-height:1.4; }
+
+a { color:var(--edu); font-weight:600; text-decoration:none; }
