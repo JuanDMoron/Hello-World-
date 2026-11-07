@@ -23,3 +23,6 @@ Really Exist (subs ON) · SIRI V2 · Tinder Swipe – Prices · Preguntas más c
 | 3 | E3 ¿Qué significa Salvage? (salvage vs rebuilt) | T3 La estafa más común (millas alteradas, Carfax) | V3 Llegó esta semana (drop de inventario) |
 | 4 | E4 De Miami a tu país (exportación: papeles y puerto) | T4 Trivia AE (título y precio A/B/C) | V4 ¿Cuánto duró? (de la grúa a vendido) |
 Descartados ese mes: “¿De dónde salen estos carros?” (absorbido por E2) y “Lo que nadie te dice antes de comprar un salvage” (3 consejos: verlo, preguntar título, cotizar con tu mecánico) — se pueden usar más adelante.
+
+Extra mes 1 (rodaje 2, idea de Juan): **T5 “La cliente”** — Daniela llega hablando por teléfono como sugar baby (“sí, papi, la camioneta cuesta 50 mil...”), cuelga y en modo empresaria compra tres carros con golpe para reparar y revender: “Este es mi negocio. Tú preocúpate por el tuyo.”
+Rodajes del mes 1: rodaje 1 = E1, E2, T1, V2 (backup) — V1 quedó pendiente; rodaje 2 = T5, V1, E3, T4, V3, V4, E4, T3. T2 “Cada carro tiene su cliente” no entró en ningún rodaje.
