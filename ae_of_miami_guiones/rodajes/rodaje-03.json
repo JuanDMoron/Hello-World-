@@ -1,12 +1,12 @@
 {
  "mes": "Rodaje 3",
  "titulo": "Rodaje 3",
- "subtitulo": "4 guiones",
+ "subtitulo": "4 guiones + 1 extra",
  "etiqueta_semana": "Orden",
- "lead": "Guiones para grabar hoy, en orden: E5 (nuevo, Daniela a cámara), T6 (respondiendo comentarios), E4 (exportación) y T7 (trend sin diálogo, se va grabando durante el día).",
+ "lead": "Guiones para grabar hoy, en orden: E5 (nuevo, Daniela a cámara), T6 (respondiendo comentarios), E4 (exportación) y T7 (trend sin diálogo, se va grabando durante el día). Extra si da el tiempo: T8 “Las llaves” (trend de transición).",
  "categorias": {
   "edu": "E5 Antes de comprar un salvage (nuevo) · E4 De Miami a tu país",
-  "ent": "T6 Respondiendo comentarios (nuevo) · T7 Dime que trabajas en un dealer salvage... (nuevo)",
+  "ent": "T6 Respondiendo comentarios · T7 Dime que trabajas en un dealer salvage... · T8 Las llaves (extra)",
   "ven": "La camioneta del comentario 3 (T6) es la parte de venta"
  },
  "guiones": [
@@ -326,6 +326,79 @@
     "sin diálogo: la música la pone Juan y cada plano dura 1–2 segundos, al beat. Se va grabando durante el día, aprovechando lo que pase en el lote (grúa, taller, mensajes).",
     "los planos son sugerencias: cualquier momento real que “solo pasa en un salvage” sirve. No mostrar clientes sin permiso."
    ]
+  },
+  {
+   "w": 5,
+   "cat": "ent",
+   "code": "T8",
+   "title": "Las llaves",
+   "pilar": "Entretenimiento (trend) / Ventas",
+   "dur": "~15-20s",
+   "nuevo": true,
+   "estado": "EXTRA — SI DA EL TIEMPO",
+   "ref": "Trend de transición con llaves: la persona lanza las llaves hacia la cámara, tapan el lente y en el corte las atrapa frente a otro carro. Sin diálogo, cada lanzamiento va en un beat de la música.",
+   "planos": [
+    {
+     "desc": "Daniela junto al carro 1, mira a cámara con una sonrisa y lanza las llaves hacia el lente. Texto: “¿Cuál te llevas?”",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Transición: las llaves tapan el lente → Daniela las atrapa frente al carro 2, en el mismo punto del cuadro. Texto: [Modelo · Año]",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Lanza otra vez → carro 3. Texto: [Modelo · Año]",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Lanza otra vez → carro 4. Texto: [Modelo · Año]",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "En el drop de la música → el carro más llamativo del lote. Texto: [Modelo · Año]",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Último lanzamiento → Daniela atrapa las llaves frente al letrero de AE y guiña. Card final",
+     "lineas": [
+      "“aeofmiami.com”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "¿Cuál te llevas?",
+    "POV: tienes las llaves de todo el lote",
+    "Atrapa las llaves de tu próximo carro",
+    "Las llaves de esta semana",
+    "★ No vas a creer lo que hay en el lote..."
+   ],
+   "ctas": [
+    "Caption: Comenta en cuál le pondrías pausa.",
+    "Caption: Todos están en aeofmiami.com.",
+    "Caption: ¿Con cuáles llaves te quedas?",
+    "Caption: Ven por las tuyas. 5700 NW 27th Ave, Miami.",
+    "Caption: Escríbenos por DM el que te gustó."
+   ],
+   "notes": [
+    "técnica: cámara en trípode o a la misma altura y distancia en todos los carros, con Daniela en el mismo punto del cuadro. Cada toma empieza con las llaves saliendo del lente y termina con las llaves tapándolo: el corte va en ese fotograma, al beat. Grabar a 60 fps para tener margen.",
+    "lanzar suave y con un llavero liviano para no golpear el lente. Si se pone precio en el texto, confirmarlo ese día; si no, solo modelo y año. La música la pone Juan."
+   ]
   }
  ],
  "checklist": [],
@@ -393,6 +466,22 @@
     "Caption: Síguenos para ver más del día a día.",
     "Caption: ¿Cuál te pasó a ti? Comenta el número.",
     "Caption: Así se ve el lote por dentro. aeofmiami.com"
+   ]
+  },
+  "T8": {
+   "hooks": [
+    "Un lanzamiento, un carro",
+    "Lo nuevo del lote en 15 segundos",
+    "Pausa en el tuyo",
+    "Las llaves que todos quieren",
+    "¿Hasta cuál aguantas sin escribirnos?"
+   ],
+   "ctas": [
+    "Caption: ¿Quieres ver alguno de cerca? Escríbenos.",
+    "Caption: Etiqueta a quien necesita carro.",
+    "Caption: Pausa, captura y mándanos el que te gustó.",
+    "Caption: Ven a verlos en persona.",
+    "Caption: Síguenos: cada semana llegan llaves nuevas."
    ]
   }
  }
