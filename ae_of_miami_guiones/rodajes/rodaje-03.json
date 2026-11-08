@@ -1,12 +1,12 @@
 {
  "mes": "Rodaje 3",
  "titulo": "Rodaje 3",
- "subtitulo": "4 guiones + 1 extra",
+ "subtitulo": "4 guiones",
  "etiqueta_semana": "Orden",
- "lead": "Guiones para grabar hoy, en orden: E5 (nuevo, Daniela a cámara), T6 (respondiendo comentarios), E4 (exportación) y T7 (trend sin diálogo, se va grabando durante el día). Extra si da el tiempo: T8 “Las llaves” (trend de transición).",
+ "lead": "Guiones para grabar hoy, en orden: E5 (Daniela a cámara), T6 (respondiendo comentarios), E4 (exportación) y T8 (trend de transición con las llaves).",
  "categorias": {
   "edu": "E5 Antes de comprar un salvage (nuevo) · E4 De Miami a tu país",
-  "ent": "T6 Respondiendo comentarios · T7 Dime que trabajas en un dealer salvage... · T8 Las llaves (extra)",
+  "ent": "T6 Respondiendo comentarios · T8 Las llaves",
   "ven": "La camioneta del comentario 3 (T6) es la parte de venta"
  },
  "guiones": [
@@ -251,91 +251,11 @@
   {
    "w": 4,
    "cat": "ent",
-   "code": "T7",
-   "title": "Dime que trabajas en un dealer salvage sin decírmelo",
-   "pilar": "Entretenimiento (trend)",
-   "dur": "~15-20s",
-   "nuevo": true,
-   "ref": "Formato recurrente de Reels / TikTok “Tell me you ___ without telling me”: texto fijo arriba y planos cortos al ritmo de la música que lo “demuestran”. Sin diálogo.",
-   "planos": [
-    {
-     "desc": "Texto fijo todo el video: “Dime que trabajas en un dealer salvage sin decírmelo”. Daniela llega en la mañana y saluda a un carro sin puerta como si fuera un compañero",
-     "lineas": [
-      "(sin diálogo)"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "La grúa baja un carro chocado; Daniela lo mira y hace check en una libreta, feliz",
-     "lineas": [
-      "(sin diálogo)"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Close-up: pasa el dedo por un golpe y asiente, como diciendo “está bonito”",
-     "lineas": [
-      "(sin diálogo)"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Alguien del taller, con las manos llenas de grasa, le choca el puño",
-     "lineas": [
-      "(sin diálogo)"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Pantalla del teléfono: llegan diez mensajes seguidos de “¿Sigue disponible?”",
-     "lineas": [
-      "(sin diálogo)"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Daniela sentada en un carro sin parabrisas, con lentes de sol, relajada como si estuviera en un convertible",
-     "lineas": [
-      "(sin diálogo)"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Final: Daniela a cámara levanta unas llaves. Card",
-     "lineas": [
-      "“aeofmiami.com”"
-     ],
-     "corte": false
-    }
-   ],
-   "hooks": [
-    "Dime que trabajas en un dealer salvage sin decírmelo",
-    "POV: trabajas en AE of Miami",
-    "Un día normal en un dealer salvage",
-    "Señales de que trabajas en AE",
-    "Si trabajas en un salvage, esto es tu día"
-   ],
-   "ctas": [
-    "Caption: ¿Cuál de estos es más real? 😂 aeofmiami.com",
-    "Caption: Etiqueta a alguien que trabaja con carros.",
-    "Caption: El inventario está en aeofmiami.com.",
-    "Caption: ¿Qué más pondrías? Comenta.",
-    "Caption: Así es un día en AE. Ven a conocernos."
-   ],
-   "notes": [
-    "sin diálogo: la música la pone Juan y cada plano dura 1–2 segundos, al beat. Se va grabando durante el día, aprovechando lo que pase en el lote (grúa, taller, mensajes).",
-    "los planos son sugerencias: cualquier momento real que “solo pasa en un salvage” sirve. No mostrar clientes sin permiso."
-   ]
-  },
-  {
-   "w": 5,
-   "cat": "ent",
    "code": "T8",
    "title": "Las llaves",
    "pilar": "Entretenimiento (trend) / Ventas",
    "dur": "~15-20s",
    "nuevo": true,
-   "estado": "EXTRA — SI DA EL TIEMPO",
    "ref": "Trend de transición con llaves: la persona lanza las llaves hacia la cámara, tapan el lente y en el corte las atrapa frente a otro carro. Sin diálogo, cada lanzamiento va en un beat de la música.",
    "planos": [
     {
@@ -450,22 +370,6 @@
     "Etiqueta a quien siempre pregunta “¿dónde queda eso?”.",
     "Mira la camioneta y más en aeofmiami.com.",
     "Te esperamos en el lote."
-   ]
-  },
-  "T7": {
-   "hooks": [
-    "Cosas que solo pasan en un dealer salvage",
-    "Mi oficina no es normal",
-    "Lo normal en AE of Miami",
-    "Si esto es tu lunes, trabajas en un salvage",
-    "Un lunes cualquiera en AE"
-   ],
-   "ctas": [
-    "Caption: Ven a conocer el lote.",
-    "Caption: ¿Te imaginas trabajar aquí?",
-    "Caption: Síguenos para ver más del día a día.",
-    "Caption: ¿Cuál te pasó a ti? Comenta el número.",
-    "Caption: Así se ve el lote por dentro. aeofmiami.com"
    ]
   },
   "T8": {
