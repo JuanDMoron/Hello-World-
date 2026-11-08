@@ -1,0 +1,209 @@
+{
+ "mes": "Rodaje 3",
+ "titulo": "Rodaje 3",
+ "subtitulo": "Daniela a cámara",
+ "etiqueta_semana": "Orden",
+ "lead": "Guiones para grabar hoy: E4 (exportación) y E5 (nuevo, en lugar de “La estafa más común”). El trend que reemplaza a la trivia se agrega cuando tengamos la referencia.",
+ "categorias": {
+  "edu": "E4 De Miami a tu país · E5 Antes de comprar un salvage (nuevo)",
+  "ent": "Trend pendiente (reemplaza a la trivia)",
+  "ven": "—"
+ },
+ "guiones": [
+  {
+   "w": 1,
+   "cat": "edu",
+   "code": "E5",
+   "title": "Antes de comprar un salvage",
+   "pilar": "Educación (Daniela a cámara)",
+   "dur": "~30s",
+   "nuevo": true,
+   "ref": "Sin trend de referencia — idea propia.",
+   "planos": [
+    {
+     "desc": "Daniela caminando por el lote hacia cámara (gimbal retrocediendo), tono de consejo de amiga",
+     "lineas": [
+      "“Antes de comprar un salvage...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Se detiene, a cámara",
+     "lineas": [
+      "“...hay tres cosas que tienes que saber. Y casi nadie te las dice.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Frente a un carro, lo toca",
+     "lineas": [
+      "“Una: ven a verlo. O manda a alguien de confianza. Las fotos ayudan, pero verlo en persona es otra cosa.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Sigue caminando y se para junto a otro carro",
+     "lineas": [
+      "“Dos: pregunta qué título tiene. Siempre. Antes de hablar de precio.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Señala un golpe",
+     "lineas": [
+      "“Tres: no adivines cuánto cuesta arreglarlo. Antes de comprar, muéstraselo a tu mecánico.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Si haces esas tres cosas, compras tranquilo.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Y si tienes dudas de algún carro de aquí, escríbenos. Te contestamos sin rodeos.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ Nadie te dice esto... / ...antes de comprar un salvage.",
+    "Antes de comprar un salvage... / ...hay tres cosas que tienes que saber.",
+    "★ Esto te puede costar dinero... / ...si no lo haces antes de comprar.",
+    "Si vas a comprar un salvage, guárdate este video.",
+    "Tres reglas para comprar un salvage sin sorpresas."
+   ],
+   "ctas": [
+    "Y si tienes dudas de algún carro de aquí, escríbenos. Te contestamos sin rodeos.",
+    "Guárdalo y mándaselo a quien esté buscando carro.",
+    "Ven a ver el carro en persona. Te esperamos en el lote.",
+    "Revisa el inventario en aeofmiami.com y pregunta sin pena.",
+    "¿Te faltó alguna? Déjala en los comentarios."
+   ],
+   "notes": [
+    "una sola locación (el lote), caminando con gimbal. No hay ningún dato que confirmar. Si Daniela se lo aprende sale en una toma larga; si no, se graba por bloques: cada consejo es un corte.",
+    "es un consejo, no una promesa: no decir cuánto cuesta reparar nada."
+   ]
+  },
+  {
+   "w": 2,
+   "cat": "edu",
+   "code": "E4",
+   "title": "De Miami a tu país",
+   "pilar": "Educación",
+   "dur": "~30s",
+   "planos": [
+    {
+     "desc": "Daniela con un título en la mano, a cámara",
+     "lineas": [
+      "“Comprar el carro es la parte fácil...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...lo que todo el mundo pregunta es cómo sacarlo del país.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Oficina, papeles sobre el escritorio",
+     "lineas": [
+      "“Primero, el título. Sin el título en regla, no sale nada.” [CONFIRMAR]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: documentos",
+     "lineas": [
+      "“Después se preparan los papeles de exportación: [CONFIRMAR documentos].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Puerto, contenedor o grúa cargando el carro",
+     "lineas": [
+      "“Y de ahí, el carro sale para el puerto. [CONFIRMAR: contenedor / roll-on]”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Tú no tienes que saberte todo esto. Nosotros te guiamos.” [CONFIRMAR qué maneja AE]"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Escríbenos a qué país lo necesitas y te decimos cómo funciona.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ ¿Qué pasaría si... / ...pudieras comprar en Miami sin salir de tu país?",
+    "Comprar el carro es la parte fácil... / ...lo que todo el mundo pregunta es cómo sacarlo del país.",
+    "¿Se puede mandar un carro de Miami a [país]? / Sí. Así funciona.",
+    "Esto es lo que pasa con tu carro después de pagarlo... si va para afuera.",
+    "Exportar un carro suena complicado... / ...no tanto. Mira."
+   ],
+   "ctas": [
+    "Escríbenos a qué país lo necesitas y te decimos cómo funciona.",
+    "¿Desde qué país nos ves? Déjalo en los comentarios.",
+    "Pregúntanos antes de comprar y te explicamos todo el proceso.",
+    "Escríbenos el carro y el país, y te decimos los pasos.",
+    "Desde Miami, para donde estés. Escríbenos."
+   ],
+   "notes": [
+    "los Guiones 9 y 12 ya tocan el envío y quién recoge el carro. Este se queda solo en el proceso de exportación (papeles y puerto) para no repetir.",
+    "confirmar con el cliente a qué países exportan, qué documentos maneja AE y cuáles el cliente, y si trabajan con un agente de carga.",
+    "no mencionar tiempos ni costos de envío."
+   ],
+   "ref": "Sin trend de referencia — idea propia.",
+   "nuevo": false
+  }
+ ],
+ "checklist": [],
+ "grabacion": {},
+ "banco": {
+  "E4": {
+   "hooks": [
+    "★ Apuesto a que no sabías esto... / ...puedes comprar en Miami desde tu país.",
+    "★ Nadie te dice esto... / ...cuando quieres mandar un carro para afuera.",
+    "¿Vives fuera de Estados Unidos? / Mira esto.",
+    "De este lote... / ...a tu país.",
+    "La pregunta que más nos hacen desde Latinoamérica."
+   ],
+   "ctas": [
+    "Comenta tu país y te escribimos.",
+    "Escríbenos por DM y te explicamos el proceso.",
+    "Guárdalo para cuando vayas a comprar desde afuera.",
+    "Mándale este video a quien siempre pregunta cómo traer un carro.",
+    "El inventario está en aeofmiami.com. Escoge desde donde estés."
+   ]
+  },
+  "E5": {
+   "hooks": [
+    "★ La mayoría va a ignorar esto... / ...y después se arrepiente.",
+    "★ No debería estar diciendo esto... / ...pero así se compra un salvage bien.",
+    "Tres cosas. Treinta segundos. Cero sorpresas.",
+    "Lo que le diría a mi mejor amiga antes de comprar un salvage.",
+    "¿Primera vez comprando un salvage? / Empieza por aquí."
+   ],
+   "ctas": [
+    "Etiqueta a quien está pensando comprar un salvage.",
+    "Guárdalo para tu próxima compra.",
+    "¿Tienes otra regla? Compártela en los comentarios.",
+    "Escríbenos el carro que te interesa y te contamos todo.",
+    "Ven al lote y revísalo tú mismo."
+   ]
+  }
+ }
+}

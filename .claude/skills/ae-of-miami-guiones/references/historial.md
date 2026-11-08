@@ -26,3 +26,10 @@ Descartados ese mes: “¿De dónde salen estos carros?” (absorbido por E2) y 
 
 Extra mes 1 (rodaje 2, idea de Juan): **T5 “La cliente”** — Daniela llega hablando por teléfono como sugar baby (“sí, papi, la camioneta cuesta 50 mil...”), cuelga y en modo empresaria compra tres carros con golpe para reparar y revender: “Este es mi negocio. Tú preocúpate por el tuyo.”
 Rodajes del mes 1: rodaje 1 = E1, E2, T1, V2 (backup) — V1 quedó pendiente; rodaje 2 = T5, V1, E3, T4, V3, V4, E4, T3. T2 “Cada carro tiene su cliente” no entró en ningún rodaje.
+
+Rodaje 2 real: se grabaron V1, E3, V3 y V4. T5 “La cliente” NO se grabó: Juan lo dejó como **borrador para el mes 2** (recordárselo al armar los guiones del próximo mes). T3 “La estafa más común” y T4 “Trivia AE” se descartaron: Juan no quiere el tema de la estafa ni la trivia. Prefiere guiones simples de Daniela hablando a cámara, con pocos datos que confirmar.
+Rodaje 3: E4 (exportación) + E5 “Antes de comprar un salvage” (nuevo, Daniela a cámara caminando por el lote: verlo en persona, preguntar el título, cotizar con tu mecánico) + un trend nuevo por definir.
+
+## Pendientes para el próximo mes
+- T5 “La cliente” (sketch de Juan): incluirlo y avisarle a Juan.
+- T2 “Cada carro tiene su cliente”: nunca se grabó; preguntar si se retoma.
