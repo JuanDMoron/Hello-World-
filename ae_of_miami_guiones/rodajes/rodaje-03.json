@@ -1,13 +1,13 @@
 {
  "mes": "Rodaje 3",
  "titulo": "Rodaje 3",
- "subtitulo": "Daniela a cámara",
+ "subtitulo": "4 guiones",
  "etiqueta_semana": "Orden",
- "lead": "Guiones para grabar hoy: E4 (exportación) y E5 (nuevo, en lugar de “La estafa más común”). El trend que reemplaza a la trivia se agrega cuando tengamos la referencia.",
+ "lead": "Guiones para grabar hoy, en orden: E5 (nuevo, Daniela a cámara), T6 (respondiendo comentarios), E4 (exportación) y T7 (trend sin diálogo, se va grabando durante el día).",
  "categorias": {
-  "edu": "E4 De Miami a tu país · E5 Antes de comprar un salvage (nuevo)",
-  "ent": "Trend pendiente (reemplaza a la trivia)",
-  "ven": "—"
+  "edu": "E5 Antes de comprar un salvage (nuevo) · E4 De Miami a tu país",
+  "ent": "T6 Respondiendo comentarios (nuevo) · T7 Dime que trabajas en un dealer salvage... (nuevo)",
+  "ven": "La camioneta del comentario 3 (T6) es la parte de venta"
  },
  "guiones": [
   {
@@ -91,6 +91,85 @@
   },
   {
    "w": 2,
+   "cat": "ent",
+   "code": "T6",
+   "title": "Respondiendo comentarios",
+   "pilar": "Entretenimiento (formato IG) / Ventas",
+   "dur": "~35-40s",
+   "nuevo": true,
+   "ref": "Formato de Instagram “Responder con reel”: aparece el comentario en pantalla (burbuja tipo sticker) y la persona lo contesta a cámara. Aquí son 4 preguntas seguidas.",
+   "planos": [
+    {
+     "desc": "Daniela frente al letrero de AE, a cámara, con el teléfono en la mano. Texto: “Respondiendo sus preguntas”",
+     "lineas": [
+      "“Nos preguntan esto todos los días...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...así que vamos a contestarlas de una vez.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Comentario en pantalla: “¿Dónde están ubicados?”. Daniela en la entrada, se ve la calle y la fachada. Texto: 5700 NW 27th Ave, Miami",
+     "lineas": [
+      "“Estamos en la 5700 Northwest 27 Avenue, aquí en Miami. Ven cuando quieras.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Comentario: “¿Venden solamente carros salvage?”. Daniela caminando entre los carros",
+     "lineas": [
+      "“Nos especializamos en salvage y carros reparables. [CONFIRMAR si también venden rebuilt o clean] Y de cada carro te decimos qué título tiene, sin rodeos.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Comentario: “¿Cuánto cuesta esta camioneta?” con la foto de la camioneta. Corte a Daniela junto a esa camioneta. Texto en pantalla: [Año / Marca / Modelo] · $[PRECIO]",
+     "lineas": [
+      "“¿Esta? Es una [Marca / Modelo] [año], título [CONFIRMAR], y está en $[PRECIO].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Comentario: “¿Se puede comprar por internet?”. Daniela con el teléfono mostrando aeofmiami.com en pantalla",
+     "lineas": [
+      "“Sí. Todo el inventario está en aeofmiami.com. Escoges el carro, nos escribes y te ayudamos con el resto.” [CONFIRMAR cómo es la compra a distancia]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“¿Tienes otra pregunta? Déjala en los comentarios y te la contesto en el próximo video.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "Nos preguntan esto todos los días... / ...así que vamos a contestarlas de una vez.",
+    "★ Tengo una pregunta... / ...no, mentira: ustedes tienen cuatro.",
+    "Las 4 preguntas que más nos hacen, en 30 segundos.",
+    "Respondiendo sus comentarios, edición AE.",
+    "Ustedes preguntan, yo contesto."
+   ],
+   "ctas": [
+    "¿Tienes otra pregunta? Déjala en los comentarios y te la contesto en el próximo video.",
+    "Todo el inventario está en aeofmiami.com.",
+    "Ven a vernos a la 5700 Northwest 27 Avenue.",
+    "Escríbenos por DM y te ayudamos a escoger.",
+    "Comenta tu pregunta y sale en la próxima parte."
+   ],
+   "notes": [
+    "las burbujas de comentario se hacen en edición. Si las preguntas existen como comentarios reales en la cuenta de AE, usar esos (con permiso o tapando el usuario). Si no, poner la burbuja sin nombre de usuario: no inventar comentarios con usuarios falsos.",
+    "la camioneta del comentario 3 tiene que estar en el lote ese día, con precio y título confirmados. Las respuestas 2 y 4 dependen de lo que confirme Pablo: si no hay respuesta, se graba la versión corta sin la parte en CONFIRMAR."
+   ]
+  },
+  {
+   "w": 3,
    "cat": "edu",
    "code": "E4",
    "title": "De Miami a tu país",
@@ -168,6 +247,85 @@
    ],
    "ref": "Sin trend de referencia — idea propia.",
    "nuevo": false
+  },
+  {
+   "w": 4,
+   "cat": "ent",
+   "code": "T7",
+   "title": "Dime que trabajas en un dealer salvage sin decírmelo",
+   "pilar": "Entretenimiento (trend)",
+   "dur": "~15-20s",
+   "nuevo": true,
+   "ref": "Formato recurrente de Reels / TikTok “Tell me you ___ without telling me”: texto fijo arriba y planos cortos al ritmo de la música que lo “demuestran”. Sin diálogo.",
+   "planos": [
+    {
+     "desc": "Texto fijo todo el video: “Dime que trabajas en un dealer salvage sin decírmelo”. Daniela llega en la mañana y saluda a un carro sin puerta como si fuera un compañero",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "La grúa baja un carro chocado; Daniela lo mira y hace check en una libreta, feliz",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Close-up: pasa el dedo por un golpe y asiente, como diciendo “está bonito”",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Alguien del taller, con las manos llenas de grasa, le choca el puño",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Pantalla del teléfono: llegan diez mensajes seguidos de “¿Sigue disponible?”",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Daniela sentada en un carro sin parabrisas, con lentes de sol, relajada como si estuviera en un convertible",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Final: Daniela a cámara levanta unas llaves. Card",
+     "lineas": [
+      "“aeofmiami.com”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "Dime que trabajas en un dealer salvage sin decírmelo",
+    "POV: trabajas en AE of Miami",
+    "Un día normal en un dealer salvage",
+    "Señales de que trabajas en AE",
+    "Si trabajas en un salvage, esto es tu día"
+   ],
+   "ctas": [
+    "Caption: ¿Cuál de estos es más real? 😂 aeofmiami.com",
+    "Caption: Etiqueta a alguien que trabaja con carros.",
+    "Caption: El inventario está en aeofmiami.com.",
+    "Caption: ¿Qué más pondrías? Comenta.",
+    "Caption: Así es un día en AE. Ven a conocernos."
+   ],
+   "notes": [
+    "sin diálogo: la música la pone Juan y cada plano dura 1–2 segundos, al beat. Se va grabando durante el día, aprovechando lo que pase en el lote (grúa, taller, mensajes).",
+    "los planos son sugerencias: cualquier momento real que “solo pasa en un salvage” sirve. No mostrar clientes sin permiso."
+   ]
   }
  ],
  "checklist": [],
@@ -203,6 +361,38 @@
     "¿Tienes otra regla? Compártela en los comentarios.",
     "Escríbenos el carro que te interesa y te contamos todo.",
     "Ven al lote y revísalo tú mismo."
+   ]
+  },
+  "T6": {
+   "hooks": [
+    "Respondo lo que más nos preguntan por DM.",
+    "Preguntas reales. Respuestas rápidas.",
+    "Si tenías alguna de estas dudas, quédate.",
+    "Lo que todo el mundo quiere saber de AE.",
+    "Parte 1 de sus preguntas."
+   ],
+   "ctas": [
+    "Guárdalo para cuando vengas.",
+    "Pregunta lo que quieras en los comentarios.",
+    "Etiqueta a quien siempre pregunta “¿dónde queda eso?”.",
+    "Mira la camioneta y más en aeofmiami.com.",
+    "Te esperamos en el lote."
+   ]
+  },
+  "T7": {
+   "hooks": [
+    "Cosas que solo pasan en un dealer salvage",
+    "Mi oficina no es normal",
+    "Lo normal en AE of Miami",
+    "Si esto es tu lunes, trabajas en un salvage",
+    "Un lunes cualquiera en AE"
+   ],
+   "ctas": [
+    "Caption: Ven a conocer el lote.",
+    "Caption: ¿Te imaginas trabajar aquí?",
+    "Caption: Síguenos para ver más del día a día.",
+    "Caption: ¿Cuál te pasó a ti? Comenta el número.",
+    "Caption: Así se ve el lote por dentro. aeofmiami.com"
    ]
   }
  }
