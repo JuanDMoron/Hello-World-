@@ -1,0 +1,493 @@
+<title>Operación Dos Cupos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75,500;75,700;75,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: claqueta arriba (meta + embudo), pestañas Hoy / Prospectos / Plan / Kit, una columna que se abre a dos en escritorio */
+:root{
+  --bg:#F1F3F5; --surface:#FFFFFF; --fg:#14171C; --muted:#5B6470; --line:#D9DEE4;
+  --accent:#0C7480; --accent-soft:#DCEFF1; --amber:#B8661A; --amber-soft:#F8E7D4;
+  --ok:#2E7D4F; --ok-soft:#DCF0E3; --no:#8A3B3B; --no-soft:#F3DEDE;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1114; --surface:#171B20; --fg:#E7EAEE; --muted:#9AA3AE; --line:#2A3038;
+  --accent:#4DB8C3; --accent-soft:#16343A; --amber:#E8A24E; --amber-soft:#3A2A17;
+  --ok:#6CC28F; --ok-soft:#183324; --no:#E08C8C; --no-soft:#3A1D1D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1114; --surface:#171B20; --fg:#E7EAEE; --muted:#9AA3AE; --line:#2A3038;
+  --accent:#4DB8C3; --accent-soft:#16343A; --amber:#E8A24E; --amber-soft:#3A2A17;
+  --ok:#6CC28F; --ok-soft:#183324; --no:#E08C8C; --no-soft:#3A1D1D; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--body)}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 64px}
+h1,h2,h3{font-family:var(--display);font-stretch:75%;text-wrap:balance;margin:0;letter-spacing:.005em}
+h1{font-size:clamp(30px,6vw,46px);font-weight:800;line-height:1.02}
+h2{font-size:24px;font-weight:700}
+h3{font-size:18px;font-weight:700}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+a{color:var(--accent)}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* claqueta */
+.slate{display:grid;gap:18px;padding-block:8px 18px;border-bottom:1px solid var(--line)}
+.slate-top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;justify-content:space-between}
+.slate-top p{margin:8px 0 0;color:var(--muted);max-width:60ch}
+.clock{display:flex;gap:10px;flex-wrap:wrap}
+.clock div{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:8px 12px;min-width:96px}
+.clock b{display:block;font:500 26px/1.1 var(--mono);font-variant-numeric:tabular-nums}
+.clock span{font-size:12px;color:var(--muted)}
+.funnel{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px;min-width:0}
+.stage .n{font:500 22px/1 var(--mono);font-variant-numeric:tabular-nums}
+.stage .t{font-size:12px;color:var(--muted);margin-top:4px}
+.bar{height:4px;background:var(--line);border-radius:2px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0}
+.stage.win .bar i{background:var(--ok)}
+@media (max-width:640px){.funnel{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* tabs */
+nav.tabs{display:flex;gap:4px;margin:18px 0 20px;overflow-x:auto}
+nav.tabs button{border:1px solid var(--line);background:transparent;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;font-weight:500}
+nav.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.note{font-size:13px;color:var(--muted)}
+.status{font-size:13px;color:var(--amber);margin:0 0 12px}
+
+/* checklist */
+.day{border-top:1px solid var(--line);padding-block:14px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px}
+.day.today{background:linear-gradient(var(--amber-soft),var(--amber-soft));border-radius:6px;padding-inline:10px;border-top-color:transparent}
+.day .when{font:500 13px/1.4 var(--mono);color:var(--muted)}
+.day .when b{display:block;color:var(--fg);font-family:var(--display);font-stretch:75%;font-size:17px}
+@media (max-width:560px){.day{grid-template-columns:1fr;gap:6px}}
+.week{margin-top:26px}
+.week>.eyebrow{display:block;margin-bottom:6px}
+ul.tasks{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ul.tasks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+ul.tasks input{margin-top:4px;width:17px;height:17px;accent-color:var(--accent);flex:none}
+ul.tasks .done span{color:var(--muted);text-decoration:line-through}
+
+/* hoy */
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.panel h3{margin-bottom:10px}
+.due{display:grid;gap:8px}
+.due button{all:unset;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:6px}
+.due button:hover{border-color:var(--accent)}
+.due button:focus-visible{outline:2px solid var(--accent)}
+
+/* prospectos */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.filters button{border:1px solid var(--line);background:var(--surface);padding:5px 11px;border-radius:999px;cursor:pointer;font-size:13px}
+.filters button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--fg)}
+.filters .c{font-family:var(--mono);color:var(--muted);margin-left:4px}
+#list{display:grid;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;display:grid;gap:10px;min-width:0}
+.card-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.card-head h3{font-size:20px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font:500 11px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:5px 7px;border-radius:4px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.chip.alta{background:var(--amber-soft);color:var(--amber);border-color:transparent}
+.chip.cerrado{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.chip.no{background:var(--no-soft);color:var(--no);border-color:transparent}
+.signal{margin:0;font-size:14px}
+.signal small{color:var(--muted)}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:640px){.fields{grid-template-columns:1fr 1fr}}
+.fields label,.full label{display:grid;gap:3px;font-size:12px;color:var(--muted);min-width:0}
+input[type=text],input[type=date],select,textarea{width:100%;min-width:0;border:1px solid var(--line);background:var(--bg);border-radius:5px;padding:7px 8px;font-size:14px;color:var(--fg)}
+textarea{resize:vertical;min-height:62px;line-height:1.45}
+.dm{display:grid;gap:6px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--surface);padding:6px 12px;border-radius:5px;cursor:pointer;font-size:13px;font-weight:500}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.empty{border:1px dashed var(--line);border-radius:8px;padding:24px;text-align:center;color:var(--muted)}
+details.add{margin-top:18px}
+details.add summary{cursor:pointer;font-weight:600}
+details.add form{display:grid;gap:8px;margin-top:10px}
+
+/* kit */
+.kit{display:grid;gap:22px}
+.kit section{display:grid;gap:10px}
+.kit .intro{color:var(--muted);margin:0;max-width:65ch}
+.msg{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:grid;gap:8px}
+.msg .lbl{font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.msg p{margin:0;white-space:pre-wrap}
+.script ol{margin:0;padding-left:20px;display:grid;gap:6px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .5s ease}}
+</style>
+
+<div class="wrap">
+  <header class="slate">
+    <div class="slate-top">
+      <div>
+        <span class="eyebrow">La Nostra Production · Producción: 2 clientes mensuales</span>
+        <h1>Operación Dos Cupos</h1>
+        <p>Meta: 2 clientes nuevos del paquete mensual ($1,500/mes, 3 meses) firmados y pagados antes del miércoles 16 de diciembre, para arrancar a grabar entre el 17 y el 23.</p>
+      </div>
+      <div class="clock">
+        <div><b id="daysLeft">--</b><span>días al 16 dic</span></div>
+        <div><b id="closed">0/2</b><span>cerrados</span></div>
+        <div><b id="mrr">$0</b><span>nuevo por mes</span></div>
+      </div>
+    </div>
+    <div class="funnel" id="funnel" aria-label="Embudo"></div>
+    <p class="note" style="margin:0">Las metas del embudo son estimadas (mensajes personalizados con señal real + visitas). Ajústalas con tus números reales al final de la semana 1.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Secciones">
+    <button role="tab" id="tab-hoy" aria-controls="v-hoy" data-v="hoy">Hoy</button>
+    <button role="tab" id="tab-prospectos" aria-controls="v-prospectos" data-v="prospectos">Prospectos</button>
+    <button role="tab" id="tab-plan" aria-controls="v-plan" data-v="plan">Plan completo</button>
+    <button role="tab" id="tab-kit" aria-controls="v-kit" data-v="kit">Kit de mensajes</button>
+  </nav>
+  <p class="status" id="status" hidden></p>
+
+  <section id="v-hoy" role="tabpanel" aria-labelledby="tab-hoy">
+    <div class="grid2">
+      <div class="panel">
+        <span class="eyebrow" id="todayLabel"></span>
+        <h3 id="todayTitle">Tareas de hoy</h3>
+        <ul class="tasks" id="todayTasks"></ul>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Toques que vencen</span>
+        <h3>Follow-ups y respuestas</h3>
+        <div class="due" id="dueList"></div>
+        <p class="note" id="readyNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="v-prospectos" role="tabpanel" aria-labelledby="tab-prospectos" hidden>
+    <div class="filters" id="filters"></div>
+    <div id="list"></div>
+    <details class="add">
+      <summary>Agregar prospecto a mano</summary>
+      <form id="addForm">
+        <div class="fields">
+          <label>Negocio<input type="text" id="f-negocio" required></label>
+          <label>Nicho<select id="f-nicho"><option>Restaurante</option><option>Automotriz</option><option>Real estate</option><option>Marca</option><option>Artista</option></select></label>
+          <label>Zona<input type="text" id="f-zona" placeholder="Brickell, Doral…"></label>
+          <label>Instagram<input type="text" id="f-ig" placeholder="@"></label>
+          <label>Prioridad<select id="f-prio"><option>Alta</option><option selected>Media</option><option>Baja</option></select></label>
+          <label>Origen<select id="f-origen"><option>Frío</option><option>Referido</option><option>Red cercana</option><option>Visita</option></select></label>
+        </div>
+        <div class="full"><label>Señal / gancho real (qué viste)<textarea id="f-senal" rows="2"></textarea></label></div>
+        <div class="row"><button class="btn primary" type="submit">Agregar</button><span class="note" id="addMsg"></span></div>
+      </form>
+    </details>
+  </section>
+
+  <section id="v-plan" role="tabpanel" aria-labelledby="tab-plan" hidden>
+    <div id="plan"></div>
+  </section>
+
+  <section id="v-kit" role="tabpanel" aria-labelledby="tab-kit" hidden>
+    <div class="kit" id="kit"></div>
+  </section>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+var DEADLINE="2026-12-16";
+var ESTADOS=["Por verificar","Listo para DM","Contactado","Follow-up 1","Follow-up 2","Follow-up 3","Respondió","Llamada/visita","Propuesta enviada","Cerrado","No por ahora"];
+var RANK={"Por verificar":0,"Listo para DM":1,"Contactado":2,"Follow-up 1":3,"Follow-up 2":4,"Follow-up 3":5,"Respondió":6,"Llamada/visita":7,"Propuesta enviada":8,"Cerrado":9};
+var NEXT={"Contactado":3,"Follow-up 1":5,"Follow-up 2":7,"Respondió":0,"Llamada/visita":1,"Propuesta enviada":2};
+var STAGES=[{k:"total",t:"Prospectos",goal:150},{k:2,t:"Contactados",goal:120},{k:6,t:"Respondieron",goal:25},{k:7,t:"Llamada o visita",goal:8},{k:8,t:"Propuestas",goal:4},{k:9,t:"Cerrados",goal:2,win:true}];
+
+function z(n){return String(n).padStart(2,"0")}
+function ymd(d){return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())}
+function addDays(s,n){var p=s.split("-").map(Number);return ymd(new Date(p[0],p[1]-1,p[2]+n))}
+function diffDays(a,b){var pa=a.split("-").map(Number),pb=b.split("-").map(Number);return Math.round((new Date(pb[0],pb[1]-1,pb[2])-new Date(pa[0],pa[1]-1,pa[2]))/864e5)}
+var DIAS=["dom","lun","mar","mié","jue","vie","sáb"],MESES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+function nice(s){var p=s.split("-").map(Number),d=new Date(p[0],p[1]-1,p[2]);return DIAS[d.getDay()]+" "+p[2]+" "+MESES[p[1]-1]}
+var TODAY=ymd(new Date());
+
+/* ---------- plan ---------- */
+function T(id,t){return {id:id,t:t}}
+var PLAN=[
+ {wk:"Semana 0 · Preparación",days:[
+  {d:"2026-11-23",title:"Arranque y red cercana",tasks:[
+   T("a1","Confirmar cupos: máx. 4 clientes; hoy Fugato + AE of Miami = quedan 2 para enero [EDITABLE si cambió]"),
+   T("a2","Mandar el mensaje de referido a Fugato y a AE (Kit → Referidos)"),
+   T("a3","Hacer una lista de 20 personas de tu red con negocio o con contactos: ex clientes, chefs, vendedores de autos, agentes, amigos"),
+   T("a4","Escribirle a los 10 más calientes de esa lista (Kit → Red cercana)")]},
+  {d:"2026-11-24",title:"Portafolio por nicho",tasks:[
+   T("b1","Pedir a Fugato y AE 2 líneas de testimonio + números de IG Insights (vistas del mejor reel, alcance del mes)"),
+   T("b2","Editar Reel Restaurantes de 30 a 45 s (Fugato + tus mejores tomas de comida)"),
+   T("b3","Editar Reel Autos de 30 a 45 s (AE + Porsche / BTS)"),
+   T("b4","Subir a muse.ai como links separados: /restaurantes, /autos y \"un mes con Fugato\" (los 12 videos de un mes)")]},
+  {d:"2026-11-25",title:"Perfil, one-pager y casos",tasks:[
+   T("c1","Instagram @juanonCam: bio nueva, fijar 3 posts (restaurante, auto, BTS), highlights Restaurantes / Autos / Clientes"),
+   T("c2","One-pager del paquete en PDF (pídeselo a Claude con tus fotos)"),
+   T("c3","2 casos de estudio de 1 página: Fugato y AE (reto, qué hicimos, 3 videos, números reales)"),
+   T("c4","Revisar los primeros 15 prospectos: buscar su @, validar el gancho en su feed (2 min c/u) y pasarlos a \"Listo para DM\"")]},
+  {d:"2026-11-26",title:"Thanksgiving: calentar cuentas",tasks:[
+   T("d1","Seguir y comentar con sentido (no 🔥) en 20 cuentas del CRM. Nada de DMs todavía"),
+   T("d2","Reaccionar a 1 historia de cada prospecto de prioridad Alta")]},
+  {d:"2026-11-27",title:"Black Friday: calentar y dejar listo el lunes",tasks:[
+   T("e1","Dejar 10 DMs revisados y listos para mandar el lunes"),
+   T("e2","Escribirle al resto de tu lista de red cercana (10 personas)")]}
+ ]},
+ {wk:"Semana 1 · Ataque (Art Basel 4–6 dic)",gen:{from:"2026-11-30",to:"2026-12-04",prefix:"w1",title:"Ataque",extra:{
+   "2026-12-01":["Visitar 2 restaurantes entre 3 y 5 pm (fuera de servicio) con el reel en el celular"],
+   "2026-12-02":["Basel: ofrecer el Día de contenido ($800) a 5 restaurantes o marcas con evento esa semana","Visitar 2 restaurantes entre 3 y 5 pm"],
+   "2026-12-03":["Visitar 2 restaurantes entre 3 y 5 pm"],
+   "2026-12-04":["Revisar números de la semana: ¿cuántos contestaron? Ajusta las metas del embudo"]}}},
+ {wk:"Semana 2 · Conversaciones y propuestas",gen:{from:"2026-12-07",to:"2026-12-11",prefix:"w2",title:"Conversaciones",extra:{
+   "2026-12-07":["Agendar llamadas o visitas de 15 min con todos los que respondieron (Kit → Guion de llamada)"],
+   "2026-12-08":["Mandar propuesta dentro de las 24 h de cada llamada, con fecha límite 16 dic"],
+   "2026-12-09":["Visitar 2 restaurantes entre 3 y 5 pm"],
+   "2026-12-10":["Follow-up a propuestas enviadas hace 2 días (Kit → Seguimiento de propuesta)"],
+   "2026-12-11":["Chequeo: si hay menos de 3 propuestas, duplicar visitas en persona el lunes y martes"]}}},
+ {wk:"Semana 3 · Cierre",days:[
+  {d:"2026-12-14",title:"Empujar propuestas",tasks:[
+   T("z1","Follow-up a todas las propuestas abiertas (Kit → Cierre)"),
+   T("z2","Ofrecer el Día de contenido como entrada a quien diga que no al mensual")]},
+  {d:"2026-12-15",title:"Último aviso",tasks:[
+   T("z3","Mensaje de \"cupos de enero cierran mañana\" a propuestas abiertas"),
+   T("z4","Tener contrato y link de pago listos")]},
+  {d:"2026-12-16",title:"Firmar y cobrar",tasks:[
+   T("z5","Contrato firmado + pago recibido (se paga antes de empezar)"),
+   T("z6","Agendar sesión 1 entre el 17 y el 23 de dic y mandar el brief de arranque")]}
+ ]}
+];
+PLAN.forEach(function(w){
+  if(!w.gen) return;
+  var g=w.gen,days=[],d=g.from,i=0;
+  while(d<=g.to){
+    var tasks=[T(g.prefix+"-"+i+"-dm","10 DMs nuevos a prospectos en \"Listo para DM\" (cópialos desde Prospectos)"),T(g.prefix+"-"+i+"-fu","Hacer los follow-ups que vencen hoy (panel de la derecha)"),T(g.prefix+"-"+i+"-rv","Validar 10 prospectos nuevos que dejó el agente esta mañana")];
+    (g.extra[d]||[]).forEach(function(x,j){tasks.push(T(g.prefix+"-"+i+"-x"+j,x))});
+    days.push({d:d,title:g.title,tasks:tasks});d=addDays(d,1);i++;
+  }
+  w.days=days;
+});
+var ALLDAYS=[];PLAN.forEach(function(w){w.days.forEach(function(x){ALLDAYS.push(x)})});
+
+/* ---------- kit ---------- */
+var KIT=[
+ {h:"Referidos (clientes actuales)",intro:"Lo más rápido para cerrar en 3 semanas: un cliente feliz que te presenta. Manda uno por WhatsApp, no los dos.",msgs:[
+  ["A · Pedido directo","[nombre], una pregunta rápida. Para enero me quedan 2 cupos de contenido mensual y prefiero trabajar con gente recomendada. ¿Conoces a algún dueño de restaurante o de negocio de autos que necesite contenido todos los meses? Si me pasas el contacto le escribo yo y te menciono."],
+  ["B · Testimonio + referido","[nombre], gracias por estos meses, de verdad. Te pido un favor pequeño: ¿me escribes 2 líneas de cómo ha sido trabajar juntos? Lo quiero poner en mi portafolio. Y si se te ocurre alguien que necesite lo mismo que hacemos con ustedes, pásamelo, que para enero tengo 2 cupos."],
+  ["Extra opcional · Incentivo","Si alguien que me recomiendes firma, te regalo [EDITABLE: 2 videos extra / una sesión de fotos] ese mes."]]},
+ {h:"Red cercana",intro:"Gente que ya te conoce. Contestan más que cualquier DM en frío.",msgs:[
+  ["A · Pedir el @","[nombre]! ¿cómo vas? te escribo por algo puntual: para enero me quedan 2 cupos de contenido mensual (12 videos al mes, yo grabo y edito todo). ¿conoces a alguien con restaurante o negocio de autos que lo necesite? con que me pases el @ me ayudas un montón."],
+  ["B · Si la persona tiene negocio","[nombre], vi [algo real de su negocio]. estoy armando la agenda de enero y pensé en ustedes: contenido todo el mes, yo me encargo de grabar y editar. ¿te mando cómo lo haría?"]]},
+ {h:"Cuando preguntan precio",intro:"Rango corto y llevarlo a algo concreto. Nunca una lista suelta.",msgs:[
+  ["Respuesta","depende de qué necesites, pero para que tengas idea: un día de contenido (3-4 horas de rodaje, 6 piezas editadas) son $800, y el mensual (12 videos al mes, 2 sesiones de grabación) está en $1,500. ¿qué tienes en mente, algo puntual o contenido todos los meses?"]]},
+ {h:"Guion de llamada o visita (15 min)",intro:"Tú preguntas, ellos hablan. Propuesta en 24 horas.",script:[
+  "¿Qué quieres que pase con tus redes entre enero y marzo? (más reservas, más gente en el local, vender un auto específico, lanzar algo)",
+  "¿Quién hace el contenido hoy y cada cuánto publican?",
+  "¿Qué es lo que no te gusta de lo que hay ahora?",
+  "Enseña UN caso: el mes de Fugato o de AE, en el celular. Muestra el sistema (12 videos), no un video suelto.",
+  "Tira 3 ideas concretas para su negocio (plato, auto, proceso, persona).",
+  "Cierre: \"si te late, te mando la propuesta hoy y te separo uno de los 2 cupos de enero. ¿le damos?\""]},
+ {h:"Seguimiento de propuesta (48 h después)",msgs:[
+  ["Mensaje","[nombre], ¿pudiste ver la propuesta? si algo no cuadra la ajusto. lo que más me importa es que enero arranque con [idea concreta que hablaron]."]]},
+ {h:"Cierre (14–15 dic)",msgs:[
+  ["Aviso de agenda","[nombre], te aviso antes de cerrar la agenda: los 2 cupos de enero los cierro este miércoles 16. si quieren arrancar, la primera sesión sería entre el 17 y el 23 para que el contenido de enero esté listo antes del 1. ¿le damos?"]]},
+ {h:"Objeciones",msgs:[
+  ["\"3 meses es mucho\"","te entiendo. el primer mes es para encontrar qué funciona con tu público y el segundo y el tercero es donde se ve el resultado. si prefieres probar primero, arrancamos con un día de contenido ($800, 6 piezas) y si te gusta pasamos al mensual."],
+  ["\"Está caro\"","son $125 por video, grabado, editado, con guion y dirección. si el presupuesto no da ahora, el día de contenido es una buena forma de empezar."],
+  ["\"Déjame pensarlo\"","claro. ¿qué te hace dudar más, el precio, el compromiso de 3 meses o el momento? así te digo si hay forma de ajustarlo."],
+  ["\"Ya tenemos a alguien\"","perfecto, me alegra que lo tengan cubierto. si en algún momento necesitan una pieza especial (apertura, lanzamiento, evento), con gusto. éxito con [lo que viste]."]]},
+ {h:"Bio de Instagram (@juanonCam)",msgs:[
+  ["ES","Filmmaker en Miami. Contenido mensual para restaurantes y marcas de autos. 2 cupos para enero ↓"],
+  ["EN","Miami filmmaker. Monthly content for restaurants and car brands. 2 spots open for January ↓"]]}
+];
+
+/* ---------- utilidades UI ---------- */
+function el(tag,attrs,kids){var e=document.createElement(tag);if(attrs)for(var k in attrs){if(k==="text")e.textContent=attrs[k];else if(k==="cls")e.className=attrs[k];else e.setAttribute(k,attrs[k])}(kids||[]).forEach(function(c){if(c)e.appendChild(c)});return e}
+var toastT;function toast(m){var t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true},1800)}
+function copy(text,node){
+  try{navigator.clipboard.writeText(text).then(function(){toast("Copiado")},function(){selectNode(node)})}catch(e){selectNode(node)}
+}
+function selectNode(node){if(!node)return;if(node.select){node.focus();node.select()}else{var r=document.createRange();r.selectNodeContents(node);var s=getSelection();s.removeAllRanges();s.addRange(r)}toast("Seleccionado: copia con el teclado")}
+function status(m){var s=document.getElementById("status");s.textContent=m||"";s.hidden=!m}
+
+/* ---------- pestañas ---------- */
+var VIEWS=["hoy","prospectos","plan","kit"];
+function show(v){if(VIEWS.indexOf(v)<0)v="hoy";VIEWS.forEach(function(x){document.getElementById("v-"+x).hidden=(x!==v);document.getElementById("tab-"+x).setAttribute("aria-selected",x===v?"true":"false")})}
+document.querySelectorAll("nav.tabs button").forEach(function(b){b.addEventListener("click",function(){location.hash=b.dataset.v})});
+window.addEventListener("hashchange",function(){show(location.hash.slice(1))});
+show(location.hash.slice(1));
+
+/* ---------- estado ---------- */
+var db=null,checks={},prospects={},loaded=false,canWrite=true;
+
+/* ---------- reloj y embudo ---------- */
+function renderTop(){
+  var left=diffDays(TODAY,DEADLINE);document.getElementById("daysLeft").textContent=left>=0?left:0;
+  var list=Object.keys(prospects).map(function(k){return prospects[k]});
+  var cnt={total:list.length};[2,6,7,8,9].forEach(function(r){cnt[r]=list.filter(function(p){return (p.max||0)>=r}).length});
+  var closed=cnt[9];document.getElementById("closed").textContent=closed+"/2";
+  document.getElementById("mrr").textContent="$"+(closed*1500).toLocaleString("en-US");
+  var f=document.getElementById("funnel");f.textContent="";
+  STAGES.forEach(function(s){var n=cnt[s.k]||0,pct=Math.min(100,Math.round(n/s.goal*100));
+    var bar=el("i");bar.style.width=pct+"%";
+    f.appendChild(el("div",{cls:"stage"+(s.win?" win":"")},[el("div",{cls:"n",text:n+" / "+s.goal}),el("div",{cls:"t",text:s.t}),el("div",{cls:"bar"},[bar])]))});
+}
+
+/* ---------- checklist compartida ---------- */
+function taskItem(t){
+  var cb=el("input",{type:"checkbox",id:"chk-"+t.id});cb.checked=!!checks[t.id];
+  var lab=el("label",{"for":"chk-"+t.id,cls:checks[t.id]?"done":""},[cb,el("span",{text:t.t})]);
+  cb.addEventListener("change",function(){setCheck(t.id,cb.checked)});
+  return el("li",null,[lab]);
+}
+function setCheck(id,val){
+  checks[id]=val;renderPlan();renderHoy();
+  if(!db){status("No se pudo guardar: abre la página desde tu cuenta de claude.ai.");return}
+  var next={};for(var k in checks)if(checks[k])next[k]=true;
+  db.doc("progreso/checks").set(next).catch(function(){status("No se guardó el último cambio. Revisa tu conexión.")});
+}
+function renderPlan(){
+  var root=document.getElementById("plan");root.textContent="";
+  PLAN.forEach(function(w){
+    var wk=el("div",{cls:"week"},[el("span",{cls:"eyebrow",text:w.wk})]);
+    w.days.forEach(function(d){
+      var ul=el("ul",{cls:"tasks"});d.tasks.forEach(function(t){ul.appendChild(taskItem(t))});
+      var when=el("div",{cls:"when"},[el("b",{text:nice(d.d)}),document.createTextNode(d.title)]);
+      wk.appendChild(el("div",{cls:"day"+(d.d===TODAY?" today":"")},[when,el("div",null,[ul])]));
+    });
+    root.appendChild(wk);
+  });
+}
+function renderHoy(){
+  var day=ALLDAYS.filter(function(d){return d.d===TODAY})[0];
+  var label=document.getElementById("todayLabel"),title=document.getElementById("todayTitle"),ul=document.getElementById("todayTasks");ul.textContent="";
+  if(!day){
+    var nxt=ALLDAYS.filter(function(d){return d.d>TODAY})[0];
+    if(nxt){label.textContent="Próximo día del plan · "+nice(nxt.d);title.textContent=nxt.title;nxt.tasks.forEach(function(t){ul.appendChild(taskItem(t))})}
+    else{label.textContent=nice(TODAY);title.textContent="El plan terminó el 16 de diciembre";}
+  }else{label.textContent="Hoy · "+nice(TODAY);title.textContent=day.title;day.tasks.forEach(function(t){ul.appendChild(taskItem(t))})}
+  var due=document.getElementById("dueList");due.textContent="";
+  var list=Object.keys(prospects).map(function(k){return prospects[k]}).filter(function(p){return p.proximo&&p.proximo<=TODAY&&p.estado!=="Cerrado"&&p.estado!=="No por ahora"&&(RANK[p.estado]||0)>=2}).sort(function(a,b){return a.proximo<b.proximo?-1:1});
+  if(!loaded){due.appendChild(el("p",{cls:"note",text:"Cargando prospectos…"}))}
+  else if(!list.length){due.appendChild(el("p",{cls:"note",text:"Nada vence hoy. Cuando marques a alguien como Contactado, el siguiente toque aparece aquí solo."}))}
+  list.forEach(function(p){var b=el("button",{type:"button"},[el("span",{text:p.negocio+" · "+p.estado}),el("span",{cls:"mono",text:p.proximo===TODAY?"hoy":"atrasado"})]);b.addEventListener("click",function(){filter="todos";location.hash="prospectos";setTimeout(function(){var c=document.getElementById("card-"+p.id);if(c){c.scrollIntoView({block:"start"});}},50)});due.appendChild(b)});
+  var ready=Object.keys(prospects).filter(function(k){return prospects[k].estado==="Listo para DM"}).length,ver=Object.keys(prospects).filter(function(k){return prospects[k].estado==="Por verificar"}).length;
+  document.getElementById("readyNote").textContent=loaded?(ready+" listos para DM · "+ver+" por verificar en Instagram"):"";
+}
+
+/* ---------- prospectos ---------- */
+var FILTERS=[["todos","Todos",function(){return true}],["verificar","Por verificar",function(p){return p.estado==="Por verificar"}],["listos","Listos para DM",function(p){return p.estado==="Listo para DM"}],["curso","En seguimiento",function(p){var r=RANK[p.estado];return r>=2&&r<=5}],["conv","Conversando",function(p){var r=RANK[p.estado];return r>=6&&r<=8}],["cerrados","Cerrados",function(p){return p.estado==="Cerrado"}],["no","No por ahora",function(p){return p.estado==="No por ahora"}]];
+var filter="todos";try{filter=localStorage.getItem("odc-filter")||"todos"}catch(e){}
+function renderFilters(){
+  var f=document.getElementById("filters");f.textContent="";
+  var list=Object.keys(prospects).map(function(k){return prospects[k]});
+  FILTERS.forEach(function(x){var n=list.filter(x[2]).length;var b=el("button",{type:"button","aria-pressed":filter===x[0]?"true":"false"},[document.createTextNode(x[1]),el("span",{cls:"c",text:String(n)})]);b.addEventListener("click",function(){filter=x[0];try{localStorage.setItem("odc-filter",filter)}catch(e){}renderList()});f.appendChild(b)});
+}
+var PRIO={"Alta":0,"Media":1,"Baja":2};
+function sortKey(p){var r=p.estado==="No por ahora"?9:(p.estado==="Cerrado"?8:0);return [r,PRIO[p.prioridad]==null?1:PRIO[p.prioridad],p.negocio||""]}
+function cmp(a,b){var ka=sortKey(a),kb=sortKey(b);for(var i=0;i<3;i++){if(ka[i]<kb[i])return -1;if(ka[i]>kb[i])return 1}return 0}
+var cards={};
+function save(id,patch){
+  if(!db){status("No se pudo guardar: abre la página desde tu cuenta de claude.ai.");return Promise.resolve()}
+  return db.doc("prospectos/"+id).update(patch).catch(function(e){if(e&&e.code==="invalid_argument"){canWrite=false;status("Solo puedes ver esta lista: no tienes permiso para editarla.")}else status("No se guardó el último cambio. Revisa tu conexión.")});
+}
+function field(label,input){return el("label",null,[document.createTextNode(label),input])}
+function buildCard(p){
+  var id=p.id,c={};
+  c.root=el("article",{cls:"card",id:"card-"+id});
+  c.name=el("h3");c.chips=el("div",{cls:"chips"});
+  c.root.appendChild(el("div",{cls:"card-head"},[c.name,c.chips]));
+  c.signal=el("p",{cls:"signal"});c.root.appendChild(c.signal);
+  c.estado=el("select",{id:"es-"+id});ESTADOS.forEach(function(s){c.estado.appendChild(el("option",{text:s}))});
+  c.ig=el("input",{type:"text",id:"ig-"+id,placeholder:"@ por buscar"});
+  c.prox=el("input",{type:"date",id:"px-"+id});
+  c.root.appendChild(el("div",{cls:"fields"},[field("Estado",c.estado),field("Instagram",c.ig),field("Próximo toque",c.prox)]));
+  c.dm=el("textarea",{id:"dm-"+id,rows:"4"});
+  var cp=el("button",{type:"button",cls:"btn",text:"Copiar DM"});cp.addEventListener("click",function(){copy(c.dm.value,c.dm)});
+  c.dmlab=el("span",{cls:"eyebrow",text:"Borrador de DM"});
+  c.root.appendChild(el("div",{cls:"dm"},[el("div",{cls:"row"},[c.dmlab,cp]),c.dm]));
+  c.notas=el("textarea",{id:"nt-"+id,rows:"2",placeholder:"Notas: con quién hablaste, qué dijo, qué sigue"});
+  c.root.appendChild(el("div",{cls:"full"},[field("Notas",c.notas)]));
+  c.estado.addEventListener("change",function(){
+    var cur=prospects[id]||{},s=c.estado.value,patch={estado:s},r=RANK[s];
+    if(r!=null&&r>(cur.max||0))patch.max=r;
+    if(s==="Contactado"&&!cur.contactado)patch.contactado=TODAY;
+    if(NEXT[s]!=null)patch.proximo=addDays(TODAY,NEXT[s]);
+    if(s==="Follow-up 3"||s==="Cerrado"||s==="No por ahora")patch.proximo="";
+    save(id,patch);
+  });
+  [["ig",c.ig,"instagram"],["prox",c.prox,"proximo"],["dm",c.dm,"dm"],["notas",c.notas,"notas"]].forEach(function(x){x[1].addEventListener("change",function(){var o={};o[x[2]]=x[1].value;save(id,o)})});
+  cards[id]=c;return c;
+}
+function setVal(node,v){if(document.activeElement!==node&&node.value!==(v||""))node.value=v||""}
+function fillCard(c,p){
+  c.name.textContent=p.negocio||"(sin nombre)";
+  c.chips.textContent="";
+  [[p.nicho,""],[p.zona,""],[p.prioridad,p.prioridad==="Alta"?"alta":""],[p.origen,""]].forEach(function(x){if(x[0])c.chips.appendChild(el("span",{cls:"chip "+x[1],text:x[0]}))});
+  if(p.estado==="Cerrado")c.chips.appendChild(el("span",{cls:"chip cerrado",text:"Cerrado"}));
+  if(p.estado==="No por ahora")c.chips.appendChild(el("span",{cls:"chip no",text:"No por ahora"}));
+  c.signal.textContent="";
+  if(p.senal)c.signal.appendChild(document.createTextNode(p.senal+" "));
+  if(p.fuente&&/^https:\/\//.test(p.fuente)){c.signal.appendChild(el("a",{href:p.fuente,target:"_blank",rel:"noopener",text:"fuente"}))}
+  if(p.gancho){c.signal.appendChild(el("br"));c.signal.appendChild(el("small",{text:"Gancho: "+p.gancho}))}
+  setVal(c.estado,p.estado||"Por verificar");setVal(c.ig,p.instagram);setVal(c.prox,p.proximo);setVal(c.dm,p.dm);setVal(c.notas,p.notas);
+  c.dmlab.textContent=p.idioma?("Borrador de DM · "+p.idioma):"Borrador de DM";
+  [c.estado,c.ig,c.prox,c.dm,c.notas].forEach(function(n){n.disabled=!canWrite});
+}
+function renderList(){
+  renderFilters();
+  var root=document.getElementById("list");
+  var all=Object.keys(prospects).map(function(k){return prospects[k]}).sort(cmp);
+  Object.keys(cards).forEach(function(id){if(!prospects[id]){cards[id].root.remove();delete cards[id]}});
+  var old=root.querySelector(".empty");if(old)old.remove();
+  if(!all.length){root.appendChild(el("div",{cls:"empty",text:loaded?"Todavía no hay prospectos. El agente los agrega cada mañana; también puedes sumar uno abajo.":"Cargando prospectos…"}));return}
+  var fn=FILTERS.filter(function(x){return x[0]===filter})[0];fn=fn?fn[2]:function(){return true};
+  var focusInside=root.contains(document.activeElement);
+  all.forEach(function(p){var c=cards[p.id]||buildCard(p);fillCard(c,p);c.root.hidden=!fn(p);if(!focusInside)root.appendChild(c.root);else if(!c.root.parentNode)root.appendChild(c.root)});
+  var shown=all.filter(fn).length;
+  if(!shown)root.appendChild(el("div",{cls:"empty",text:"Nadie en este filtro todavía."}));
+}
+
+/* ---------- kit ---------- */
+function renderKit(){
+  var root=document.getElementById("kit");
+  KIT.forEach(function(s){
+    var sec=el("section",null,[el("h2",{text:s.h})]);
+    if(s.intro)sec.appendChild(el("p",{cls:"intro",text:s.intro}));
+    (s.msgs||[]).forEach(function(m){var p=el("p",{text:m[1]});var b=el("button",{type:"button",cls:"btn",text:"Copiar"});b.addEventListener("click",function(){copy(m[1],p)});sec.appendChild(el("div",{cls:"msg"},[el("div",{cls:"row"},[el("span",{cls:"lbl",text:m[0]}),b]),p]))});
+    if(s.script){var ol=el("ol");s.script.forEach(function(x){ol.appendChild(el("li",{text:x}))});sec.appendChild(el("div",{cls:"msg script"},[ol]))}
+    root.appendChild(sec);
+  });
+}
+
+/* ---------- alta manual ---------- */
+function slug(s){return s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,60)||("p-"+Date.now())}
+document.getElementById("addForm").addEventListener("submit",function(e){
+  e.preventDefault();var msg=document.getElementById("addMsg");
+  var neg=document.getElementById("f-negocio").value.trim();if(!neg){msg.textContent="Falta el nombre del negocio.";return}
+  if(!db){msg.textContent="No se pudo guardar: abre la página desde tu cuenta de claude.ai.";return}
+  var id=slug(neg);if(prospects[id]){msg.textContent="Ese negocio ya está en la lista.";return}
+  var o={origen:document.getElementById("f-origen").value};
+  db.doc("prospectos/"+id).set({id:id,negocio:neg,nicho:document.getElementById("f-nicho").value,zona:document.getElementById("f-zona").value.trim(),instagram:document.getElementById("f-ig").value.trim(),prioridad:document.getElementById("f-prio").value,origen:o.origen,senal:document.getElementById("f-senal").value.trim(),estado:"Por verificar",max:0,proximo:"",dm:"",notas:"",agregado:TODAY,fuente:"",gancho:""}).then(function(){msg.textContent="Agregado.";e.target.reset()},function(){msg.textContent="No se pudo agregar. Revisa tu conexión."});
+});
+
+/* ---------- arranque ---------- */
+renderTop();renderPlan();renderHoy();renderKit();renderList();
+if(window.claude&&window.claude.use){
+  window.claude.use("db").then(function(d){
+    if(!d){status("Abre esta página con tu cuenta de claude.ai para ver y guardar tus prospectos.");loaded=true;renderList();renderHoy();return}
+    db=d;
+    var timer=setTimeout(function(){status("Todavía no cargan los datos. Puede que estén desactualizados.")},10000);
+    db.collection("prospectos").onSnapshot(function(snap){
+      var next={};snap.docs.forEach(function(doc){var x=Object.assign({},doc.data());x.id=doc.id;next[doc.id]=x});prospects=next;
+      if(!snap.metadata.fromCache){loaded=true;clearTimeout(timer);status("")}
+      renderTop();renderList();renderHoy();
+    },function(err){clearTimeout(timer);loaded=true;status("No se pudieron cargar los prospectos ("+(err&&err.code||"error")+").");renderList();renderHoy()});
+    db.doc("progreso/checks").onSnapshot(function(s){checks=s.exists?Object.assign({},s.data()):{};renderPlan();renderHoy()},function(){});
+  },function(){status("No se pudo conectar con la base de datos.");loaded=true;renderList()});
+}else{status("Abre esta página en claude.ai para guardar tu progreso.");loaded=true;renderList();renderHoy()}
+})();
+</script>
