@@ -96,3 +96,46 @@ Este es un nicho prioritario para crecer. Más cuidado con el tono: más sobrio,
 **El ángulo de Juan:** el filmmaker local que conoce Miami, con estética editorial y capacidad de entregar rápido.
 
 **Evita:** sonar chiquito ("hago reels"). El mensaje es de un director, no de un editor freelance.
+
+## Dentistas cosméticos y clínicas estéticas
+
+**Quién lee:** el doctor o la doctora dueña, o el gerente de la clínica. Suelen contestar por la cuenta de la clínica o por email.
+
+**Ganchos reales que buscar:**
+- Una transformación de sonrisa o un antes y después que publicaron (sin exponer al paciente).
+- Un servicio nuevo, un equipo nuevo, un doctor nuevo, segunda sede, remodelación del consultorio.
+- Consultorio bonito en persona (fotos en Google) que en Instagram sale con flash o con stock.
+
+**Valor que se puede ofrecer gratis:**
+- Una serie de 3 videos "conoce a la doctora" (quién es, por qué hace esto, cómo se siente una consulta).
+- Una idea para mostrar el espacio y el trato sin mostrar pacientes.
+
+**El ángulo de Juan:** confianza. La gente no compra una carilla, compra a la persona que se la pone. Documental, cálido, sin parecer comercial de TV.
+
+**Evita:** prometer pacientes. Hablar de procedimientos con detalle médico. Mostrar o pedir antes y después de pacientes sin consentimiento.
+
+## Ópticas y retail de lujo
+
+**Quién lee:** el dueño de la tienda (en boutiques independientes casi siempre está en el local).
+
+**Ganchos reales que buscar:**
+- Una colección o marca nueva que llegó, un pop-up, un evento en tienda.
+- La vitrina o el local cuidado que en el feed se ve plano.
+
+**Valor que se puede ofrecer gratis:** una idea de serie corta "pieza de la semana" (macro, luz, la mano que la elige).
+
+**El ángulo de Juan:** el objeto como protagonista y la experiencia de comprar en la tienda.
+
+**Evita:** sonar a catálogo. Hablar de descuentos.
+
+## Construcción y remodelación de lujo
+
+**Quién lee:** el dueño de la constructora o del estudio de diseño.
+
+**Ganchos reales que buscar:** un proyecto terminado, una obra en curso con buen avance, un premio, una casa en venta que hicieron.
+
+**Valor que se puede ofrecer gratis:** una idea de "de obra a casa" en 30 segundos, o una serie del proceso de un proyecto.
+
+**El ángulo de Juan:** el proceso documental: manos, materiales, el antes y el después del espacio.
+
+**Evita:** hablar de precios de obra o de leads.

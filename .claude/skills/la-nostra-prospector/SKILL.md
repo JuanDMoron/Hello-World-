@@ -11,29 +11,33 @@ Calidad sobre volumen. 10 prospectos con señal real valen más que 50 nombres d
 
 ## Contexto fijo
 
-- **Oferta:** paquete mensual $1,500/mes, 12 videos (3 por semana), 2 sesiones de grabación (4 h total), contrato mínimo 3 meses, pago antes de empezar. Entrada alternativa: Día de contenido $800 (6 piezas, 3-4 h). Datos completos en `.claude/skills/la-nostra-outreach/references/voz-juan.md`.
+- **Oferta:** paquete mensual $1,500/mes, 12 videos (3 por semana), 2 rodajes de 2 horas, contrato mínimo 3 meses. Se paga completo por adelantado: 50% para apartar el cupo y el resto antes del primer rodaje. Prueba: Día de contenido $800 (6 piezas, 3-4 h), aparte, no se descuenta del mensual. Datos completos en `.claude/skills/la-nostra-outreach/references/voz-juan.md`.
 - **Capacidad:** máximo 4 clientes. Hoy: Fugato (restaurante) y AE of Miami (dealer). Quedan 2 cupos.
 - **Meta:** 2 clientes firmados y pagados antes del 16 de diciembre de 2026.
 - **CRM:** https://claude.ai/artifact/NRpW1MrCrfLpbKye4PmeLh, colección `prospectos` (ver esquema abajo). Copia local: `prospeccion/prospectos.csv`.
 
 ## A quién buscar (ICP)
 
-Prioridad en este orden:
+La regla completa, con las palabras de Juan, está en `references/cliente-ideal.md`. Léela en cada corrida. Resumen operativo:
 
-1. **Restaurantes independientes o grupos chicos (1-3 locales) en Miami-Dade** con ticket medio-alto. Prueba que ya tienes: Fugato.
-2. **Automotriz de nicho:** talleres de PPF / ceramic / wraps / detailing de lujo, rentals de exóticos, dealers independientes. Prueba: AE of Miami.
-3. Real estate (agentes top con marca personal, desarrolladoras boutique) solo si Juan lo pide.
+**Zonas:** todo Broward (Fort Lauderdale, Weston, Plantation, Davie, Hollywood, Pembroke Pines, Hallandale Beach, Coral Springs, Pompano Beach, Deerfield Beach) y en Miami-Dade: Doral, Coral Gables, Miami Lakes, Aventura, Sunny Isles, Miami Beach, Brickell, Wynwood, Coconut Grove, Pinecrest, Kendall. **Nunca Hialeah.** Otra zona de Miami-Dade = prioridad Baja.
 
-**Pasa (califica)** si cumple casi todo:
-- Negocio activo, con reseñas o posts recientes (últimos 30 días).
-- Puede pagar $1,500/mes: local en zona media-alta (Brickell, Wynwood, Design District, Miami Beach, Coral Gables, Coconut Grove, Doral, Aventura), ticket medio-alto o autos de lujo.
-- Tiene Instagram pero el video es flojo, irregular o hecho con el celular sin intención. Ese es el hueco.
-- Decisor accesible: dueño, chef-dueño, gerente general.
+**Rubros:** restaurantes, dealers de carros, retail y construcción de lujo, dentistas cosméticos, clínicas estéticas, ópticas, y negocios visuales parecidos (talleres de PPF/detailing de lujo). Prueba que ya existe: Fugato (restaurante) y AE of Miami (dealer).
 
-**Descarta (Skip):**
-- Cadenas grandes, franquicias nacionales, hoteles y grupos con agencia o equipo in-house visible (créditos de agencia en el feed, producción de estudio constante).
-- Negocios ya en el CRM (dedupe por `id`).
-- Sin señal de actividad en 6 meses o cerrados.
+**Pasa si cumple casi todo:**
+- Negocio establecido (o apertura de un dueño que ya tiene otro local), con buenas reseñas y movimiento real.
+- Estética definida: editorial, minimalista, luxury sin ser ultra lujo. Web o local cuidado.
+- Público de clase media alta, 25 a 45 años, que valora la experiencia y no solo el precio.
+- Decide el dueño. Nada de grupos con comité, franquicias o agencias de por medio.
+- Hay algo bonito que filmar: platos, espacios, sonrisas, carros, proyectos.
+
+**Descarta (no se carga):** posicionamiento de descuento y volumen, cadenas y franquicias, negocios que buscan viralidad o trends, zonas sin poder adquisitivo, Hialeah.
+
+**Ya tiene creador:** si se ve contenido constante y con producción profesional, se carga con estado `Ya tiene creador` y sin DM. Nunca se le escribe para reemplazar a otro creador.
+
+**El hueco (lo valida Juan en Instagram, 2 min):** publican poco o con huecos largos, o publican seguido con video de celular sin producción; el negocio se ve mejor en persona que en su feed. Desde aquí no se puede ver Instagram, así que deja el estado en `Por verificar` y escribe en `gancho` qué debe mirar Juan.
+
+**Prioridad:** Alta = zona de la lista + rubro + señal concreta de "por qué ahora". Media = encaje bueno sin señal fuerte o con fecha sin confirmar. Baja = dudas de zona, presupuesto o de quién decide.
 
 ## Señales de "por qué ahora" (lo que hace que contesten)
 
@@ -47,8 +51,9 @@ Busca estas, en este orden de fuerza:
 
 ## Dónde buscar (web search, sin scraping masivo)
 
-- Aperturas: Eater Miami, The Infatuation Miami, Miami New Times (Food & Drink), Resy "New on Resy Miami", Miami Living Magazine, The Miami Guide, Axios Miami, Community Newspapers.
-- Automotriz: búsquedas tipo "PPF Miami", "exotic car rental Miami", "ceramic coating Doral", Google Business del taller, su web.
+- Aperturas: South Florida Business Journal, Sun Sentinel (Broward), Eater Miami, The Infatuation Miami, Miami New Times (Food & Drink), Resy "New on Resy Miami", Miami Living Magazine, The Miami Guide, Axios Miami, Community Newspapers.
+- Automotriz: "PPF Miami", "exotic car rental Fort Lauderdale", "ceramic coating Doral", Google Business del taller, su web.
+- Dentistas cosméticos, clínicas estéticas, ópticas, retail y construcción de lujo: casi nunca hay "apertura" en la prensa. Busca negocios establecidos en las zonas de la lista con rating alto (4.7+), 80 a 600 reseñas y web cuidada; la señal fuerte es el hueco en Instagram, que valida Juan. Señales extra: segunda sede, remodelación, doctor o socio nuevo, lanzamiento de servicio.
 - Ofertas de trabajo: "social media coordinator restaurant Miami", Indeed / Culinary Agents.
 - Instagram no se puede leer desde aquí: deja `instagram` vacío si no aparece en su web, y marca el gancho como "verificar en IG".
 
@@ -71,7 +76,7 @@ No hagas extracción masiva de Google Maps ni de Instagram. Una búsqueda, una v
 {
   "id": "slug-del-negocio",
   "negocio": "Nombre",
-  "nicho": "Restaurante | Automotriz | Real estate | Marca | Artista",
+  "nicho": "Restaurante | Automotriz | Dentista cosmético | Clínica estética | Óptica | Retail lujo | Construcción lujo | Otro",
   "zona": "Brickell",
   "prioridad": "Alta | Media | Baja",
   "origen": "Frío | Referido | Red cercana | Visita",
@@ -89,10 +94,11 @@ No hagas extracción masiva de Google Maps ni de Instagram. Una búsqueda, una v
 }
 ```
 
-Estados que usa la página: Por verificar, Listo para DM, Contactado, Follow-up 1, Follow-up 2, Follow-up 3, Respondió, Llamada/visita, Propuesta enviada, Cerrado, No por ahora. `max` es el estado más alto alcanzado (0 a 9); el agente siempre crea con `max: 0`.
+Estados que usa la página: Por verificar, Listo para DM, Contactado, Follow-up 1, Follow-up 2, Follow-up 3, Respondió, Llamada/visita, Propuesta enviada, Cerrado, No por ahora, Ya tiene creador. `max` es el estado más alto alcanzado (0 a 9); el agente siempre crea con `max: 0`.
 
 ## Reglas
 
 - No inventes señales, fechas, platos ni autos. Si no lo viste en una fuente, no existe. Fecha sin confirmar = dilo en `senal`.
+- Primer mensaje: el problema del cliente y la solución. Nunca precio ni link.
 - Idioma del DM = idioma en que publica el negocio. Si no se sabe, inglés para restaurantes nuevos, y marca `[EDITABLE]`.
 - Desde el 17 de diciembre de 2026, no agregues más prospectos para esta operación: avisa a Juan y pregúntale si sigue la prospección para febrero.

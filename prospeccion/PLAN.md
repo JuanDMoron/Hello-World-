@@ -1,6 +1,8 @@
 # Operación Dos Cupos
 
-**Meta:** 2 clientes nuevos del paquete mensual ($1,500/mes, mínimo 3 meses, pago por adelantado) firmados y pagados antes del **miércoles 16 de diciembre de 2026**. Primera sesión entre el 17 y el 23 de diciembre, contenido de enero listo antes del 1.
+**Meta:** 2 clientes nuevos del paquete mensual ($1,500/mes, mínimo 3 meses) con el cupo apartado antes del **miércoles 16 de diciembre de 2026**. Se paga completo por adelantado: 50% para apartar y el resto antes del primer rodaje.
+
+**Cliente ideal:** ver `.claude/skills/la-nostra-prospector/references/cliente-ideal.md` (Broward + zonas con dinero de Miami-Dade, nunca Hialeah; dueño que decide; nunca quitarle el trabajo a otro creador). Primera sesión entre el 17 y el 23 de diciembre, contenido de enero listo antes del 1.
 
 **Página de trabajo (plan + CRM):** https://claude.ai/artifact/NRpW1MrCrfLpbKye4PmeLh
 
@@ -8,8 +10,8 @@
 
 ## 1. La estrategia en 5 líneas
 
-1. **Dos nichos, no cinco:** restaurantes (tienes a Fugato) y automotriz de nicho: talleres de PPF/detailing, rentals de exóticos, dealers independientes (tienes a AE of Miami). Real estate queda para después.
-2. **Primero la gente que ya te conoce:** referidos de Fugato y AE + tu red. Es lo que cierra más rápido en 3 semanas.
+1. **Rubros con prueba primero:** restaurantes (Fugato) y dealers/automotriz (AE). Después dentistas cosméticos, clínicas estéticas, ópticas, retail y construcción de lujo. Todos en Broward y en las zonas de Miami-Dade de la lista.
+2. **Primero la gente que ya te conoce:** regalo de agradecimiento a Fugato y AE, y el pedido de referido en persona el día de ese rodaje. Más tu red cercana.
 3. **Frío solo con señal real:** aperturas, menú nuevo, auto que acaba de entrar, Art Basel. Nada de mensajes genéricos.
 4. **En persona cuando se pueda:** visitar restaurantes entre 3 y 5 pm con el reel en el celular. En Miami eso pesa más que diez DMs.
 5. **Vender enero, no "contenido":** "arrancamos el año con 12 videos listos". Escasez real: solo quedan 2 cupos (máx. 4 clientes).
@@ -43,16 +45,18 @@ Behance y web propia: después del 16. No es lo que te va a cerrar estos 2.
 
 ## 4. La oferta para cerrar antes del 16
 
-- **Paquete mensual:** igual que siempre. $1,500/mes, 12 videos, 2 sesiones, 3 meses, pago antes de empezar. Si pagan 3 meses por adelantado: sesión de fotos o 2 videos extra (ya lo tienes).
+- **Paquete mensual:** $1,500/mes, 12 videos, 2 rodajes de 2 horas, 3 meses. 50% para apartar el cupo, el resto antes del primer rodaje. Si pagan 3 meses por adelantado: sesión de fotos o 2 videos extra.
 - **Fecha límite real:** los cupos de enero se cierran el 16 porque la primera sesión tiene que ser entre el 17 y el 23 para tener enero listo.
-- **Puerta de entrada:** Día de contenido $800 para quien no se anima al mensual. Sugerencia [decides tú]: si contratan el mensual dentro de 14 días, descuentas una parte del día de contenido del primer mes.
+- **Puerta de entrada:** Día de contenido $800. Es aparte y no se descuenta del mensual.
+- **Bono Enero (en vez de descuento):** quien aparte el cupo antes del 16, o haga el día de contenido y pase al mensual en 14 días, recibe 14 videos el primer mes en vez de 12. El precio no se toca.
+- **Regalos:** agradecimiento ya a Fugato (video de Año Nuevo o fotos del menú) y a AE (mini historia del negocio con el dueño). Premio si un referido firma: mini documental, sesión de fotos, 2 videos extra, versiones horizontales para ads o cobertura de un evento.
 - **Art Basel (4–6 dic):** ofrece el Día de contenido a restaurantes o marcas con evento esa semana. Es caja rápida y conoces al dueño.
 - **Precio por video:** $125 por video, grabado, editado, con guion y dirección. Úsalo cuando digan "caro".
 
 ## 5. Calendario
 
 **Semana 0 · Preparación (23–27 nov)**
-- Lun 23: confirmar cupos, mensaje de referido a Fugato y AE, lista de 20 personas de tu red, escribirle a 10.
+- Lun 23: regalo de agradecimiento a Fugato y AE, lista de 20 personas de tu red, escribirle a 10.
 - Mar 24: pedir testimonios + números, editar los 2 reels, subirlos a muse.ai con links separados.
 - Mié 25: bio y fijados de IG, one-pager, casos de estudio, validar los primeros 15 prospectos del CRM.
 - Jue 26 (Thanksgiving) y Vie 27: seguir y comentar en 20 cuentas del CRM (sin DMs), dejar 10 DMs listos para el lunes, escribirle al resto de tu red.
@@ -71,7 +75,7 @@ Behance y web propia: después del 16. No es lo que te va a cerrar estos 2.
 **Semana 3 · Cierre (14–16 dic)**
 - Lun 14: follow-up a todas las propuestas.
 - Mar 15: "los cupos de enero cierran mañana".
-- Mié 16: contrato firmado + pago, agendar sesión 1.
+- Mié 16: contrato firmado + 50% para apartar, agendar el primer rodaje (el resto se paga antes de ese rodaje).
 
 ## 6. Los agentes
 

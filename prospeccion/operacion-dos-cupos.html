@@ -128,7 +128,7 @@ details.add form{display:grid;gap:8px;margin-top:10px}
       <div>
         <span class="eyebrow">La Nostra Production · Producción: 2 clientes mensuales</span>
         <h1>Operación Dos Cupos</h1>
-        <p>Meta: 2 clientes nuevos del paquete mensual ($1,500/mes, 3 meses) firmados y pagados antes del miércoles 16 de diciembre, para arrancar a grabar entre el 17 y el 23.</p>
+        <p>Meta: 2 clientes nuevos del paquete mensual ($1,500/mes, 3 meses) con el cupo apartado (50%) antes del miércoles 16 de diciembre, para arrancar a grabar entre el 17 y el 23. Negocios de dueño en Broward y Miami-Dade.</p>
       </div>
       <div class="clock">
         <div><b id="daysLeft">--</b><span>días al 16 dic</span></div>
@@ -172,7 +172,7 @@ details.add form{display:grid;gap:8px;margin-top:10px}
       <form id="addForm">
         <div class="fields">
           <label>Negocio<input type="text" id="f-negocio" required></label>
-          <label>Nicho<select id="f-nicho"><option>Restaurante</option><option>Automotriz</option><option>Real estate</option><option>Marca</option><option>Artista</option></select></label>
+          <label>Nicho<select id="f-nicho"><option>Restaurante</option><option>Automotriz</option><option>Dentista cosmético</option><option>Clínica estética</option><option>Óptica</option><option>Retail lujo</option><option>Construcción lujo</option><option>Otro</option></select></label>
           <label>Zona<input type="text" id="f-zona" placeholder="Brickell, Doral…"></label>
           <label>Instagram<input type="text" id="f-ig" placeholder="@"></label>
           <label>Prioridad<select id="f-prio"><option>Alta</option><option selected>Media</option><option>Baja</option></select></label>
@@ -198,7 +198,7 @@ details.add form{display:grid;gap:8px;margin-top:10px}
 (function(){
 "use strict";
 var DEADLINE="2026-12-16";
-var ESTADOS=["Por verificar","Listo para DM","Contactado","Follow-up 1","Follow-up 2","Follow-up 3","Respondió","Llamada/visita","Propuesta enviada","Cerrado","No por ahora"];
+var ESTADOS=["Por verificar","Listo para DM","Contactado","Follow-up 1","Follow-up 2","Follow-up 3","Respondió","Llamada/visita","Propuesta enviada","Cerrado","No por ahora","Ya tiene creador"];
 var RANK={"Por verificar":0,"Listo para DM":1,"Contactado":2,"Follow-up 1":3,"Follow-up 2":4,"Follow-up 3":5,"Respondió":6,"Llamada/visita":7,"Propuesta enviada":8,"Cerrado":9};
 var NEXT={"Contactado":3,"Follow-up 1":5,"Follow-up 2":7,"Respondió":0,"Llamada/visita":1,"Propuesta enviada":2};
 var STAGES=[{k:"total",t:"Prospectos",goal:150},{k:2,t:"Contactados",goal:120},{k:6,t:"Respondieron",goal:25},{k:7,t:"Llamada o visita",goal:8},{k:8,t:"Propuestas",goal:4},{k:9,t:"Cerrados",goal:2,win:true}];
@@ -217,7 +217,7 @@ var PLAN=[
  {wk:"Semana 0 · Preparación",days:[
   {d:"2026-11-23",title:"Arranque y red cercana",tasks:[
    T("a1","Confirmar cupos: máx. 4 clientes; hoy Fugato + AE of Miami = quedan 2 para enero [EDITABLE si cambió]"),
-   T("a2","Mandar el mensaje de referido a Fugato y a AE (Kit → Referidos)"),
+   T("a2","Mandar el regalo de agradecimiento a Fugato y a AE (Kit → Regalos). El pedido de referido va en persona, en el rodaje del regalo"),
    T("a3","Hacer una lista de 20 personas de tu red con negocio o con contactos: ex clientes, chefs, vendedores de autos, agentes, amigos"),
    T("a4","Escribirle a los 10 más calientes de esa lista (Kit → Red cercana)")]},
   {d:"2026-11-24",title:"Portafolio por nicho",tasks:[
@@ -229,7 +229,7 @@ var PLAN=[
    T("c1","Instagram @juanonCam: bio nueva, fijar 3 posts (restaurante, auto, BTS), highlights Restaurantes / Autos / Clientes"),
    T("c2","One-pager del paquete en PDF (pídeselo a Claude con tus fotos)"),
    T("c3","2 casos de estudio de 1 página: Fugato y AE (reto, qué hicimos, 3 videos, números reales)"),
-   T("c4","Revisar los primeros 15 prospectos: buscar su @, validar el gancho en su feed (2 min c/u) y pasarlos a \"Listo para DM\"")]},
+   T("c4","Revisar los primeros prospectos: buscar su @ y mirar 3 cosas (último post, ¿video de celular o producido?, ¿se ve como en persona?). Si encaja: \"Listo para DM\". Si ya tiene creador pro: \"Ya tiene creador\"")]},
   {d:"2026-11-26",title:"Thanksgiving: calentar cuentas",tasks:[
    T("d1","Seguir y comentar con sentido (no 🔥) en 20 cuentas del CRM. Nada de DMs todavía"),
    T("d2","Reaccionar a 1 historia de cada prospecto de prioridad Alta")]},
@@ -254,9 +254,9 @@ var PLAN=[
    T("z2","Ofrecer el Día de contenido como entrada a quien diga que no al mensual")]},
   {d:"2026-12-15",title:"Último aviso",tasks:[
    T("z3","Mensaje de \"cupos de enero cierran mañana\" a propuestas abiertas"),
-   T("z4","Tener contrato y link de pago listos")]},
+   T("z4","Tener contrato y link de pago del 50% listos")]},
   {d:"2026-12-16",title:"Firmar y cobrar",tasks:[
-   T("z5","Contrato firmado + pago recibido (se paga antes de empezar)"),
+   T("z5","Contrato firmado + 50% recibido para apartar el cupo (el resto antes del primer rodaje)"),
    T("z6","Agendar sesión 1 entre el 17 y el 23 de dic y mandar el brief de arranque")]}
  ]}
 ];
@@ -274,34 +274,43 @@ var ALLDAYS=[];PLAN.forEach(function(w){w.days.forEach(function(x){ALLDAYS.push(
 
 /* ---------- kit ---------- */
 var KIT=[
- {h:"Referidos (clientes actuales)",intro:"Lo más rápido para cerrar en 3 semanas: un cliente feliz que te presenta. Manda uno por WhatsApp, no los dos.",msgs:[
-  ["A · Pedido directo","[nombre], una pregunta rápida. Para enero me quedan 2 cupos de contenido mensual y prefiero trabajar con gente recomendada. ¿Conoces a algún dueño de restaurante o de negocio de autos que necesite contenido todos los meses? Si me pasas el contacto le escribo yo y te menciono."],
-  ["B · Testimonio + referido","[nombre], gracias por estos meses, de verdad. Te pido un favor pequeño: ¿me escribes 2 líneas de cómo ha sido trabajar juntos? Lo quiero poner en mi portafolio. Y si se te ocurre alguien que necesite lo mismo que hacemos con ustedes, pásamelo, que para enero tengo 2 cupos."],
-  ["Extra opcional · Incentivo","Si alguien que me recomiendes firma, te regalo [EDITABLE: 2 videos extra / una sesión de fotos] ese mes."]]},
+ {h:"Regalos (clientes actuales)",intro:"Primero el regalo, sin pedir nada. El pedido de referido va después, en persona, el día que grabas el regalo. Mezclar las dos cosas en el mismo mensaje se siente a transacción.",msgs:[
+  ["Fugato · Regalo de fin de año","[nombre], antes de que se acabe el año te quiero regalar algo: un video de la casa para Año Nuevo [EDITABLE: o fotos del menú de temporada para Google y la carta], sin costo. gracias por confiar en mí estos meses. ¿qué día de la semana que viene te queda bien?"],
+  ["AE · Regalo de fin de año","[nombre], antes de que cierre el año les quiero regalar algo: un video corto contando la historia de AE con [Pablo] a cámara, de esos que sirven para la web y para siempre. sin costo, es mi forma de dar las gracias. ¿qué día les queda bien?"]]},
+ {h:"Referidos",intro:"En persona, el día del regalo, o por WhatsApp un par de días después. Una sola vez.",msgs:[
+  ["A · Pedido directo","[nombre], una pregunta. para enero me quedan 2 cupos y prefiero trabajar con gente recomendada. ¿conoces a algún dueño de negocio que esté bonito en persona pero no se vea así en Instagram? si me pasas el contacto le escribo yo y te menciono. y si firma, te grabo [premio] sin costo."],
+  ["B · Testimonio + referido","[nombre], te pido un favor pequeño: ¿me escribes 2 líneas de cómo ha sido trabajar juntos? lo quiero poner en mi portafolio. y si se te ocurre alguien que necesite lo mismo que hacemos con ustedes, pásamelo, que para enero tengo 2 cupos."],
+  ["Premios por referido que firma (elige 1)","Mini documental de 60-90 s de la historia del negocio · Sesión de fotos de 1 hora (equipo, espacio o producto) · 2 videos extra ese mes · Versión horizontal de sus 3 mejores videos para web, YouTube o ads · Cobertura de un evento de 2 horas"]]},
  {h:"Red cercana",intro:"Gente que ya te conoce. Contestan más que cualquier DM en frío.",msgs:[
-  ["A · Pedir el @","[nombre]! ¿cómo vas? te escribo por algo puntual: para enero me quedan 2 cupos de contenido mensual (12 videos al mes, yo grabo y edito todo). ¿conoces a alguien con restaurante o negocio de autos que lo necesite? con que me pases el @ me ayudas un montón."],
-  ["B · Si la persona tiene negocio","[nombre], vi [algo real de su negocio]. estoy armando la agenda de enero y pensé en ustedes: contenido todo el mes, yo me encargo de grabar y editar. ¿te mando cómo lo haría?"]]},
- {h:"Cuando preguntan precio",intro:"Rango corto y llevarlo a algo concreto. Nunca una lista suelta.",msgs:[
-  ["Respuesta","depende de qué necesites, pero para que tengas idea: un día de contenido (3-4 horas de rodaje, 6 piezas editadas) son $800, y el mensual (12 videos al mes, 2 sesiones de grabación) está en $1,500. ¿qué tienes en mente, algo puntual o contenido todos los meses?"]]},
+  ["A · Pedir el @","[nombre]! ¿cómo vas? te escribo por algo puntual: para enero me quedan 2 cupos de contenido mensual, yo grabo y edito todo. ¿conoces a algún dueño de restaurante, dealer, clínica o negocio bonito que se vea mejor en persona que en Instagram? con que me pases el @ me ayudas un montón."],
+  ["B · Si la persona tiene negocio","[nombre], vi [algo real de su negocio]. estoy armando la agenda de enero y pensé en ustedes: contenido todo el mes sin que tengas que grabar nada. ¿te mando cómo lo haría?"]]},
+ {h:"Cuando preguntan precio",intro:"Solo cuando muestran interés. Rango corto y llevarlo a algo concreto.",msgs:[
+  ["Respuesta","depende de qué necesites, pero para que tengas idea: el mensual son 12 videos al mes con 2 rodajes de 2 horas, en $1,500. si prefieres probar primero, hay un día de contenido (3-4 horas, 6 piezas) en $800. ¿qué tienes en mente, algo puntual o contenido todos los meses?"]]},
+ {h:"Cómo se paga",msgs:[
+  ["Mensaje","funciona así: para apartar el cupo es el 50% ($750) y el resto antes del primer rodaje. el mínimo son 3 meses. si pagas los 3 de una, te llevas una sesión de fotos o 2 videos extra."],
+  ["Si preguntan por la prueba","el día de contenido es aparte: son $800 por 6 piezas y no se descuenta del mensual. sirve para ver cómo trabajo antes de comprometerte."]]},
+ {h:"Bono Enero (en vez de descuento)",intro:"No bajas el precio: das más. Vale para quien aparte el cupo antes del 16, y para quien haga el día de contenido y pase al mensual dentro de 14 días.",msgs:[
+  ["Mensaje","un detalle: si apartas el cupo antes del miércoles 16, el primer mes son 14 videos en vez de 12, mismo precio. es para que enero arranque con fuerza."],
+  ["Después de un día de contenido","si quieren pasar al mensual, lo de hoy no se descuenta, pero si arrancan antes del [fecha +14 días] el primer mes va con 2 videos extra."]]},
  {h:"Guion de llamada o visita (15 min)",intro:"Tú preguntas, ellos hablan. Propuesta en 24 horas.",script:[
-  "¿Qué quieres que pase con tus redes entre enero y marzo? (más reservas, más gente en el local, vender un auto específico, lanzar algo)",
+  "¿Qué quieres que pase con tus redes entre enero y marzo? (más reservas, más citas, más gente en el local, vender un auto específico)",
   "¿Quién hace el contenido hoy y cada cuánto publican?",
-  "¿Qué es lo que no te gusta de lo que hay ahora?",
+  "¿Cuánto tiempo te quita grabar? ¿Te gusta cómo queda?",
   "Enseña UN caso: el mes de Fugato o de AE, en el celular. Muestra el sistema (12 videos), no un video suelto.",
-  "Tira 3 ideas concretas para su negocio (plato, auto, proceso, persona).",
-  "Cierre: \"si te late, te mando la propuesta hoy y te separo uno de los 2 cupos de enero. ¿le damos?\""]},
+  "Tira 3 ideas concretas para su negocio (plato, espacio, sonrisa, auto, proyecto).",
+  "Cierre: \"si te late, te mando la propuesta hoy. para apartar el cupo es el 50% y el resto antes del primer rodaje. ¿le damos?\""]},
  {h:"Seguimiento de propuesta (48 h después)",msgs:[
   ["Mensaje","[nombre], ¿pudiste ver la propuesta? si algo no cuadra la ajusto. lo que más me importa es que enero arranque con [idea concreta que hablaron]."]]},
  {h:"Cierre (14–15 dic)",msgs:[
-  ["Aviso de agenda","[nombre], te aviso antes de cerrar la agenda: los 2 cupos de enero los cierro este miércoles 16. si quieren arrancar, la primera sesión sería entre el 17 y el 23 para que el contenido de enero esté listo antes del 1. ¿le damos?"]]},
+  ["Aviso de agenda","[nombre], te aviso antes de cerrar la agenda: los 2 cupos de enero los cierro este miércoles 16. para apartarlo es el 50%, y si apartas antes del 16 el primer mes va con 14 videos en vez de 12. el primer rodaje sería entre el 17 y el 23 para que enero esté listo antes del 1. ¿le damos?"]]},
  {h:"Objeciones",msgs:[
-  ["\"3 meses es mucho\"","te entiendo. el primer mes es para encontrar qué funciona con tu público y el segundo y el tercero es donde se ve el resultado. si prefieres probar primero, arrancamos con un día de contenido ($800, 6 piezas) y si te gusta pasamos al mensual."],
+  ["\"3 meses es mucho\"","te entiendo. el primer mes es para encontrar qué funciona con tu público y el segundo y el tercero es donde se ve el resultado. si prefieres probar primero, está el día de contenido ($800, 6 piezas). es aparte, pero te sirve para ver cómo trabajo."],
   ["\"Está caro\"","son $125 por video, grabado, editado, con guion y dirección. si el presupuesto no da ahora, el día de contenido es una buena forma de empezar."],
   ["\"Déjame pensarlo\"","claro. ¿qué te hace dudar más, el precio, el compromiso de 3 meses o el momento? así te digo si hay forma de ajustarlo."],
   ["\"Ya tenemos a alguien\"","perfecto, me alegra que lo tengan cubierto. si en algún momento necesitan una pieza especial (apertura, lanzamiento, evento), con gusto. éxito con [lo que viste]."]]},
  {h:"Bio de Instagram (@juanonCam)",msgs:[
-  ["ES","Filmmaker en Miami. Contenido mensual para restaurantes y marcas de autos. 2 cupos para enero ↓"],
-  ["EN","Miami filmmaker. Monthly content for restaurants and car brands. 2 spots open for January ↓"]]}
+  ["ES","Filmmaker en Miami. Contenido mensual para negocios que se ven mejor en persona que en Instagram. 2 cupos para enero ↓"],
+  ["EN","Miami filmmaker. Monthly content for businesses that look better in person than on Instagram. 2 spots open for January ↓"]]}
 ];
 
 /* ---------- utilidades UI ---------- */
@@ -379,7 +388,7 @@ function renderHoy(){
 }
 
 /* ---------- prospectos ---------- */
-var FILTERS=[["todos","Todos",function(){return true}],["verificar","Por verificar",function(p){return p.estado==="Por verificar"}],["listos","Listos para DM",function(p){return p.estado==="Listo para DM"}],["curso","En seguimiento",function(p){var r=RANK[p.estado];return r>=2&&r<=5}],["conv","Conversando",function(p){var r=RANK[p.estado];return r>=6&&r<=8}],["cerrados","Cerrados",function(p){return p.estado==="Cerrado"}],["no","No por ahora",function(p){return p.estado==="No por ahora"}]];
+var FILTERS=[["todos","Todos",function(){return true}],["verificar","Por verificar",function(p){return p.estado==="Por verificar"}],["listos","Listos para DM",function(p){return p.estado==="Listo para DM"}],["curso","En seguimiento",function(p){var r=RANK[p.estado];return r>=2&&r<=5}],["conv","Conversando",function(p){var r=RANK[p.estado];return r>=6&&r<=8}],["cerrados","Cerrados",function(p){return p.estado==="Cerrado"}],["no","No contactar",function(p){return p.estado==="No por ahora"||p.estado==="Ya tiene creador"}]];
 var filter="todos";try{filter=localStorage.getItem("odc-filter")||"todos"}catch(e){}
 function renderFilters(){
   var f=document.getElementById("filters");f.textContent="";
@@ -387,7 +396,7 @@ function renderFilters(){
   FILTERS.forEach(function(x){var n=list.filter(x[2]).length;var b=el("button",{type:"button","aria-pressed":filter===x[0]?"true":"false"},[document.createTextNode(x[1]),el("span",{cls:"c",text:String(n)})]);b.addEventListener("click",function(){filter=x[0];try{localStorage.setItem("odc-filter",filter)}catch(e){}renderList()});f.appendChild(b)});
 }
 var PRIO={"Alta":0,"Media":1,"Baja":2};
-function sortKey(p){var r=p.estado==="No por ahora"?9:(p.estado==="Cerrado"?8:0);return [r,PRIO[p.prioridad]==null?1:PRIO[p.prioridad],p.negocio||""]}
+function sortKey(p){var r=(p.estado==="No por ahora"||p.estado==="Ya tiene creador")?9:(p.estado==="Cerrado"?8:0);return [r,PRIO[p.prioridad]==null?1:PRIO[p.prioridad],p.negocio||""]}
 function cmp(a,b){var ka=sortKey(a),kb=sortKey(b);for(var i=0;i<3;i++){if(ka[i]<kb[i])return -1;if(ka[i]>kb[i])return 1}return 0}
 var cards={};
 function save(id,patch){
@@ -416,7 +425,7 @@ function buildCard(p){
     if(r!=null&&r>(cur.max||0))patch.max=r;
     if(s==="Contactado"&&!cur.contactado)patch.contactado=TODAY;
     if(NEXT[s]!=null)patch.proximo=addDays(TODAY,NEXT[s]);
-    if(s==="Follow-up 3"||s==="Cerrado"||s==="No por ahora")patch.proximo="";
+    if(s==="Follow-up 3"||s==="Cerrado"||s==="No por ahora"||s==="Ya tiene creador")patch.proximo="";
     save(id,patch);
   });
   [["ig",c.ig,"instagram"],["prox",c.prox,"proximo"],["dm",c.dm,"dm"],["notas",c.notas,"notas"]].forEach(function(x){x[1].addEventListener("change",function(){var o={};o[x[2]]=x[1].value;save(id,o)})});
@@ -428,7 +437,7 @@ function fillCard(c,p){
   c.chips.textContent="";
   [[p.nicho,""],[p.zona,""],[p.prioridad,p.prioridad==="Alta"?"alta":""],[p.origen,""]].forEach(function(x){if(x[0])c.chips.appendChild(el("span",{cls:"chip "+x[1],text:x[0]}))});
   if(p.estado==="Cerrado")c.chips.appendChild(el("span",{cls:"chip cerrado",text:"Cerrado"}));
-  if(p.estado==="No por ahora")c.chips.appendChild(el("span",{cls:"chip no",text:"No por ahora"}));
+  if(p.estado==="No por ahora"||p.estado==="Ya tiene creador")c.chips.appendChild(el("span",{cls:"chip no",text:p.estado}));
   c.signal.textContent="";
   if(p.senal)c.signal.appendChild(document.createTextNode(p.senal+" "));
   if(p.fuente&&/^https:\/\//.test(p.fuente)){c.signal.appendChild(el("a",{href:p.fuente,target:"_blank",rel:"noopener",text:"fuente"}))}

@@ -32,10 +32,14 @@ Cada línea tiene una marca de confianza: **dicho** (Juan lo dijo, es obligatori
 - Link de portafolio (general, todos los nichos): https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv (dicho)
 - Instagram desde el que se hace outreach: @juanonCam (dicho). Es la cuenta que el prospecto va a revisar antes de contestar, así que los DMs salen a nombre de Juan, no de "La Nostra".
 - Paquetes y precios de entrada:
-  - **Paquete mensual** `[EDITABLE: nombre del paquete]` (dicho): 12 videos editados (Reels, TikTok, Shorts), 3 por semana. 2 sesiones de grabación al mes, 4 horas en total. Guía de estructura para cada video y dirección técnica completa. **$1,500/mes**, contrato mínimo de 3 meses. **Se paga antes de comenzar el servicio.** Si pagan 3 meses por adelantado, se llevan una sesión de fotos o 2 videos extra del proceso de la marca.
-  - **Día de contenido** (dicho): **$800** por 6 piezas de contenido editadas, con 3 a 4 horas de rodaje. Es la entrada natural para quien no está listo para el mensual.
-  - **Capacidad: máximo 4 clientes** (dicho). Úsalo como escasez real y sin exagerar ("trabajo con 4 marcas a la vez"), nunca como presión falsa.
+  - **Paquete mensual** `[EDITABLE: nombre del paquete]` (dicho): 12 videos editados (Reels, TikTok, Shorts), 3 por semana. 2 rodajes de 2 horas al mes. Guía de estructura para cada video y dirección técnica completa. **$1,500/mes**, contrato mínimo de 3 meses. **Se paga completo por adelantado: 50% para apartar el cupo y el resto antes del primer rodaje.** (dicho, 2026-11-23) Si pagan 3 meses por adelantado, se llevan una sesión de fotos o 2 videos extra del proceso de la marca.
+  - **Día de contenido** (dicho): **$800** por 6 piezas de contenido editadas, con 3 a 4 horas de rodaje. Es la entrada natural para quien no está listo para el mensual. **Es aparte y no se descuenta del mensual.** (dicho, 2026-11-23)
+  - **Capacidad: máximo 4 clientes** (dicho). Activos: Fugato y AE of Miami; quedan 2 cupos (dicho, 2026-11-23). Úsalo como escasez real y sin exagerar ("trabajo con 4 marcas a la vez"), nunca como presión falsa.
 - Firma de email: `Juan Morón · La Nostra Production · https://muse.ai/s/portafolio-xvxh6oqc3xaxypxv`
+
+## Cliente ideal
+- Ver `.claude/skills/la-nostra-prospector/references/cliente-ideal.md` (dicho, 2026-11-23): Broward + zonas de Miami-Dade con dinero, nunca Hialeah; dueño que decide; nunca intentar quitarle el trabajo a otro creador.
+- Primer mensaje: el problema del cliente y la solución. El precio solo cuando muestran interés. (dicho)
 
 ## Preguntas abiertas
 - ¿Tutea siempre en español o usa "usted" con algún perfil (desarrolladoras, dealers grandes)?
@@ -43,6 +47,7 @@ Cada línea tiene una marca de confianza: **dicho** (Juan lo dijo, es obligatori
 
 ## Registro de cambios
 - v1 (2026-10-14): creado a partir del perfil operativo de Juan.
+- v2 (2026-11-23): forma de pago 50/50, prueba de un día no se descuenta, rodajes de 2 h, cliente ideal y cupos.
 
 ## Cómo actualizar
 Cuando Juan edite o rechace un borrador, anota la regla con sus palabras, márcala como provisional y súbela a "dicho" solo si él lo confirma. Si una corrección choca con una regla existente, pregunta cuál vale.
