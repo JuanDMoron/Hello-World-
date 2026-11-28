@@ -1,13 +1,13 @@
 {
  "mes": "Rodaje 4",
  "titulo": "Rodaje 4",
- "subtitulo": "3 guiones",
+ "subtitulo": "4 guiones",
  "etiqueta_semana": "Orden",
  "lead": "Guiones de diciembre para grabar hoy. Son los que no dependen de datos de AE. El orden de las páginas es el orden sugerido: primero lo del lote y al final el recorrido completo.",
  "categorias": {
   "edu": "E4 ¿Qué tipo de golpe es? · E2 ¿Qué significa ‘Run & Drive’?",
   "ent": "T1 Quiero hablar con el manager",
-  "ven": "—"
+  "ven": "V2 ¿Cuánto es lo menos?"
  },
  "guiones": [
   {
@@ -183,7 +183,7 @@
    ]
   },
   {
-   "w": 3,
+   "w": 4,
    "cat": "ent",
    "code": "T1",
    "title": "Quiero hablar con el manager",
@@ -246,6 +246,89 @@
     "el chiste es que Daniela ES la manager: da toda la vuelta para volver como manager. El último plano empalma con el primero (mismo encuadre de la puerta, misma luz) para que se vea en loop. Gimbal a la altura de los ojos; el cliente nunca se ve, su voz va en off.",
     "el recorrido funciona como tour del dealer. Se parece al Guion 12 del documento de referencia (Daniela buscando a “Carlos”); la diferencia es el loop y que la persona que buscan es ella. Confirmar si se puede decir que Daniela es la manager o se usa otra persona."
    ]
+  },
+  {
+   "w": 3,
+   "cat": "ven",
+   "code": "V2",
+   "title": "¿Cuánto es lo menos?",
+   "pilar": "Ventas (sketch)",
+   "dur": "~45s",
+   "nuevo": false,
+   "ref": "Idea del manager de AE (video 5, grabado con una cabra en lugar de Daniela). POV del cliente, con acento venezolano.",
+   "planos": [
+    {
+     "desc": "POV del cliente llegando al lote (voz en off). Daniela lo recibe",
+     "lineas": [
+      "Cliente: “Buenas tardes. ¿Ustedes son los que venden carros chocados?”",
+      "Daniela (irónica, señalando el lote lleno): “No, chamo, los tenemos de adorno.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Daniela lo lleva hacia un carro",
+     "lineas": [
+      "Cliente: “Es que yo vine porque vi este en internet en $[PRECIO].”",
+      "Daniela: “Y en $[PRECIO] está. Aquí el precio que ves es el precio.” [CONFIRMAR]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Caminando junto al carro",
+     "lineas": [
+      "Cliente: “Ajá, pero explícame qué es lo que ustedes hacen aquí, porque yo veo esos carros todos chocados...”",
+      "Daniela: “Mi pana, sí, son carros chocados. Los compramos, tú los ves y tú decides qué reparas.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Frente al carro. Daniela abre la puerta y lo prende",
+     "lineas": [
+      "Cliente: “¿Y este prende?”",
+      "Daniela: “¿Cómo me vas a preguntar eso? Míralo por dentro.” [CONFIRMAR que prende]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Interior: close-up del tablero",
+     "lineas": [
+      "Daniela: “[X] millas.” [CONFIRMAR]",
+      "Cliente: “Épale, verdad que está fino. Y las bolsas se ven bien y todo... pero, ¿cuánto es lo menos?”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Daniela lo mira seria... y después se ríe y cambia",
+     "lineas": [
+      "“¿Lo menos? Lo menos es que te saque del lote, ¿oíste?... Mira, como eres pana... te lo dejo en el precio que está. Y si te gusta otro, me dices y lo vemos.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre: Daniela a cámara",
+     "lineas": [
+      "“Revisa el inventario en aeofmiami.com y mira las oportunidades que tenemos.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "“¿Ustedes son los que venden carros chocados?” / “No, chamo, los tenemos de adorno.”",
+    "Texto: POV: el cliente venezolano negociando",
+    "Texto: La pregunta que más escuchamos: ¿cuánto es lo menos?",
+    "★ Tengo una pregunta... / ...¿cuánto es lo menos?",
+    "Texto: Cuando el cliente te pregunta si el carro prende..."
+   ],
+   "ctas": [
+    "Revisa el inventario en aeofmiami.com y mira las oportunidades que tenemos.",
+    "Caption: Pregunta cuánto es lo menos... por DM 😏",
+    "Caption: Ven a verlo y lo prendes tú mismo.",
+    "Caption: Etiqueta al pana que siempre pregunta “¿cuánto es lo menos?”",
+    "Caption: Este y otros en aeofmiami.com."
+   ],
+   "notes": [
+    "en vez de “el precio de internet es mentira” (idea del manager), Daniela dice “en ese precio está”: regla de AE de precio real. Sin groserías y sin lo del dealer fee: el chiste es que no hay descuento. Precio, millas, que prende y airbags: del carro real, confirmados hoy. El cliente va en off, con acento venezolano."
+   ]
   }
  ],
  "checklist": [],
@@ -297,6 +380,22 @@
     "Caption: Etiqueta a quien siempre pide hablar con el manager.",
     "Caption: Ven al lote y pregunta por quien quieras.",
     "Caption: aeofmiami.com"
+   ]
+  },
+  "V2": {
+   "hooks": [
+    "La pregunta que más escuchamos en el lote...",
+    "Texto: Cuando el cliente es venezolano y quiere negociar",
+    "“¿Y este prende?” / “¿Cómo me vas a preguntar eso?”",
+    "Texto: POV: llegaste al lote a regatear",
+    "★ No vas a creer lo que me preguntó este cliente..."
+   ],
+   "ctas": [
+    "Caption: ¿Tú también preguntas cuánto es lo menos? 😂",
+    "Caption: El precio que ves es el precio. aeofmiami.com",
+    "Caption: Ven a prenderlo tú mismo.",
+    "Caption: Etiqueta al que siempre regatea.",
+    "Caption: Escríbenos por DM el carro que te gustó."
    ]
   }
  }
