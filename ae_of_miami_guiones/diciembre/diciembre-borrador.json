@@ -1,19 +1,342 @@
 {
  "mes": "Diciembre",
  "titulo": "Diciembre",
- "subtitulo": "Borrador · 6 de 12",
- "etiqueta_semana": "#",
- "lead": "Primeros 6 guiones de diciembre: las 5 ideas del manager pasadas a guion y “La cliente”, que quedó guardada de noviembre. Faltan 4 de Educación, 1 de Entretenimiento y 1 de Ventas (trends por definir).",
+ "subtitulo": "Borrador · 10 de 12",
+ "etiqueta_semana": "Semana",
+ "lead": "Plan de diciembre: 12 reels en 4 semanas, 3 por semana. Ya están 10: las ideas del manager, “La cliente” (de noviembre) y los 4 de Educación. Faltan T4 y V4 (semana 4), que salen de los trends que va a mandar Juan.",
  "categorias": {
-  "edu": "Faltan 4",
-  "ent": "T1 La mejor venta de mi vida · T2 Quiero hablar con el manager · T3 La cliente",
-  "ven": "V1 Oportunidad de inversión · V2 Un dealer nos compró 10 carros · V3 ¿Cuánto es lo menos?"
+  "edu": "E1 ¿Qué incluye el precio? · E2 ¿Qué significa Run & Drive? · E3 ¿Cuánto tarda el título? · E4 ¿Qué tipo de golpe es?",
+  "ent": "T1 Quiero hablar con el manager · T2 La cliente · T3 La mejor venta de mi vida · T4 trend (pendiente)",
+  "ven": "V1 Un dealer nos compró 10 carros · V2 ¿Cuánto es lo menos? · V3 Oportunidad de inversión · V4 trend (pendiente)"
  },
  "guiones": [
   {
    "w": 1,
+   "cat": "edu",
+   "code": "E1",
+   "title": "¿Qué incluye el precio?",
+   "pilar": "Educación",
+   "dur": "~30s",
+   "nuevo": true,
+   "ref": "Sin trend de referencia — idea propia.",
+   "planos": [
+    {
+     "desc": "Daniela en su escritorio con una factura de ejemplo (datos tapados), a cámara, tono cómplice",
+     "lineas": [
+      "“¿Viste un carro en $[PRECIO] y crees que eso es todo lo que pagas?...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...te explico qué más va en la factura, para que no haya sorpresas.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: el dedo sobre la línea del precio",
+     "lineas": [
+      "“Primero, el precio del carro. El que ves en la página.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: la línea de taxes",
+     "lineas": [
+      "“Después, los taxes. En Florida se cobra sales tax.” [CONFIRMAR % y si cambia para exportación u otro estado]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: las líneas de fees",
+     "lineas": [
+      "“Y luego, el dealer fee y el title fee.” [CONFIRMAR montos de AE]"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Precio, taxes y fees. Eso es todo. Y si alguien no te lo explica antes de pagar, pregunta.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Escríbenos el carro que te interesa y te mandamos el total antes de que vengas.” [CONFIRMAR]"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "★ Esto te puede costar dinero... / ...si no sabes qué va en la factura.",
+    "¿Viste un carro en $[PRECIO] y crees que eso es todo?... / ...te explico.",
+    "★ Nadie te dice esto... / ...hasta que llegas a pagar.",
+    "El precio vs. lo que de verdad pagas.",
+    "¿Qué es el dealer fee? Te lo explico en 30 segundos."
+   ],
+   "ctas": [
+    "Escríbenos el carro que te interesa y te mandamos el total antes de que vengas.",
+    "Guárdalo para cuando vayas a comprar.",
+    "¿Te han cobrado algo que nadie te explicó? Cuéntanos.",
+    "Pregunta el total por DM, sin compromiso.",
+    "Mira el inventario en aeofmiami.com."
+   ],
+   "notes": [
+    "todo lo de taxes y fees se confirma con Pablo: montos y si cambian para exportación o compradores de otro estado. Usar una factura real con los datos tapados o una de ejemplo hecha por AE.",
+    "conviene publicarlo antes que T3 (“le cobré todos los fees”) y V2 (“sin cobrarte el dealer fee”): así esos chistes se entienden y AE queda como el que explica todo."
+   ]
+  },
+  {
+   "w": 2,
+   "cat": "edu",
+   "code": "E2",
+   "title": "¿Qué significa ‘Run & Drive’?",
+   "pilar": "Educación",
+   "dur": "~35s",
+   "nuevo": true,
+   "ref": "Sin trend de referencia — idea propia.",
+   "planos": [
+    {
+     "desc": "Daniela junto a un carro, mostrando en el teléfono una ficha de subasta, a cámara",
+     "lineas": [
+      "“¿Viste ‘Run & Drive’ en un carro de subasta y pensaste que estaba perfecto?...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...espérate, que te explico qué significa de verdad.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto: “RUN & DRIVE”. Daniela prende el carro y lo mueve un poco",
+     "lineas": [
+      "“Quiere decir que el día que lo revisaron prendió, metió cambio y se movió solo. Nada más. No es una garantía del motor ni de la transmisión.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto: “STARTS”",
+     "lineas": [
+      "“‘Starts’ es todavía menos: solo prendió.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto: “AIRBAGS DEPLOYED”. Close-up de unas bolsas activadas en otro carro",
+     "lineas": [
+      "“Y ‘airbags deployed’ es que las bolsas se activaron en el choque. Eso hay que reponerlo.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto: “WATER / FLOOD”",
+     "lineas": [
+      "“Y si ves ‘water’ o ‘flood’, es daño por agua. A ese revísalo con más cuidado.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Aquí te decimos lo que sabemos de cada carro... y lo puedes venir a prender tú mismo.” [CONFIRMAR]"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“¿Qué otra palabra de subasta no entiendes? Déjamela en los comentarios.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "¿Viste ‘Run & Drive’ y pensaste que estaba perfecto?... / ...espérate.",
+    "★ Apuesto a que no sabías esto... / ...de las palabras de subasta.",
+    "★ Se supone que no vieras esto... / ...pero así se leen las fichas de subasta.",
+    "Run & Drive no significa lo que tú crees.",
+    "Cuatro palabras de subasta, explicadas en 30 segundos."
+   ],
+   "ctas": [
+    "¿Qué otra palabra de subasta no entiendes? Déjamela en los comentarios.",
+    "Guárdalo para la próxima vez que veas una subasta.",
+    "Ven al lote y prende el carro tú mismo.",
+    "Escríbenos y te contamos lo que sabemos de cualquier carro.",
+    "Mira el inventario en aeofmiami.com."
+   ],
+   "notes": [
+    "las definiciones son las que usan las subastas (Copart): “Run & Drive” = el día de la revisión prendió, metió cambio y se movió; no garantiza nada más. Nunca decir que un carro “Run & Drive” está bueno.",
+    "mostrar carros reales: si no hay uno con bolsas activadas o con daño por agua ese día, se quita ese plano. Va de la mano con V2 (“¿y este prende?”)."
+   ]
+  },
+  {
+   "w": 3,
+   "cat": "edu",
+   "code": "E3",
+   "title": "¿Cuánto tarda el título?",
+   "pilar": "Educación",
+   "dur": "~25-30s",
+   "nuevo": true,
+   "ref": "Sin trend de referencia — idea propia.",
+   "planos": [
+    {
+     "desc": "Daniela con un sobre de título en la mano, a cámara",
+     "lineas": [
+      "“Pagaste tu carro... ¿y el título cuándo?...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...te explico cómo funciona aquí.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Oficina, papeles sobre el escritorio",
+     "lineas": [
+      "“Cuando compras aquí, el título [CONFIRMAR: se entrega el mismo día / tarda X días], porque [CONFIRMAR la razón: viene de la subasta, trámite del estado].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Detalle: un mapa o el título de otro estado",
+     "lineas": [
+      "“Si el carro va para otro estado o para exportar, [CONFIRMAR qué cambia].”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Antes de que pagues, te decimos cuándo lo vas a tener.” [CONFIRMAR]"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Pregúntanos por el carro que te interesa y te decimos cuándo estaría listo su título.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "Pagaste tu carro... / ...¿y el título cuándo?",
+    "★ La mayoría va a ignorar esto... / ...hasta que necesita el título.",
+    "★ Apuesto a que no sabías esto... / ...del título de un carro salvage.",
+    "La pregunta que nadie hace antes de pagar.",
+    "Sin título no hay carro. Te explico."
+   ],
+   "ctas": [
+    "Pregúntanos por el carro que te interesa y te decimos cuándo estaría listo su título.",
+    "Guárdalo para cuando vayas a comprar.",
+    "¿Te tocó esperar un título una eternidad? Cuéntanos.",
+    "Escríbenos por DM y te explicamos el proceso.",
+    "Mira el inventario en aeofmiami.com."
+   ],
+   "notes": [
+    "casi todo este guion depende de lo que confirme Pablo. Si no hay una respuesta clara sobre los tiempos del título, no se graba.",
+    "conviene publicarlo cerca de T3 (“tienes que esperar 30 días para el título”): así queda claro que AE sí explica los tiempos."
+   ]
+  },
+  {
+   "w": 4,
+   "cat": "edu",
+   "code": "E4",
+   "title": "¿Qué tipo de golpe es?",
+   "pilar": "Educación",
+   "dur": "~30s",
+   "nuevo": true,
+   "ref": "Sin trend de referencia — idea propia.",
+   "planos": [
+    {
+     "desc": "Daniela caminando por el lote, a cámara",
+     "lineas": [
+      "“No todos los golpes son iguales...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata, se detiene",
+     "lineas": [
+      "“...y saber cuál es te ahorra un dolor de cabeza.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro con daño frontal. Texto: “FRONTAL”",
+     "lineas": [
+      "“Frontal: el más común. Pregunta por el radiador, las bolsas y la parte de adelante del chasis.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro con daño lateral. Texto: “LATERAL”",
+     "lineas": [
+      "“Lateral: fíjate si las puertas abren y cierran bien.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro con daño trasero. Texto: “TRASERO”",
+     "lineas": [
+      "“Trasero: revisa la cajuela, las luces y el bumper.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Si hay: carro con daño por agua o granizo",
+     "lineas": [
+      "“Y si es por agua o por granizo, es otra historia: revísalo con tu mecánico.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Aquí te enseñamos el golpe antes que el precio.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Ven al lote y míralo tú mismo.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "No todos los golpes son iguales... / ...y saber cuál es te ahorra un dolor de cabeza.",
+    "★ Nadie te dice esto... / ...de los tipos de golpe.",
+    "★ La mayoría va a ignorar esto... / ...y compra el golpe equivocado.",
+    "Frontal, lateral o trasero: ¿cuál te conviene?",
+    "Así se lee un golpe."
+   ],
+   "ctas": [
+    "Ven al lote y míralo tú mismo.",
+    "¿Cuál prefieres tú? Comenta: frontal, lateral o trasero.",
+    "Guárdalo para cuando vengas a ver carros.",
+    "Escríbenos y te mandamos video del golpe del carro que te interesa.",
+    "Mira el inventario en aeofmiami.com."
+   ],
+   "notes": [
+    "propuesta nueva en lugar de “Respondiendo comentarios, parte 2”. Solo carros reales del lote; si ese día no hay uno con daño por agua o granizo, se quita ese plano.",
+    "es un consejo, no una promesa: no decir cuánto cuesta reparar cada tipo de golpe."
+   ]
+  },
+  {
+   "w": 3,
    "cat": "ent",
-   "code": "T1",
+   "code": "T3",
    "title": "La mejor venta de mi vida",
    "pilar": "Entretenimiento (sketch)",
    "dur": "~30s",
@@ -90,9 +413,9 @@
    ]
   },
   {
-   "w": 2,
+   "w": 1,
    "cat": "ent",
-   "code": "T2",
+   "code": "T1",
    "title": "Quiero hablar con el manager",
    "pilar": "Entretenimiento (sketch en loop)",
    "dur": "~20-25s",
@@ -155,9 +478,9 @@
    ]
   },
   {
-   "w": 3,
+   "w": 2,
    "cat": "ent",
-   "code": "T3",
+   "code": "T2",
    "title": "La cliente",
    "pilar": "Entretenimiento (sketch, idea de Juan)",
    "dur": "~30-35s",
@@ -243,9 +566,9 @@
    ]
   },
   {
-   "w": 4,
+   "w": 3,
    "cat": "ven",
-   "code": "V1",
+   "code": "V3",
    "title": "Oportunidad de inversión",
    "pilar": "Ventas (puede ser serie fija)",
    "dur": "~40s",
@@ -329,9 +652,9 @@
    ]
   },
   {
-   "w": 5,
+   "w": 1,
    "cat": "ven",
-   "code": "V2",
+   "code": "V1",
    "title": "Un dealer nos compró 10 carros",
    "pilar": "Ventas / Confianza",
    "dur": "~30s",
@@ -401,9 +724,9 @@
    ]
   },
   {
-   "w": 6,
+   "w": 2,
    "cat": "ven",
-   "code": "V3",
+   "code": "V2",
    "title": "¿Cuánto es lo menos?",
    "pilar": "Ventas (sketch)",
    "dur": "~45s",
