@@ -34,3 +34,7 @@ Los trends que Juan mandó al inicio del mes ya se usaron todos: para el mes 2 p
 ## Pendientes para el próximo mes
 - T5 “La cliente” (sketch de Juan): incluirlo y avisarle a Juan.
 - T2 “Cada carro tiene su cliente”: nunca se grabó; preguntar si se retoma.
+
+## Mes 2 (diciembre 2026) — en progreso
+Ideas del manager de AE (mandó videos actuados con una cabra en lugar de Daniela): T1 “La mejor venta de mi vida” (Daniela despide a un cliente y confiesa que le hizo todo lo que los dealers le hacen a AE: era un dealer), T2 “Quiero hablar con el manager” (POV del cliente, Daniela recorre todo buscando al manager y vuelve siendo ella; loop), V1 “Oportunidad de inversión” (Tacoma: precio, daños, cotización, comparables de Marketplace, puntaje 4.5/5; puede ser serie), V2 “Un dealer nos compró 10 carros” (al mismo precio de la página; no tienes que ser dealer), V3 “¿Cuánto es lo menos?” (POV de cliente venezolano negociando). Más T3 “La cliente” (borrador de noviembre).
+Faltan: 4 de Educación, 1 de Entretenimiento y 1 de Ventas; Juan va a mandar trends.
