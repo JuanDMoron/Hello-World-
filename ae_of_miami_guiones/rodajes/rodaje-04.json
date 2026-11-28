@@ -1,12 +1,12 @@
 {
  "mes": "Rodaje 4",
  "titulo": "Rodaje 4",
- "subtitulo": "4 guiones",
+ "subtitulo": "3 guiones",
  "etiqueta_semana": "Orden",
  "lead": "Guiones de diciembre para grabar hoy. Son los que no dependen de datos de AE. El orden de las páginas es el orden sugerido: primero lo del lote y al final el recorrido completo.",
  "categorias": {
   "edu": "E4 ¿Qué tipo de golpe es? · E2 ¿Qué significa ‘Run & Drive’?",
-  "ent": "T2 La cliente · T1 Quiero hablar con el manager",
+  "ent": "T1 Quiero hablar con el manager",
   "ven": "—"
  },
  "guiones": [
@@ -185,94 +185,6 @@
   {
    "w": 3,
    "cat": "ent",
-   "code": "T2",
-   "title": "La cliente",
-   "pilar": "Entretenimiento (sketch, idea de Juan)",
-   "dur": "~30-35s",
-   "nuevo": false,
-   "ref": "Idea de Juan (borrador guardado de noviembre).",
-   "planos": [
-    {
-     "desc": "Entrada del lote. Daniela llega caminando con lentes de sol, cartera y el teléfono en la oreja. Tono meloso, de sugar baby. Texto en pantalla: “POV: la cliente que todos subestiman”",
-     "lineas": [
-      "“Sí, papi... la camioneta cuesta 50 mil. Aquí la estoy viendo.”"
-     ],
-     "corte": false
-    },
-    {
-     "desc": "Se recuesta en la camioneta más brillante del lote y juega con el pelo",
-     "lineas": [
-      "“¿Ya me lo depositaste?... Ay, qué bello. Gracias, mi amor. Besitos, besitos.”"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Close-up: cuelga, guarda el teléfono y se quita los lentes. La música se corta. Le cambia la cara por completo",
-     "lineas": [
-      "(sin diálogo)"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Llega el vendedor sonriendo y señala la camioneta. Daniela, seria, pasa de largo y señala tres carros con golpe",
-     "lineas": [
-      "Vendedor: “¿Qué tal? ¿Te la voy preparando?”",
-      "Daniela: “No. Voy a querer este... este... y aquel.”"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Vendedor, confundido. Ella ya va caminando hacia la oficina",
-     "lineas": [
-      "Vendedor: “¿Esos tres?”",
-      "Daniela: “Ve preparando los papeles. La grúa ya viene en camino.”"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "El vendedor la alcanza",
-     "lineas": [
-      "Vendedor: “Pero... ¿no te ibas a llevar la camioneta?”"
-     ],
-     "corte": false
-    },
-    {
-     "desc": "Ella se para, se vuelve a poner los lentes y lo mira. Tono de empresaria que sabe lo que hace",
-     "lineas": [
-      "“Mi amor, estos los reparo, los vendo... y la camioneta me la compro yo. Este es mi negocio. Tú preocúpate por el tuyo.”"
-     ],
-     "corte": true
-    },
-    {
-     "desc": "Plano abierto: ella se va caminando, el vendedor se queda sin palabras. Si hay grúa, entra en este plano. Card final",
-     "lineas": [
-      "“¿Compras para reparar y revender? aeofmiami.com”"
-     ],
-     "corte": false
-    }
-   ],
-   "hooks": [
-    "POV: la cliente que todos subestiman",
-    "Nunca juzgues a una cliente por su llamada",
-    "Cuando el vendedor cree que viene por la camioneta...",
-    "★ No vas a creer lo que acabo de escuchar en el lote...",
-    "★ Se supone que no escucharas esta llamada..."
-   ],
-   "ctas": [
-    "Card: ¿Compras para reparar y revender? aeofmiami.com",
-    "Caption: Aquí no juzgamos. Aquí vendemos.",
-    "Caption: Etiqueta a la empresaria que conoces.",
-    "Caption: Ven por uno... o por tres.",
-    "Caption: Tu negocio empieza en el lote. aeofmiami.com"
-   ],
-   "notes": [
-    "el chiste es el cambio de actitud: corte de música en el Plano 3 y los lentes (se los quita al colgar, se los pone para la frase final). Vendedor: alguien real del equipo. Los tres carros con golpes visibles, para el contraste con la camioneta.",
-    "la frase final no da cifras de ganancia (regla de AE). Versión original de Juan, si Pablo la aprueba: “Estos carros los reparo, los vendo y les saco más de 50 mil.”"
-   ]
-  },
-  {
-   "w": 4,
-   "cat": "ent",
    "code": "T1",
    "title": "Quiero hablar con el manager",
    "pilar": "Entretenimiento (sketch en loop)",
@@ -369,22 +281,6 @@
     "Ven al lote y pruébalo tú mismo.",
     "Mándaselo a quien siempre compra en subasta.",
     "Pregúntanos por DM lo que sabemos de cualquier carro."
-   ]
-  },
-  "T2": {
-   "hooks": [
-    "Ella no vino por la camioneta.",
-    "Plot twist en el lote",
-    "La llamada vs. la compra",
-    "Cuando la cliente sabe más que el vendedor",
-    "Empresaria en modo incógnito"
-   ],
-   "ctas": [
-    "Caption: ¿Tú también compras para revender? Cuéntanos.",
-    "Caption: Los papeles los hacemos nosotros. Tú encárgate del negocio.",
-    "Caption: ¿Sugar baby o empresaria? ¿Por qué no las dos?",
-    "Caption: Escríbenos y te armamos tu lote de carros.",
-    "Caption: Nunca subestimes a quien llega con lentes de sol."
    ]
   },
   "T1": {
