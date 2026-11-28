@@ -1,0 +1,407 @@
+{
+ "mes": "Rodaje 4",
+ "titulo": "Rodaje 4",
+ "subtitulo": "4 guiones",
+ "etiqueta_semana": "Orden",
+ "lead": "Guiones de diciembre para grabar hoy. Son los que no dependen de datos de AE. El orden de las páginas es el orden sugerido: primero lo del lote y al final el recorrido completo.",
+ "categorias": {
+  "edu": "E4 ¿Qué tipo de golpe es? · E2 ¿Qué significa ‘Run & Drive’?",
+  "ent": "T2 La cliente · T1 Quiero hablar con el manager",
+  "ven": "—"
+ },
+ "guiones": [
+  {
+   "w": 1,
+   "cat": "edu",
+   "code": "E4",
+   "title": "¿Qué tipo de golpe es?",
+   "pilar": "Educación",
+   "dur": "~30s",
+   "nuevo": false,
+   "ref": "Sin trend de referencia — idea propia.",
+   "planos": [
+    {
+     "desc": "Daniela caminando por el lote, a cámara",
+     "lineas": [
+      "“No todos los golpes son iguales...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata, se detiene",
+     "lineas": [
+      "“...y saber cuál es te ahorra un dolor de cabeza.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro con daño frontal. Texto: “FRONTAL”",
+     "lineas": [
+      "“Frontal: el más común. Pregunta por el radiador, las bolsas y la parte de adelante del chasis.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro con daño lateral. Texto: “LATERAL”",
+     "lineas": [
+      "“Lateral: fíjate si las puertas abren y cierran bien.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Carro con daño trasero. Texto: “TRASERO”",
+     "lineas": [
+      "“Trasero: revisa la cajuela, las luces y el bumper.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Si hay: carro con daño por agua o granizo",
+     "lineas": [
+      "“Y si es por agua o por granizo, es otra historia: revísalo con tu mecánico.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Aquí te enseñamos el golpe antes que el precio.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“Ven al lote y míralo tú mismo.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "No todos los golpes son iguales... / ...y saber cuál es te ahorra un dolor de cabeza.",
+    "★ Nadie te dice esto... / ...de los tipos de golpe.",
+    "★ La mayoría va a ignorar esto... / ...y compra el golpe equivocado.",
+    "Frontal, lateral o trasero: ¿cuál te conviene?",
+    "Así se lee un golpe."
+   ],
+   "ctas": [
+    "Ven al lote y míralo tú mismo.",
+    "¿Cuál prefieres tú? Comenta: frontal, lateral o trasero.",
+    "Guárdalo para cuando vengas a ver carros.",
+    "Escríbenos y te mandamos video del golpe del carro que te interesa.",
+    "Mira el inventario en aeofmiami.com."
+   ],
+   "notes": [
+    "propuesta nueva en lugar de “Respondiendo comentarios, parte 2”. Solo carros reales del lote; si ese día no hay uno con daño por agua o granizo, se quita ese plano.",
+    "es un consejo, no una promesa: no decir cuánto cuesta reparar cada tipo de golpe."
+   ]
+  },
+  {
+   "w": 2,
+   "cat": "edu",
+   "code": "E2",
+   "title": "¿Qué significa ‘Run & Drive’?",
+   "pilar": "Educación",
+   "dur": "~35s",
+   "nuevo": false,
+   "ref": "Sin trend de referencia — idea propia.",
+   "planos": [
+    {
+     "desc": "Daniela junto a un carro, mostrando en el teléfono una ficha de subasta, a cámara",
+     "lineas": [
+      "“¿Viste ‘Run & Drive’ en un carro de subasta y pensaste que estaba perfecto?...”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Remata",
+     "lineas": [
+      "“...espérate, que te explico qué significa de verdad.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto: “RUN & DRIVE”. Daniela prende el carro y lo mueve un poco",
+     "lineas": [
+      "“Quiere decir que el día que lo revisaron prendió, metió cambio y se movió solo. Nada más. No es una garantía del motor ni de la transmisión.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto: “STARTS”",
+     "lineas": [
+      "“‘Starts’ es todavía menos: solo prendió.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto: “AIRBAGS DEPLOYED”. Close-up de unas bolsas activadas en otro carro",
+     "lineas": [
+      "“Y ‘airbags deployed’ es que las bolsas se activaron en el choque. Eso hay que reponerlo.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Texto: “WATER / FLOOD”",
+     "lineas": [
+      "“Y si ves ‘water’ o ‘flood’, es daño por agua. A ese revísalo con más cuidado.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vuelve a Daniela, plano medio",
+     "lineas": [
+      "“Aquí te decimos lo que sabemos de cada carro... y lo puedes venir a prender tú mismo.” [CONFIRMAR]"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Cierre fijo a cámara",
+     "lineas": [
+      "“¿Qué otra palabra de subasta no entiendes? Déjamela en los comentarios.”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "¿Viste ‘Run & Drive’ y pensaste que estaba perfecto?... / ...espérate.",
+    "★ Apuesto a que no sabías esto... / ...de las palabras de subasta.",
+    "★ Se supone que no vieras esto... / ...pero así se leen las fichas de subasta.",
+    "Run & Drive no significa lo que tú crees.",
+    "Cuatro palabras de subasta, explicadas en 30 segundos."
+   ],
+   "ctas": [
+    "¿Qué otra palabra de subasta no entiendes? Déjamela en los comentarios.",
+    "Guárdalo para la próxima vez que veas una subasta.",
+    "Ven al lote y prende el carro tú mismo.",
+    "Escríbenos y te contamos lo que sabemos de cualquier carro.",
+    "Mira el inventario en aeofmiami.com."
+   ],
+   "notes": [
+    "las definiciones son las que usan las subastas (Copart): “Run & Drive” = el día de la revisión prendió, metió cambio y se movió; no garantiza nada más. Nunca decir que un carro “Run & Drive” está bueno.",
+    "mostrar carros reales: si no hay uno con bolsas activadas o con daño por agua ese día, se quita ese plano. Va de la mano con V2 (“¿y este prende?”)."
+   ]
+  },
+  {
+   "w": 3,
+   "cat": "ent",
+   "code": "T2",
+   "title": "La cliente",
+   "pilar": "Entretenimiento (sketch, idea de Juan)",
+   "dur": "~30-35s",
+   "nuevo": false,
+   "ref": "Idea de Juan (borrador guardado de noviembre).",
+   "planos": [
+    {
+     "desc": "Entrada del lote. Daniela llega caminando con lentes de sol, cartera y el teléfono en la oreja. Tono meloso, de sugar baby. Texto en pantalla: “POV: la cliente que todos subestiman”",
+     "lineas": [
+      "“Sí, papi... la camioneta cuesta 50 mil. Aquí la estoy viendo.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Se recuesta en la camioneta más brillante del lote y juega con el pelo",
+     "lineas": [
+      "“¿Ya me lo depositaste?... Ay, qué bello. Gracias, mi amor. Besitos, besitos.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Close-up: cuelga, guarda el teléfono y se quita los lentes. La música se corta. Le cambia la cara por completo",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Llega el vendedor sonriendo y señala la camioneta. Daniela, seria, pasa de largo y señala tres carros con golpe",
+     "lineas": [
+      "Vendedor: “¿Qué tal? ¿Te la voy preparando?”",
+      "Daniela: “No. Voy a querer este... este... y aquel.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Vendedor, confundido. Ella ya va caminando hacia la oficina",
+     "lineas": [
+      "Vendedor: “¿Esos tres?”",
+      "Daniela: “Ve preparando los papeles. La grúa ya viene en camino.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "El vendedor la alcanza",
+     "lineas": [
+      "Vendedor: “Pero... ¿no te ibas a llevar la camioneta?”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Ella se para, se vuelve a poner los lentes y lo mira. Tono de empresaria que sabe lo que hace",
+     "lineas": [
+      "“Mi amor, estos los reparo, los vendo... y la camioneta me la compro yo. Este es mi negocio. Tú preocúpate por el tuyo.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Plano abierto: ella se va caminando, el vendedor se queda sin palabras. Si hay grúa, entra en este plano. Card final",
+     "lineas": [
+      "“¿Compras para reparar y revender? aeofmiami.com”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "POV: la cliente que todos subestiman",
+    "Nunca juzgues a una cliente por su llamada",
+    "Cuando el vendedor cree que viene por la camioneta...",
+    "★ No vas a creer lo que acabo de escuchar en el lote...",
+    "★ Se supone que no escucharas esta llamada..."
+   ],
+   "ctas": [
+    "Card: ¿Compras para reparar y revender? aeofmiami.com",
+    "Caption: Aquí no juzgamos. Aquí vendemos.",
+    "Caption: Etiqueta a la empresaria que conoces.",
+    "Caption: Ven por uno... o por tres.",
+    "Caption: Tu negocio empieza en el lote. aeofmiami.com"
+   ],
+   "notes": [
+    "el chiste es el cambio de actitud: corte de música en el Plano 3 y los lentes (se los quita al colgar, se los pone para la frase final). Vendedor: alguien real del equipo. Los tres carros con golpes visibles, para el contraste con la camioneta.",
+    "la frase final no da cifras de ganancia (regla de AE). Versión original de Juan, si Pablo la aprueba: “Estos carros los reparo, los vendo y les saco más de 50 mil.”"
+   ]
+  },
+  {
+   "w": 4,
+   "cat": "ent",
+   "code": "T1",
+   "title": "Quiero hablar con el manager",
+   "pilar": "Entretenimiento (sketch en loop)",
+   "dur": "~20-25s",
+   "nuevo": false,
+   "ref": "Idea del manager de AE (video 4, grabado con una cabra en lugar de Daniela). La cámara son los ojos del cliente y el final empalma con el inicio (loop).",
+   "planos": [
+    {
+     "desc": "POV del cliente entrando por la puerta de la oficina (se ve el tapete de AE). Daniela detrás del mostrador",
+     "lineas": [
+      "Cliente (voz en off): “Buenas, quiero hablar con el manager.”"
+     ],
+     "corte": false
+    },
+    {
+     "desc": "Daniela sonríe y se va caminando",
+     "lineas": [
+      "“Sí, cómo no. Un segundito.”"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "POV: Daniela recorre todo el dealer mirando para todos lados, buscando al manager: oficina (letrero de AE), taller, lote. Cortes rápidos",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "Sale por atrás y da toda la vuelta por fuera del edificio, por el pasillo de ladrillo",
+     "lineas": [
+      "(sin diálogo)"
+     ],
+     "corte": true
+    },
+    {
+     "desc": "POV de nuevo en recepción: Daniela entra por la puerta principal, se acomoda y cambia de actitud. Mismo encuadre del Plano 1",
+     "lineas": [
+      "“Sí, buenas. Soy la manager. ¿En qué te puedo ayudar?”"
+     ],
+     "corte": false
+    }
+   ],
+   "hooks": [
+    "Texto: Cuando pides hablar con el manager en AE",
+    "Texto: POV: quieres hablar con el manager",
+    "Texto: Pedí hablar con el manager y pasó esto",
+    "Texto: El manager siempre está ocupado...",
+    "Texto: Nunca pidas hablar con el manager 😂"
+   ],
+   "ctas": [
+    "Caption: Aquí el manager te atiende... después de dar la vuelta 😂 aeofmiami.com",
+    "Caption: Pregunta por quien quieras: siempre hay alguien que te atiende.",
+    "Caption: ¿Lo viste dos veces? Ese es el loop 😉",
+    "Caption: Ven al lote y pide hablar con el manager... si te atreves.",
+    "Caption: Escríbenos por DM: te responde el equipo."
+   ],
+   "notes": [
+    "el chiste es que Daniela ES la manager: da toda la vuelta para volver como manager. El último plano empalma con el primero (mismo encuadre de la puerta, misma luz) para que se vea en loop. Gimbal a la altura de los ojos; el cliente nunca se ve, su voz va en off.",
+    "el recorrido funciona como tour del dealer. Se parece al Guion 12 del documento de referencia (Daniela buscando a “Carlos”); la diferencia es el loop y que la persona que buscan es ella. Confirmar si se puede decir que Daniela es la manager o se usa otra persona."
+   ]
+  }
+ ],
+ "checklist": [],
+ "grabacion": {},
+ "banco": {
+  "E4": {
+   "hooks": [
+    "Golpe frontal, lateral o trasero: no es lo mismo.",
+    "Antes de enamorarte de un carro, mira qué golpe tiene.",
+    "El golpe que más vemos en el lote es este...",
+    "★ Esto te puede costar dinero... / ...si no sabes qué golpe tiene el carro.",
+    "Te enseño a leer un golpe en 30 segundos."
+   ],
+   "ctas": [
+    "Etiqueta a quien está buscando carro.",
+    "¿Qué golpe tenía tu último carro? Cuéntanos.",
+    "Pídenos fotos del golpe de cualquier carro por DM.",
+    "Ven a verlos en persona.",
+    "Este y más en aeofmiami.com."
+   ]
+  },
+  "E2": {
+   "hooks": [
+    "“Run & Drive” no es lo que tú crees.",
+    "La palabra de subasta que más confunde a la gente.",
+    "★ No debería estar diciendo esto... / ...pero “Run & Drive” no garantiza nada.",
+    "Antes de pujar, aprende a leer esto.",
+    "¿Prende? ¿Se mueve? ¿Y las bolsas? Te explico."
+   ],
+   "ctas": [
+    "Guárdalo antes de tu próxima subasta.",
+    "Comenta la palabra de subasta que no entiendes.",
+    "Ven al lote y pruébalo tú mismo.",
+    "Mándaselo a quien siempre compra en subasta.",
+    "Pregúntanos por DM lo que sabemos de cualquier carro."
+   ]
+  },
+  "T2": {
+   "hooks": [
+    "Ella no vino por la camioneta.",
+    "Plot twist en el lote",
+    "La llamada vs. la compra",
+    "Cuando la cliente sabe más que el vendedor",
+    "Empresaria en modo incógnito"
+   ],
+   "ctas": [
+    "Caption: ¿Tú también compras para revender? Cuéntanos.",
+    "Caption: Los papeles los hacemos nosotros. Tú encárgate del negocio.",
+    "Caption: ¿Sugar baby o empresaria? ¿Por qué no las dos?",
+    "Caption: Escríbenos y te armamos tu lote de carros.",
+    "Caption: Nunca subestimes a quien llega con lentes de sol."
+   ]
+  },
+  "T1": {
+   "hooks": [
+    "Texto: El manager siempre está “ocupado”...",
+    "Texto: POV: llegaste a AE y pediste al manager",
+    "Texto: Cuando pides al manager y te atiende...",
+    "Texto: Plot twist en la oficina",
+    "Texto: ¿Quién es el manager aquí?"
+   ],
+   "ctas": [
+    "Caption: ¿Lo viste en loop? 😂",
+    "Caption: Aquí siempre te atiende alguien.",
+    "Caption: Etiqueta a quien siempre pide hablar con el manager.",
+    "Caption: Ven al lote y pregunta por quien quieras.",
+    "Caption: aeofmiami.com"
+   ]
+  }
+ }
+}
